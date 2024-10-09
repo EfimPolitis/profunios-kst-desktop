@@ -1,0 +1,29 @@
+.auth_block {
+  padding-bottom: 50px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .error {
+    color: red;
+    margin-left: 10px;
+  }
+
+  p {
+    font-size: 32px;
+  }
+
+  a {
+    color: #005ab8;
+    font-size: 20px;
+  }
+}

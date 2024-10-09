@@ -1,0 +1,61 @@
+@import '@/styles/_variables';
+
+.sidebar {
+  height: 100svh;
+  border-right: 2px solid $secondary-color-hover;
+  background-color: $secondary-color;
+  font-size: 20px;
+  position: relative;
+  transition: width ease 0.4s;
+  padding: 5px;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    li {
+      list-style-type: none;
+      width: 100%;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 20px;
+        border-radius: 8px;
+        height: 50px;
+
+        &:hover {
+          background-color: $secondary-color-hover;
+        }
+      }
+
+      .active {
+        background-color: $secondary-color-hover;
+      }
+    }
+  }
+
+  .logout {
+    width: 228px;
+    background-color: $secondary-color;
+    color: $text-color;
+    outline: none;
+    border: none;
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    border-radius: 8px;
+    height: 50px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 5px;
+
+    &:hover {
+      background-color: $secondary-color-hover;
+    }
+  }
+}

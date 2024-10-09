@@ -1,0 +1,65 @@
+@import '@/styles/_variables';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1.6;
+  font-family: $font-stack;
+  font-weight: normal;
+
+  min-height: 100vh;
+  color: $text-color;
+  background: $secondary-color;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  border-radius: 5px;
+  background-color: #b6b6b6;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: inset 0 0 0 50px $secondary-color;
+  -webkit-text-fill-color: $text-color;
+}
+
+input[type='number'] {
+  appearance: textfield;
+}
+
+input[type='text'] {
+  background-color: $secondary-color;
+  color: $text-color;
+}

@@ -1,0 +1,60 @@
+@import '@/styles/_variables';
+
+.sort {
+  display: flex;
+  position: relative;
+
+  &_field {
+    display: flex;
+    align-items: center;
+
+    .selected {
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+      cursor: pointer;
+
+      .icon {
+        margin-left: 10px;
+      }
+    }
+
+    .order {
+      margin-left: 20px;
+      cursor: pointer;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: $secondary-color;
+      color: $text-color;
+    }
+
+    .active {
+      background-color: $secondary-color-hover;
+    }
+  }
+
+  .menu {
+    position: absolute;
+    top: 50px;
+    padding: 5px;
+    box-shadow: 1px 1px 5px 0px rgba(186, 186, 186, 0.25);
+    border-radius: 10px;
+    z-index: 1;
+    background-color: $secondary-color;
+
+    ul {
+      list-style-type: none;
+
+      li {
+        padding: 10px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $secondary-color-hover;
+        }
+      }
+    }
+  }
+}

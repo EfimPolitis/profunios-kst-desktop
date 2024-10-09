@@ -1,0 +1,56 @@
+@import '@/styles/_variables';
+
+.btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $primary-color;
+  color: $text-color;
+  transition: background-color 0.4s;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  p {
+    display: flex;
+    text-align: center;
+    gap: 10px;
+  }
+
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
+
+.success {
+  background-color: #12ae01;
+
+  &:hover {
+    background-color: #12ae01;
+  }
+}
+
+.error {
+  background-color: #ae0701;
+
+  &:hover {
+    background-color: #ae0701;
+  }
+}
+
+.btn:disabled {
+  background-color: #888;
+}
+
+.standart {
+  height: 60px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.small {
+  height: 40px;
+  font-size: 14px;
+  border-radius: 6px;
+}

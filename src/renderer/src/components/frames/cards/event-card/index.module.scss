@@ -1,0 +1,135 @@
+.card {
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+
+  &:hover .menu {
+    opacity: 1;
+  }
+
+  .menu {
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    background-color: #eaeaea;
+    border-radius: 5px;
+    padding: 5px 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all linear 0.2s;
+    z-index: 1;
+
+    .edit {
+      cursor: pointer;
+      transition: color linear 0.2s;
+      display: flex;
+      justify-content: center;
+
+      &:hover {
+        color: #6075ff;
+      }
+    }
+
+    .trash {
+      cursor: pointer;
+      transition: color linear 0.2s;
+
+      &:hover {
+        color: #ff4c4c;
+      }
+    }
+  }
+
+  .info_block {
+    display: flex;
+    flex-direction: column;
+    color: #000;
+    font-weight: 600;
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      max-width: 400px;
+      flex-wrap: wrap;
+
+      .category {
+        color: #fff;
+        padding: 5px 10px;
+        background-color: #a9a9a9;
+        border-radius: 5px;
+      }
+    }
+
+    .details {
+      position: absolute;
+      bottom: 10px;
+    }
+
+    a {
+      color: #005ab8;
+    }
+  }
+}
+
+.standart {
+  width: 450px;
+  height: 450px;
+  border-radius: 15px;
+
+  img {
+    border-radius: 15px;
+  }
+
+  .info_block {
+    margin-top: 5px;
+    padding: 0px 20px;
+    gap: 8px;
+
+    .title {
+      font-size: 22px;
+    }
+
+    .description {
+      font-size: 22px;
+    }
+
+    .btn {
+      width: 420px;
+      bottom: -25px;
+    }
+  }
+}
+
+.small {
+  width: 330px;
+  height: 420px;
+  border-radius: 10px;
+  font-size: 14px;
+
+  .img {
+    border-radius: 10px;
+  }
+
+  .info_block {
+    padding: 10px 15px;
+    gap: 5px;
+
+    .title {
+      font-size: 16px;
+    }
+
+    .description {
+      font-size: 14px;
+    }
+
+    .btn {
+      top: 5px;
+    }
+  }
+}
