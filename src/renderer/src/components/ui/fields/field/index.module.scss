@@ -11,7 +11,7 @@
     svg {
       height: 30px;
       width: 30px;
-      color: $text-color;
+      color: rgb(var(--text-color));
     }
   }
 
@@ -22,20 +22,19 @@
     padding-right: 50px;
     padding-top: 2px;
     outline: none;
-    border: 3px solid $text-color;
+    border: 3px solid rgb(var(--text-color));
     border-radius: 10px;
-    transition: border-color 0.4s;
+    transition: all linear 0.2s;
     font-size: 20px;
-    color: $text-color;
-    background-color: $secondary-color;
+    color: rgb(var(--text-color));
+    background-color: rgb(var(--secondary-color));
 
     &:hover {
-      border-color: $primary-color;
+      border-color: rgb(var(--primary-color));
     }
 
     &:focus {
-      border-color: $primary-color;
-      border-width: 4px;
+      border-color: rgb(var(--primary-color));
     }
   }
 
@@ -44,7 +43,7 @@
     right: 20px;
     top: 15px;
     cursor: pointer;
-    color: $text-color;
+    color: rgb(var(--text-color));
 
     svg {
       height: 30px;

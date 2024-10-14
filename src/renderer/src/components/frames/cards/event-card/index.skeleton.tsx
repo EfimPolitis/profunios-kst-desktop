@@ -5,8 +5,8 @@ export const EventCardSkeleton = () => {
   return (
     <ContentLoader
       speed={2}
-      width={450}
-      height={520}
+      width={400}
+      height={450}
       viewBox='0 0 450 520'
       backgroundColor='#dedede'
       foregroundColor='#cccccc'

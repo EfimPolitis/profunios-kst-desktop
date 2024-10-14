@@ -8,11 +8,12 @@ import styles from './index.module.scss'
 
 interface ISlider {
   images: TypeImage[]
+  height: number
   style?: CSSProperties
   isCard?: boolean
 }
 
-export const Slider = ({ images, isCard, style }: ISlider) => {
+export const Slider = ({ images, height, style }: ISlider) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const prevSlide = () => {
@@ -29,46 +30,45 @@ export const Slider = ({ images, isCard, style }: ISlider) => {
 
   return (
     <div
-      className={cn(
-        styles.slider_container,
-        isCard ? styles.card : styles.standart
-      )}
+      className={styles.slider_container}
       style={style}
     >
-      <div className={'slider'}>
+      <div
+        className={styles.slider}
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
         {images?.map((image, index) => (
           <div
-            key={index}
-            className={cn(
-              styles.slide,
-              index === currentIndex ? styles.active : ''
-            )}
-            style={{ backgroundImage: `url(${image.url})` }}
+            key={image.id}
+            className={cn(styles.slide, {
+              [styles.active]: index === currentIndex
+            })}
+            style={{
+              height: `${height}px`,
+              backgroundImage: `url("${image.url}")`
+            }}
           ></div>
         ))}
       </div>
-      <button
-        className={cn(styles.arrow, styles.prev)}
-        onClick={prevSlide}
-      >
-        <ChevronLeft size={24} />
-      </button>
-      <button
-        className={cn(styles.arrow, styles.next)}
-        onClick={nextSlide}
-      >
-        <ChevronRight size={24} />
-      </button>
+      {images.length > 1 && (
+        <>
+          <button
+            className={cn(styles.arrow, styles.prev)}
+            onClick={prevSlide}
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            className={cn(styles.arrow, styles.next)}
+            onClick={nextSlide}
+          >
+            <ChevronRight size={24} />
+          </button>
+        </>
+      )}
       <div className={styles.indicator}>
         {currentIndex + 1}/{images?.length}
       </div>
-      <style>{`
-        .slider {
-          display: flex;
-          transition: transform 0.5s ease-in-out;
-          transform: translateX(-${currentIndex * 100}%);
-        }
-      `}</style>
     </div>
   )
 }

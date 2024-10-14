@@ -1,21 +1,19 @@
 import { Link } from '@tanstack/react-router'
-import { URL_PAGES } from '@shared/config/url.config'
-import { Edit2, Trash2 } from 'lucide-react'
 import cn from 'clsx'
+import { ArrowRight, Edit2, Trash2 } from 'lucide-react'
 import { FC } from 'react'
+
+import { IEventCard } from '@shared/types/event.types'
+
+import { URL_PAGES } from '@shared/config/url.config'
+
 import { useDeleteEvent } from '@shared/hooks/event/useDeleteEvent'
 import { useProfile } from '@shared/hooks/user/useProfile'
-import { IEventCard } from '@shared/types/event.types'
-import { Slider } from './card-slider'
 
+import { Slider } from './card-slider'
 import styles from './index.module.scss'
 
-export const EventCard: FC<IEventCard> = ({
-  ticketsCount,
-  isSmall,
-  type,
-  data
-}) => {
+export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
   const { title, totalTickets, categories, eventDate, eventId, images } = data
   const { data: user } = useProfile()
 
@@ -27,39 +25,33 @@ export const EventCard: FC<IEventCard> = ({
   }
 
   return (
-    <div className={cn(isSmall ? styles.small : styles.standart, styles.card)}>
+    <div className={styles.card}>
       {user?.role === 'ADMIN' || user?.role === 'MODER' ? (
         <div className={styles.menu}>
           <Link
             to={`${URL_PAGES.EDIT_EVENT}/${eventId}`}
+            title='Редактировать'
             className={styles.edit}
           >
             <Edit2 />
           </Link>
-          <Trash2
+          <button
             className={styles.trash}
-            onClick={() => onDelete(eventId)}
-          />
+            title='Удалить'
+          >
+            <Trash2 onClick={() => onDelete(eventId)} />
+          </button>
         </div>
       ) : null}
       <Slider
         images={images}
-        isCard
+        height={240}
         style={{ borderRadius: '10px 10px 0px 0px' }}
       />
       <div className={styles.info_block}>
         <p className={styles.title}>
           {title.length > 28 ? title.slice(0, 27) + '...' : title}
         </p>
-        <p className={styles.date}>
-          Дата проведения: {eventDate.split('T').join(' ')}
-        </p>
-        {type !== 'link' && !ticketsCount && (
-          <p className={styles.total_tickets}>
-            Билетов осталось: {totalTickets}
-          </p>
-        )}
-        {ticketsCount && <p>Билетов взято: {ticketsCount}</p>}
         <div className={styles.categories}>
           {categories.map((category, i) => {
             if (i > 2) return
@@ -74,11 +66,26 @@ export const EventCard: FC<IEventCard> = ({
             )
           })}
         </div>
+        <p className={styles.date}>
+          Дата проведения:{' '}
+          <span>{new Date(eventDate.slice(0, 10)).toLocaleDateString()}</span>
+        </p>
+        <p className={styles.date}>
+          Время проведения: <span>{eventDate.slice(-5)}</span>
+        </p>
+        {type !== 'link' && !ticketsCount && (
+          <p className={styles.totalTickets}>
+            Билетов осталось: <span>{totalTickets}</span>
+          </p>
+        )}
+        {ticketsCount && <p>Билетов взято: {ticketsCount}</p>}
+
         <Link
-          to={`${URL_PAGES.MANAGE_EVENTS}/${eventId}`}
+          to={`${URL_PAGES.MANAGE_EVENTS.slice(0, -1)}/${eventId}`}
           className={styles.details}
         >
           Подробнее
+          <ArrowRight size={20} />
         </Link>
       </div>
     </div>

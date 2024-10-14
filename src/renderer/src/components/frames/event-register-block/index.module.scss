@@ -1,0 +1,76 @@
+@import '@/styles/_variables';
+
+.event_card {
+  background: rgb(var(--secondary-color));
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(var(--text-color), 0.1);
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  right: 80px;
+  top: 400px;
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+    .event_date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgb(var(--secondary-color-hover));
+      border-radius: 8px;
+      padding: 10px 20px;
+
+      .date_day {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .date_month {
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 800;
+        letter-spacing: 1px;
+        color: rgba(var(--text-color), 0.6);
+      }
+    }
+
+    .event_details {
+      margin-top: 5px;
+
+      .event_day {
+        font-weight: bold;
+      }
+
+      .event_date_full {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .event_time {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .line {
+    width: 250px;
+    height: 2px;
+    margin: 20px 0;
+    background-color: #eee;
+  }
+
+  a {
+    color: #005ab8;
+  }
+}

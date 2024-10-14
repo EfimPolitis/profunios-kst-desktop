@@ -4,7 +4,6 @@ import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
 import { IGetData } from '@shared/types/sort.types'
 
-
 export const useGetEvents = (search: IGetData) => {
   const { data, isLoading, isFetching, refetch, error } = useQuery({
     queryKey: TanStackQueryKey.getEvents,

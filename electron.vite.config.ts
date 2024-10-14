@@ -1,14 +1,13 @@
-import { resolve } from 'path'
-import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
-import viteReact from '@vitejs/plugin-react'
+//@ts-ignore
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import viteReact from '@vitejs/plugin-react'
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import { resolve } from 'path'
 
 export default defineConfig({
   main: {
     resolve: {
       alias: {
-        '@/api': resolve('src/main/api'),
-        '@/services': resolve('src/main/services'),
         '@shared': resolve('src/shared')
       }
     },
@@ -23,6 +22,13 @@ export default defineConfig({
     plugins: [externalizeDepsPlugin()]
   },
   renderer: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler'
+        }
+      }
+    },
     resolve: {
       alias: {
         '@renderer': resolve('src/renderer/src'),

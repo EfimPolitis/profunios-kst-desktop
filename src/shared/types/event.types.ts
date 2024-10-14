@@ -1,5 +1,4 @@
-import { IResponseCategories } from "./category.types"
-
+import { IResponseCategories } from './category.types'
 
 export type TypeImage = {
   id: string
@@ -28,7 +27,6 @@ export interface IResponseEvents {
 
 export interface IEventCard {
   ticketsCount?: number
-  isSmall?: boolean
   type: string
   data: IEvent
 }

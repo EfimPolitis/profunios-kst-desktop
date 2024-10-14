@@ -1,7 +1,7 @@
 import { Outlet } from '@tanstack/react-router'
-import { Sidebar } from '@/components/frames'
 
 import styles from './index.module.scss'
+import { Sidebar } from '@/components/frames'
 
 const AdminLayout = () => {
   return (

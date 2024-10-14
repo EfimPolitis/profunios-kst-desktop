@@ -1,0 +1,28 @@
+@import '@/styles/_variables';
+
+.date_input {
+  width: 260px;
+  height: 50px;
+  padding: 5px 10px;
+  color: rgb(var(--text-color));
+  border: 2px solid rgb(var(--text-color));
+  background-color: rgb(var(--secondary-color));
+  border-radius: 8px;
+  outline: none;
+  font-size: 20px;
+
+  &::-webkit-calendar-picker-indicator {
+    width: 25px;
+    height: 25px;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  [data-theme='light'] &::-webkit-calendar-picker-indicator {
+    background-color: transparent;
+  }
+
+  [data-theme='dark'] &::-webkit-calendar-picker-indicator {
+    background-color: rgb(var(--text-color));
+  }
+}

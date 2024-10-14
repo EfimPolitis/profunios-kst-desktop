@@ -1,17 +1,23 @@
-import { useGetEvents } from '@shared/hooks/event/useGetEvents'
-import styles from './index.module.scss'
-import { useDebounce } from '@shared/hooks/useDebounce'
-import { useEffect, useState } from 'react'
-import { EType } from '@shared/types/sort.types'
-import { eventSortList } from '@shared/constants/sort.constants'
-import { URL_PAGES } from '@shared/config/url.config'
 import { Link } from '@tanstack/react-router'
 import { CalendarPlus, FileText } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
-import { Pagination, Search, Sort } from '@/components/ui'
+import { eventSortList } from '@shared/constants/sort.constants'
+
+import { EType } from '@shared/types/sort.types'
+
+import { URL_PAGES } from '@shared/config/url.config'
+
+import { useGetEvents } from '@shared/hooks/event/useGetEvents'
+import { useDebounce } from '@shared/hooks/useDebounce'
+
+import styles from './index.module.scss'
 import { EventCard, EventCardSkeleton } from '@/components/frames'
+import { Pagination, Search, Sort } from '@/components/ui'
 
 const EventsPage = () => {
+  window.api.setTitle('Мероприятия')
+
   const [type, setType] = useState<EType>(EType.asc)
   const [sort, setSort] = useState(eventSortList[0])
   const [page, setPage] = useState(0)
@@ -33,7 +39,7 @@ const EventsPage = () => {
 
   return (
     <div className={styles.event_page}>
-      <div>
+      <div className={styles.wrap}>
         <div className={styles.top}>
           <Search
             placeholder='Поиск...'

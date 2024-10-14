@@ -1,6 +1,6 @@
 import type { IAuthResponse, IFormData } from '@shared/types/auth.types'
 
-import { axiosClassic, axiosWithAuth } from '@/api/interseptors'
+import { axiosClassic, axiosWithAuth } from '../../api/interseptors'
 
 import {
   getRefreshToken,
@@ -33,7 +33,9 @@ export const authService = {
   },
 
   async getNewTokens() {
-    const response = await axiosClassic.post<IAuthResponse>('/auth/login/access-token')
+    const response = await axiosClassic.post<IAuthResponse>(
+      '/auth/login/access-token'
+    )
 
     if (response.data.accessToken) saveAccessToken(response.data.accessToken)
 
@@ -42,12 +44,5 @@ export const authService = {
 
   async logout() {
     removeFromStorage()
-    // const response = await axiosClassic.post<boolean>('/auth/logout')
-
-    // console.log(response)
-
-    // if (response.data)
-
-    // return response
   }
 }

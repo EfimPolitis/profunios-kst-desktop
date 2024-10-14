@@ -1,9 +1,14 @@
 import type { IFormData } from '@shared/types/auth.types'
 import type { IGetData } from '@shared/types/sort.types'
-import { type IProfileResponse, type IResponseUsers, IUser } from '@shared/types/user.types'
+import {
+  type IProfileResponse,
+  type IResponseUsers,
+  IUser
+} from '@shared/types/user.types'
 
 import { getUrlForRequest } from '@shared/hooks/getUrlForRequest'
-import { axiosWithAuth } from '@/api/interseptors'
+
+import { axiosWithAuth } from '../api/interseptors'
 
 export const userService = {
   async getUsers(data: IGetData) {
@@ -16,7 +21,8 @@ export const userService = {
   },
 
   async getProfile() {
-    const response = await axiosWithAuth.get<IProfileResponse>('/users/profile')
+    const { headers, request, config, ...response } =
+      await axiosWithAuth.get<IProfileResponse>('/users/profile')
     return response.data
   },
 

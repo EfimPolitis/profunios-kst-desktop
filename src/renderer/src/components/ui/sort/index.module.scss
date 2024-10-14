@@ -22,15 +22,19 @@
     .order {
       margin-left: 20px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
       padding: 5px;
       border: none;
       border-radius: 5px;
-      background-color: $secondary-color;
-      color: $text-color;
+      background-color: rgb(var(--secondary-color));
+      color: rgb(var(--text-color));
+      transition: all linear 0.2s;
     }
 
     .active {
-      background-color: $secondary-color-hover;
+      transition: all linear 0.2s;
+      background-color: rgb(var(--secondary-color-hover));
     }
   }
 
@@ -41,7 +45,7 @@
     box-shadow: 1px 1px 5px 0px rgba(186, 186, 186, 0.25);
     border-radius: 10px;
     z-index: 1;
-    background-color: $secondary-color;
+    background-color: rgb(var(--secondary-color));
 
     ul {
       list-style-type: none;
@@ -52,7 +56,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: $secondary-color-hover;
+          background-color: rgb(var(--secondary-color-hover));
         }
       }
     }

@@ -2,6 +2,8 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, shell } from 'electron'
 import { join } from 'path'
 
+import { API_URL } from '@shared/constants/api.constants'
+
 import icon from '../../resources/icon.png?asset'
 
 import { ipcMainApi } from './ipcMainApi'
@@ -16,6 +18,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     center: true,
+    title: 'Профсоюз КСТ',
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -26,6 +29,17 @@ function createWindow(): void {
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })
+
+  mainWindow.webContents.session.webRequest.onHeadersReceived(
+    (details, callback) => {
+      callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          'Content-Security-Policy': `default-src 'self'; img-src 'self' ${API_URL.slice(0, -4)} data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';`
+        }
+      })
+    }
+  )
 
   mainWindow.webContents.setWindowOpenHandler(details => {
     shell.openExternal(details.url)

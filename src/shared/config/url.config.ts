@@ -7,8 +7,8 @@ class UrlPages {
   EDIT_USER = `${this.MANAGE_USERS}/edit`
 
   MANAGE_EVENTS = '/events'
-  CREATE_EVENT = `${this.MANAGE_EVENTS}/create`
-  EDIT_EVENT = `${this.MANAGE_EVENTS}/edit`
+  CREATE_EVENT = '/event-create'
+  EDIT_EVENT = '/event-edit'
 
   MANAGE_RESERVATIONS = '/reservations'
   MANAGE_APPLICATIONS = '/applications'

@@ -1,0 +1,136 @@
+@import '@/styles/_variables';
+
+.uploader {
+  display: inline-block;
+  min-width: 600px;
+  min-height: 400px;
+
+  &_input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 600px;
+    min-height: 400px;
+    max-width: 1220px;
+    max-height: 920px;
+    padding: 10px;
+    border: 3px dashed rgb(var(--text-color));
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .img {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+
+    img {
+      border-radius: 10px;
+    }
+  }
+
+  .images {
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+
+    img {
+      width: 200px;
+      height: 120px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 5px rgba(var(--text-color), 0.25);
+    }
+  }
+
+  .selected {
+    margin-top: 15px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    justify-content: center;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .X:hover {
+        transition: color 0.2s linear;
+        color: #ff4c4c;
+        cursor: pointer;
+      }
+    }
+
+    .buttons {
+      height: 50px;
+      margin-top: 20px;
+      display: flex;
+      gap: 20px;
+
+      .input {
+        display: inline-block;
+        padding: 5px 20px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 5px rgba(var(--text-color), 0.25);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        transition: all linear 0.2s;
+        border: none;
+        color: rgb(var(--text-color));
+        background-color: rgb(var(--secondary-color-hover));
+        transition: all 0.2s linear;
+
+        svg {
+          width: 32px;
+          height: 32px;
+          padding: 5px;
+          border-radius: 8px;
+          transition: all 0.2s linear;
+        }
+
+        &:hover svg {
+          background-color: rgb(var(--primary-color-hover));
+          color: #fff;
+        }
+      }
+
+      .trash {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        box-shadow: 1px 1px 5px rgba(var(--text-color), 0.25);
+        background-color: rgb(var(--secondary-color-hover));
+        color: rgb(var(--text-color));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        font-size: 20px;
+        transition: all 0.2s linear;
+
+        svg {
+          width: 32px;
+          height: 32px;
+          padding: 5px;
+          border-radius: 8px;
+          transition: all 0.2s linear;
+        }
+
+        &:hover svg {
+          background-color: #ff4c4c;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

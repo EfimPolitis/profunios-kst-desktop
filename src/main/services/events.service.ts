@@ -9,26 +9,34 @@ import type { IGetData } from '@shared/types/sort.types'
 
 import { getUrlForRequest } from '@shared/hooks/getUrlForRequest'
 
-import { axiosClassic, axiosWithAuth } from '@/api/interseptors'
+import { axiosClassic, axiosWithAuth } from '../api/interseptors'
 
 export const eventService = {
   async getAll(data: IGetData) {
     const { url } = getUrlForRequest(data)
+    const { headers, config, request, ...response } =
+      await axiosClassic.get<IResponseEvents>(`${API_URL}/event?${url}`)
 
-    return axiosClassic.get<IResponseEvents>(`${API_URL}/event?${url}`)
+    return response
   },
 
   async getById(eventId: string) {
-    return axiosClassic.get<IEvent>(`${API_URL}/event/${eventId}`)
+    const { headers, config, request, ...response } =
+      await axiosClassic.get<IEvent>(`${API_URL}/event/${eventId}`)
+
+    return response
   },
 
   async create(data: IEventFormData) {
-    const response = await axiosWithAuth.post(`${API_URL}/event`, data)
+    const { headers, config, request, ...response } = await axiosWithAuth.post(
+      `${API_URL}/event`,
+      data
+    )
     return response
   },
 
   async update(data: IEventFormData, eventId: string) {
-    const response = await axiosWithAuth.patch(
+    const { headers, config, request, ...response } = await axiosWithAuth.patch(
       `${API_URL}/event/${eventId}`,
       data
     )
@@ -36,6 +44,22 @@ export const eventService = {
   },
 
   async delete(eventId: string) {
-    await axiosWithAuth.delete(`${API_URL}/event/${eventId}`)
+    const { headers, config, request, ...response } =
+      await axiosWithAuth.delete(`${API_URL}/event/${eventId}`)
+
+    return response
+  },
+
+  async uploadImage(formData: FormData) {
+    const { headers, config, request, ...response } = await axiosWithAuth.post<{
+      url: string
+      id: string
+    }>('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    return response
   }
 }

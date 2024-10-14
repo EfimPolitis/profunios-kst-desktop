@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from '@tanstack/react-router'
 import { AtSign, Lock, User, UserCog } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { FieldErrors, SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 
-import { Button } from '@/components/ui'
-import { Field } from '@/components/ui'
+import { regularEmail } from '@shared/constants/regular-email'
 
 import type { IFormData } from '@shared/types/auth.types'
 import type { ERole } from '@shared/types/user.types'
@@ -13,10 +13,10 @@ import { useAuth } from '@shared/hooks/user/useAuth'
 import { useGetUser } from '@shared/hooks/user/useGetUser'
 import { useUpdateUser } from '@shared/hooks/user/useUpdateUser'
 
-import { regularEmail } from '@shared/constants/regular-email'
-
 import styles from './index.module.scss'
-import toast from 'react-hot-toast'
+import { formRules } from './rules'
+import { Button } from '@/components/ui'
+import { Field } from '@/components/ui'
 
 interface AuthFormProps {
   isLogin?: boolean
@@ -61,12 +61,8 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
   // )
 
   // const [values, setValues] = useState(initialValues)
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors }
-  } = useForm({
+  const { register, handleSubmit, reset } = useForm({
+    mode: 'onChange'
     // defaultValues: initialValues,
     // values
   })
@@ -76,98 +72,79 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
 
   const isPending = isPendingAuth || isPendingUpdate
 
-  const onSubmit: SubmitHandler<IFormData> = (data) => {
+  const onSubmit: SubmitHandler<IFormData> = data => {
     isEditing ? updateUser({ data, userId }) : authUser(data)
   }
 
-  const handleError = () => {
-    console.log(errors)
-    if (!!Object.keys(errors).length) {
-      const errorsKeys = Object.keys(errors)
-      errorsKeys.forEach((error) => {
-        toast.error(`${errors[error]?.message}`)
-      })
-    }
+  const onError = (errors: FieldErrors<IFormData>) => {
+    const errorsKeys = Object.keys(errors).reverse()
+    errorsKeys.forEach(error => {
+      toast.error(`${errors[error]?.message}`)
+    })
   }
 
   return (
     <div className={styles.auth_block}>
-      <p>{isLogin ? 'Вход в систему' : isEditing ? 'Редактирование' : 'Регистрация'}</p>
+      <p>
+        {isLogin
+          ? 'Вход в систему'
+          : isEditing
+            ? 'Редактирование'
+            : 'Регистрация'}
+      </p>
       <form
         onSubmit={
-          //@ts-ignore
-          handleSubmit(onSubmit)
+          // @ts-ignore
+          handleSubmit(onSubmit, onError)
         }
         className={styles.form}
       >
         <Field
-          placeholder="Логин"
+          placeholder='Логин'
           Icon={User}
-          {...register('userName', {
-            required: {
-              value: true,
-              message: '"Логин" - обязательное поле!'
-            }
-          })}
+          {...register('userName', formRules.login)}
         />
         {isLogin || (
           <>
             <Field
-              placeholder="Имя"
+              placeholder='Имя'
               Icon={User}
-              {...register('firstName', {
-                required: {
-                  value: true,
-                  message: '"Имя" - обязательное поле!'
-                }
-              })}
+              {...register('firstName', formRules.name)}
             />
             <Field
-              placeholder="Фамилия"
+              placeholder='Фамилия'
               Icon={User}
-              {...register('lastName', {
-                required: {
-                  value: true,
-                  message: '"Фамилия" - обязательное поле!'
-                }
-              })}
+              {...register('lastName', formRules.surname)}
             />
-            <Field placeholder="Отчество" Icon={User} {...register('middleName')} />
             <Field
-              placeholder="Почта"
+              placeholder='Отчество'
+              Icon={User}
+              {...register('middleName')}
+            />
+            <Field
+              placeholder='Почта'
               Icon={AtSign}
-              {...register('email', {
-                required: {
-                  value: true,
-                  message: '"Email" - обязательное поле!'
-                },
-                pattern: {
-                  value: regularEmail,
-                  message: 'Введите корректную почту!'
-                }
-              })}
+              {...register('email', formRules.email)}
             />
-            <Field placeholder="Роль" Icon={UserCog} {...register('role')} />
+            <Field
+              placeholder='Роль'
+              Icon={UserCog}
+              {...register('role')}
+            />
           </>
         )}
         <Field
-          placeholder="Пароль"
+          placeholder='Пароль'
           isPassword
           Icon={Lock}
-          type="password"
-          {...register('password', {
-            required: {
-              value: true,
-              message: '"Пароль" - обязательное поле!'
-            }
-          })}
+          type='password'
+          {...register('password', formRules.password)}
         />
         <Button
           text={isLogin ? 'Войти' : isEditing ? 'Редактировать' : 'Создать'}
-          type="submit"
+          type='submit'
           isLoading={isPending}
           disabled={isPending}
-          onClick={() => handleError()}
         />
       </form>
     </div>

@@ -6,6 +6,8 @@ import { URL_PAGES } from '@shared/config/url.config'
 
 import { useResize } from '@shared/hooks/useResize'
 
+import { ThemeLayout } from '@/components/layouts/theme'
+
 const rootComponent = () => {
   const navigate = useNavigate()
 
@@ -23,8 +25,10 @@ const rootComponent = () => {
 
   return (
     <div>
-      <Outlet />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ThemeLayout>
+        <Outlet />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeLayout>
     </div>
   )
 }

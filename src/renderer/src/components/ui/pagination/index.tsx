@@ -14,7 +14,7 @@ export const Pagination = ({ value, setValue, countPage }: IPagination) => {
   const pages = new Array(countPage)
   return (
     <>
-      {countPage ? (
+      {!!countPage && (
         <div className={styles.pagination}>
           <div className={clsx(styles.icon, styles.item)}>
             <ChevronLeft />
@@ -24,7 +24,9 @@ export const Pagination = ({ value, setValue, countPage }: IPagination) => {
               <li
                 key={i}
                 className={clsx(styles.item, value === i ? styles.active : '')}
-                onClick={() => setValue(i)}
+                onClick={() => {
+                  setValue(i)
+                }}
               >
                 {i + 1}
               </li>
@@ -34,8 +36,6 @@ export const Pagination = ({ value, setValue, countPage }: IPagination) => {
             <ChevronRight />
           </div>
         </div>
-      ) : (
-        <></>
       )}
     </>
   )

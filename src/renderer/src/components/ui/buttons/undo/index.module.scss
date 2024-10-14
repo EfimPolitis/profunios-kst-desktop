@@ -1,0 +1,16 @@
+@import '@/styles/_variables';
+
+.undo_btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  padding: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color linear 0.2s;
+
+  &:hover {
+    background-color: rgb(var(--secondary-color-hover));
+  }
+}

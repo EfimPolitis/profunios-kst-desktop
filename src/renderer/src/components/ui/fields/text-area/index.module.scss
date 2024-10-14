@@ -1,0 +1,22 @@
+@import '@/styles/_variables';
+
+.textarea {
+  width: 720px;
+  min-height: 200px;
+  max-height: 600px;
+  padding: 5px 10px;
+  font-size: 24px;
+  border-radius: 10px;
+  background-color: rgb(var(--secondary-color));
+  font-weight: normal;
+  color: rgb(var(--text-color));
+  font-family: var(--font-stack);
+  outline: none;
+  border: 3px solid rgb(var(--text-color));
+  transition: all linear 0.2s;
+  resize: vertical;
+
+  &:focus {
+    border-color: rgb(var(--primary-color));
+  }
+}

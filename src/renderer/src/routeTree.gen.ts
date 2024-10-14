@@ -19,10 +19,12 @@ import { Route as LayoutReservationsImport } from './routes/_layout/reservations
 import { Route as LayoutReportsImport } from './routes/_layout/reports'
 import { Route as LayoutNewsImport } from './routes/_layout/news'
 import { Route as LayoutEventsImport } from './routes/_layout/events'
+import { Route as LayoutEventCreateImport } from './routes/_layout/event-create'
 import { Route as LayoutCategoryImport } from './routes/_layout/category'
 import { Route as LayoutApplicationsImport } from './routes/_layout/applications'
 import { Route as LayoutUsersUserIdImport } from './routes/_layout/users.$userId'
-import { Route as LayoutEventsEventIdImport } from './routes/_layout/events.$eventId'
+import { Route as LayoutEventEventIdImport } from './routes/_layout/event.$eventId'
+import { Route as LayoutEventEditEventIdImport } from './routes/_layout/event-edit.$eventId'
 
 // Create/Update Routes
 
@@ -66,6 +68,11 @@ const LayoutEventsRoute = LayoutEventsImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutEventCreateRoute = LayoutEventCreateImport.update({
+  path: '/event-create',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutCategoryRoute = LayoutCategoryImport.update({
   path: '/category',
   getParentRoute: () => LayoutRoute,
@@ -81,9 +88,14 @@ const LayoutUsersUserIdRoute = LayoutUsersUserIdImport.update({
   getParentRoute: () => LayoutUsersRoute,
 } as any)
 
-const LayoutEventsEventIdRoute = LayoutEventsEventIdImport.update({
-  path: '/$eventId',
-  getParentRoute: () => LayoutEventsRoute,
+const LayoutEventEventIdRoute = LayoutEventEventIdImport.update({
+  path: '/event/$eventId',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutEventEditEventIdRoute = LayoutEventEditEventIdImport.update({
+  path: '/event-edit/$eventId',
+  getParentRoute: () => LayoutRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -125,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutCategoryImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/event-create': {
+      id: '/_layout/event-create'
+      path: '/event-create'
+      fullPath: '/event-create'
+      preLoaderRoute: typeof LayoutEventCreateImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/events': {
       id: '/_layout/events'
       path: '/events'
@@ -160,12 +179,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutUsersImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/events/$eventId': {
-      id: '/_layout/events/$eventId'
-      path: '/$eventId'
-      fullPath: '/events/$eventId'
-      preLoaderRoute: typeof LayoutEventsEventIdImport
-      parentRoute: typeof LayoutEventsImport
+    '/_layout/event-edit/$eventId': {
+      id: '/_layout/event-edit/$eventId'
+      path: '/event-edit/$eventId'
+      fullPath: '/event-edit/$eventId'
+      preLoaderRoute: typeof LayoutEventEditEventIdImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/event/$eventId': {
+      id: '/_layout/event/$eventId'
+      path: '/event/$eventId'
+      fullPath: '/event/$eventId'
+      preLoaderRoute: typeof LayoutEventEventIdImport
+      parentRoute: typeof LayoutImport
     }
     '/_layout/users/$userId': {
       id: '/_layout/users/$userId'
@@ -178,18 +204,6 @@ declare module '@tanstack/react-router' {
 }
 
 // Create and export the route tree
-
-interface LayoutEventsRouteChildren {
-  LayoutEventsEventIdRoute: typeof LayoutEventsEventIdRoute
-}
-
-const LayoutEventsRouteChildren: LayoutEventsRouteChildren = {
-  LayoutEventsEventIdRoute: LayoutEventsEventIdRoute,
-}
-
-const LayoutEventsRouteWithChildren = LayoutEventsRoute._addFileChildren(
-  LayoutEventsRouteChildren,
-)
 
 interface LayoutUsersRouteChildren {
   LayoutUsersUserIdRoute: typeof LayoutUsersUserIdRoute
@@ -206,21 +220,27 @@ const LayoutUsersRouteWithChildren = LayoutUsersRoute._addFileChildren(
 interface LayoutRouteChildren {
   LayoutApplicationsRoute: typeof LayoutApplicationsRoute
   LayoutCategoryRoute: typeof LayoutCategoryRoute
-  LayoutEventsRoute: typeof LayoutEventsRouteWithChildren
+  LayoutEventCreateRoute: typeof LayoutEventCreateRoute
+  LayoutEventsRoute: typeof LayoutEventsRoute
   LayoutNewsRoute: typeof LayoutNewsRoute
   LayoutReportsRoute: typeof LayoutReportsRoute
   LayoutReservationsRoute: typeof LayoutReservationsRoute
   LayoutUsersRoute: typeof LayoutUsersRouteWithChildren
+  LayoutEventEditEventIdRoute: typeof LayoutEventEditEventIdRoute
+  LayoutEventEventIdRoute: typeof LayoutEventEventIdRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutApplicationsRoute: LayoutApplicationsRoute,
   LayoutCategoryRoute: LayoutCategoryRoute,
-  LayoutEventsRoute: LayoutEventsRouteWithChildren,
+  LayoutEventCreateRoute: LayoutEventCreateRoute,
+  LayoutEventsRoute: LayoutEventsRoute,
   LayoutNewsRoute: LayoutNewsRoute,
   LayoutReportsRoute: LayoutReportsRoute,
   LayoutReservationsRoute: LayoutReservationsRoute,
   LayoutUsersRoute: LayoutUsersRouteWithChildren,
+  LayoutEventEditEventIdRoute: LayoutEventEditEventIdRoute,
+  LayoutEventEventIdRoute: LayoutEventEventIdRoute,
 }
 
 const LayoutRouteWithChildren =
@@ -232,12 +252,14 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/applications': typeof LayoutApplicationsRoute
   '/category': typeof LayoutCategoryRoute
-  '/events': typeof LayoutEventsRouteWithChildren
+  '/event-create': typeof LayoutEventCreateRoute
+  '/events': typeof LayoutEventsRoute
   '/news': typeof LayoutNewsRoute
   '/reports': typeof LayoutReportsRoute
   '/reservations': typeof LayoutReservationsRoute
   '/users': typeof LayoutUsersRouteWithChildren
-  '/events/$eventId': typeof LayoutEventsEventIdRoute
+  '/event-edit/$eventId': typeof LayoutEventEditEventIdRoute
+  '/event/$eventId': typeof LayoutEventEventIdRoute
   '/users/$userId': typeof LayoutUsersUserIdRoute
 }
 
@@ -247,12 +269,14 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/applications': typeof LayoutApplicationsRoute
   '/category': typeof LayoutCategoryRoute
-  '/events': typeof LayoutEventsRouteWithChildren
+  '/event-create': typeof LayoutEventCreateRoute
+  '/events': typeof LayoutEventsRoute
   '/news': typeof LayoutNewsRoute
   '/reports': typeof LayoutReportsRoute
   '/reservations': typeof LayoutReservationsRoute
   '/users': typeof LayoutUsersRouteWithChildren
-  '/events/$eventId': typeof LayoutEventsEventIdRoute
+  '/event-edit/$eventId': typeof LayoutEventEditEventIdRoute
+  '/event/$eventId': typeof LayoutEventEventIdRoute
   '/users/$userId': typeof LayoutUsersUserIdRoute
 }
 
@@ -263,12 +287,14 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_layout/applications': typeof LayoutApplicationsRoute
   '/_layout/category': typeof LayoutCategoryRoute
-  '/_layout/events': typeof LayoutEventsRouteWithChildren
+  '/_layout/event-create': typeof LayoutEventCreateRoute
+  '/_layout/events': typeof LayoutEventsRoute
   '/_layout/news': typeof LayoutNewsRoute
   '/_layout/reports': typeof LayoutReportsRoute
   '/_layout/reservations': typeof LayoutReservationsRoute
   '/_layout/users': typeof LayoutUsersRouteWithChildren
-  '/_layout/events/$eventId': typeof LayoutEventsEventIdRoute
+  '/_layout/event-edit/$eventId': typeof LayoutEventEditEventIdRoute
+  '/_layout/event/$eventId': typeof LayoutEventEventIdRoute
   '/_layout/users/$userId': typeof LayoutUsersUserIdRoute
 }
 
@@ -280,12 +306,14 @@ export interface FileRouteTypes {
     | '/login'
     | '/applications'
     | '/category'
+    | '/event-create'
     | '/events'
     | '/news'
     | '/reports'
     | '/reservations'
     | '/users'
-    | '/events/$eventId'
+    | '/event-edit/$eventId'
+    | '/event/$eventId'
     | '/users/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -294,12 +322,14 @@ export interface FileRouteTypes {
     | '/login'
     | '/applications'
     | '/category'
+    | '/event-create'
     | '/events'
     | '/news'
     | '/reports'
     | '/reservations'
     | '/users'
-    | '/events/$eventId'
+    | '/event-edit/$eventId'
+    | '/event/$eventId'
     | '/users/$userId'
   id:
     | '__root__'
@@ -308,12 +338,14 @@ export interface FileRouteTypes {
     | '/login'
     | '/_layout/applications'
     | '/_layout/category'
+    | '/_layout/event-create'
     | '/_layout/events'
     | '/_layout/news'
     | '/_layout/reports'
     | '/_layout/reservations'
     | '/_layout/users'
-    | '/_layout/events/$eventId'
+    | '/_layout/event-edit/$eventId'
+    | '/_layout/event/$eventId'
     | '/_layout/users/$userId'
   fileRoutesById: FileRoutesById
 }
@@ -355,11 +387,14 @@ export const routeTree = rootRoute
       "children": [
         "/_layout/applications",
         "/_layout/category",
+        "/_layout/event-create",
         "/_layout/events",
         "/_layout/news",
         "/_layout/reports",
         "/_layout/reservations",
-        "/_layout/users"
+        "/_layout/users",
+        "/_layout/event-edit/$eventId",
+        "/_layout/event/$eventId"
       ]
     },
     "/login": {
@@ -373,12 +408,13 @@ export const routeTree = rootRoute
       "filePath": "_layout/category.tsx",
       "parent": "/_layout"
     },
+    "/_layout/event-create": {
+      "filePath": "_layout/event-create.tsx",
+      "parent": "/_layout"
+    },
     "/_layout/events": {
       "filePath": "_layout/events.tsx",
-      "parent": "/_layout",
-      "children": [
-        "/_layout/events/$eventId"
-      ]
+      "parent": "/_layout"
     },
     "/_layout/news": {
       "filePath": "_layout/news.tsx",
@@ -399,9 +435,13 @@ export const routeTree = rootRoute
         "/_layout/users/$userId"
       ]
     },
-    "/_layout/events/$eventId": {
-      "filePath": "_layout/events.$eventId.tsx",
-      "parent": "/_layout/events"
+    "/_layout/event-edit/$eventId": {
+      "filePath": "_layout/event-edit.$eventId.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/event/$eventId": {
+      "filePath": "_layout/event.$eventId.tsx",
+      "parent": "/_layout"
     },
     "/_layout/users/$userId": {
       "filePath": "_layout/users.$userId.tsx",
