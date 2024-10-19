@@ -1,0 +1,67 @@
+@import '@/styles/_variables';
+
+.filter {
+  height: min-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
+
+  .btn {
+    width: min-content;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    background-color: rgb(var(--secondary-color));
+    color: rgb(var(--text-color));
+    border: none;
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  .menu {
+    height: min-content;
+    width: min-content;
+    white-space: nowrap;
+    box-shadow: 0px 0px 5px 0px rgba(var(--text-color), 0.2);
+    background-color: rgb(var(--secondary-color));
+    border-radius: 10px;
+
+    .fields {
+      margin: 10px 20px;
+      display: flex;
+      gap: 40px;
+
+      .date_section {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+
+        .input_block {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          span {
+            width: 30px;
+          }
+        }
+      }
+
+      .type_section {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+      }
+    }
+  }
+
+  .hidden {
+    overflow: hidden;
+    height: 0px;
+  }
+}

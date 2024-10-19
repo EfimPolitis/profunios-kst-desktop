@@ -4,6 +4,10 @@ export const eventSortList = [
     value: 'alphabetic'
   },
   {
+    label: 'По алфавиту',
+    value: 'date'
+  },
+  {
     label: 'По количеству билетов',
     value: 'tickets'
   }

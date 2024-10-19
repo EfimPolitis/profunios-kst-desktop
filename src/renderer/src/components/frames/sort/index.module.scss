@@ -1,0 +1,65 @@
+@import '@/styles/_variables';
+
+.sort {
+  display: flex;
+  position: relative;
+
+  &_field {
+    display: flex;
+    align-items: center;
+
+    .selected {
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
+      cursor: pointer;
+
+      .icon {
+        margin-left: 10px;
+      }
+    }
+
+    .order {
+      margin-left: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgb(var(--secondary-color));
+      color: rgb(var(--text-color));
+      transition: all linear 0.2s;
+    }
+
+    .active {
+      transition: all linear 0.2s;
+      background-color: rgb(var(--secondary-color-hover));
+    }
+  }
+
+  .menu {
+    position: absolute;
+    top: 50px;
+    padding: 5px;
+    box-shadow: 0 0 5px 0px rgba(var(--text-color), 0.2);
+    border-radius: 10px;
+    z-index: 2;
+    background-color: rgb(var(--secondary-color));
+
+    ul {
+      list-style-type: none;
+
+      li {
+        padding: 10px 15px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all ease-in-out 0.2s;
+
+        &:hover {
+          background-color: rgb(var(--secondary-color-hover));
+        }
+      }
+    }
+  }
+}

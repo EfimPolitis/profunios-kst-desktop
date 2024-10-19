@@ -1,4 +1,4 @@
-import { IResponseCategories } from './category.types'
+import { IResponseCategory } from './category.types'
 
 export type TypeImage = {
   id: string
@@ -11,8 +11,8 @@ export interface IEvent {
   images: TypeImage[]
   title: string
   description: string
-  categories: IResponseCategories[]
-  eventDate: string
+  categories: IResponseCategory[]
+  date: string
   organizer: string
   link: string
   totalTickets: number
@@ -37,7 +37,7 @@ export interface IEventFormData {
   categoriesId: string[]
   organizer: string
   imagesId: string[]
-  eventDate: string
+  date: string
   link?: string
   totalTickets?: number
 }

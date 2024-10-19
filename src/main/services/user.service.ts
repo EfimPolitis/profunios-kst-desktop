@@ -13,11 +13,17 @@ import { axiosWithAuth } from '../api/interseptors'
 export const userService = {
   async getUsers(data: IGetData) {
     const { url } = getUrlForRequest(data)
-    return axiosWithAuth.get<IResponseUsers>(`/users?${url}`)
+    const { headers, request, config, ...response } =
+      await axiosWithAuth.get<IResponseUsers>(`/users?${url}`)
+
+    return response
   },
 
   async getUser(userId: string) {
-    return axiosWithAuth.get<IUser>(`/users/${userId}`)
+    const { headers, request, config, ...response } =
+      await axiosWithAuth.get<IUser>(`/users/${userId}`)
+
+    return response
   },
 
   async getProfile() {
@@ -27,12 +33,16 @@ export const userService = {
   },
 
   async updateUser(data: IFormData, id: string) {
-    const response = await axiosWithAuth.patch(`/users/${id}`, data)
+    const { headers, request, config, ...response } = await axiosWithAuth.patch(
+      `/users/${id}`,
+      data
+    )
     return response
   },
 
   async deleteUser(id: string) {
-    const response = await axiosWithAuth.delete(`/users/${id}`)
+    const { headers, request, config, ...response } =
+      await axiosWithAuth.delete(`/users/${id}`)
     return response
   }
 }

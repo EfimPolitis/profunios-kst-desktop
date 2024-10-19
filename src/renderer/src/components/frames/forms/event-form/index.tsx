@@ -8,7 +8,7 @@ import {
 } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { IEvent, IEventFormData, TypeImage } from '@shared/types/event.types'
+import { IEventFormData, TypeImage } from '@shared/types/event.types'
 
 import { useGetCategories } from '@shared/hooks/category/useGetCategories'
 import { useCreateEvent } from '@shared/hooks/event/useCreateEvent'
@@ -47,7 +47,7 @@ const initialValues = {
   description: '',
   organizer: '',
   imagesId: [],
-  eventDate: '',
+  date: '',
   categoriesId: [],
   link: '',
   totalTickets: 0
@@ -56,7 +56,7 @@ const initialValues = {
 export const EventForm = ({ isEditing }: IEventForm) => {
   if (isEditing) {
     var eventId = useParams({
-      from: '/_layout/event-edit/$eventId',
+      from: '/_layout/events/edit/$eventId',
       select: params => params.eventId
     })
 
@@ -88,7 +88,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         description: event.description,
         organizer: event.organizer,
         imagesId,
-        eventDate: event.eventDate,
+        date: event.date,
         categoriesId,
         link: event.link,
         totalTickets: event.totalTickets
@@ -165,7 +165,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         )}
       />
       <div>
-        <DateInput {...register('eventDate', formRules.eventDate)} />
+        <DateInput {...register('date', formRules.date)} />
       </div>
       <div>
         <h3>Тип меропрития</h3>

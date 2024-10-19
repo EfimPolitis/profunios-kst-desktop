@@ -29,7 +29,7 @@ export const formRules = {
       message: 'Нужно выбрать хотя бы одну категорию'
     }
   },
-  eventDate: {
+  date: {
     required: {
       value: true,
       message: '"Дата проведения" - обязательное поле'

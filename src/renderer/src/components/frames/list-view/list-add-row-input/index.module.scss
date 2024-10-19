@@ -1,0 +1,22 @@
+.addRowBtn {
+  width: 320px;
+  height: 60px;
+  border-radius: 10px;
+  background-color: #005ab8;
+  border: none;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  cursor: pointer;
+
+  svg {
+    transition: all 0.2s linear;
+  }
+
+  &:hover svg {
+    transform: translateY(5px);
+  }
+}

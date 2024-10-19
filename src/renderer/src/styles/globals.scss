@@ -36,14 +36,15 @@ a {
 }
 
 ::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
+  height: 8px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
   width: 8px;
+  border: 1px solid rgb(var(--secondary-color));
   border-radius: 5px;
-  background-color: #b6b6b6;
+  background-color: rgb(var(--secondary-color-active));
 }
 
 input::-webkit-outer-spin-button,

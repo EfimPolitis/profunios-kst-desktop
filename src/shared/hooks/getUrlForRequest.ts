@@ -1,4 +1,4 @@
-import { IGetData } from '@/types/sort.types'
+import { IGetData } from '@shared/types/sort.types'
 
 export const getUrlForRequest = (data: IGetData) => {
   const page = `page=${data.page + 1}`

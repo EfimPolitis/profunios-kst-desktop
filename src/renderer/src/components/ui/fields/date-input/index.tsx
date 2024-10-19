@@ -5,32 +5,25 @@ import {
   forwardRef
 } from 'react'
 
-import { useFormatDate } from '@shared/hooks/useFormatDate'
-
 import styles from './index.module.scss'
 
 interface IDateInput {
   style?: CSSProperties
+  type?: 'datetime-local' | 'date'
 }
 
 type TypeDateInput = IDateInput &
   DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 export const DateInput = forwardRef<HTMLInputElement, TypeDateInput>(
-  ({ style, ...rest }, ref) => {
-    const min = useFormatDate(new Date())
-    const max = useFormatDate(
-      new Date(Date.now() + 10 * 365 * 24 * 60 * 60 * 1000)
-    )
-
+  ({ style, type, ...rest }, ref) => {
+    const initialType = type || 'datetime-local'
     return (
       <input
         className={styles.date_input}
-        style={style}
+        style={{ ...style, width: initialType === 'date' ? '200px' : '260px' }}
         ref={ref}
-        type='datetime-local'
-        min={min}
-        max={max}
+        type={initialType}
         {...rest}
       />
     )

@@ -1,7 +1,5 @@
 import { Link } from '@tanstack/react-router'
 
-import { day, month } from '@shared/constants/date.constants'
-
 import { IEvent } from '@shared/types/event.types'
 
 import { useCreateApplication } from '@shared/hooks/application/useCreateApplication'
@@ -22,7 +20,6 @@ export const RegisterBlock = ({
   userId,
   type
 }: IRegisterBlock) => {
-  const time = new Date(date)
   const { totalTickets, link } = event
 
   const {
@@ -35,9 +32,7 @@ export const RegisterBlock = ({
   const onClickBtn = (eventId: string, userId: string | undefined) => {
     if (!userId) return
 
-    const count = prompt(
-      `Сколько вы хотите взять билетов?\nОсталось билетов: ${event.totalTickets}`
-    )
+    const count = 1
 
     if (!count) return
 
@@ -54,19 +49,35 @@ export const RegisterBlock = ({
     <div className={styles.event_card}>
       <div className={styles.top}>
         <div className={styles.event_date}>
-          <div className={styles.date_day}>{time.getDate()}</div>
-          <div className={styles.date_month}>{month[time.getMonth()]}</div>
+          <div className={styles.date_day}>{new Date(date).getDate()}</div>
+          <div className={styles.date_month}>
+            {new Date(date)
+              .toLocaleDateString('ru-RU', {
+                month: 'short'
+              })
+              .slice(0, -1)}
+          </div>
         </div>
         <div className={styles.event_details}>
-          <div className={styles.event_day}>{day[time.getDay() - 1]}</div>
+          <div className={styles.event_day}>
+            {new Date(date)
+              .toLocaleDateString('ru-RU', {
+                weekday: 'short'
+              })
+              .toUpperCase()}
+          </div>
           <div className={styles.event_date_full}>
-            {time.getDate()} {month[time.getMonth()]}, {time.getFullYear()}
+            {new Date(date).toLocaleDateString('ru-RU', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            })}
           </div>
           <div className={styles.event_time}>
-            Время: {time.getHours()}:
-            {time.getMinutes() > 10
-              ? time.getMinutes()
-              : '' + time.getMinutes()}{' '}
+            {new Date(date).toLocaleTimeString('ru-RU', {
+              hour: 'numeric',
+              minute: 'numeric'
+            })}{' '}
             МСК
           </div>
         </div>
@@ -79,8 +90,9 @@ export const RegisterBlock = ({
           <Link
             to={link}
             className={styles.link}
+            target='_blank'
           >
-            заполните форму
+            Перейти на мероприятие
           </Link>
         </p>
       ) : (

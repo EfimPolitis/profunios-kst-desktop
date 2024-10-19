@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-import cn from 'clsx'
 import { ArrowRight, Edit2, Trash2 } from 'lucide-react'
 import { FC } from 'react'
 
@@ -10,11 +9,12 @@ import { URL_PAGES } from '@shared/config/url.config'
 import { useDeleteEvent } from '@shared/hooks/event/useDeleteEvent'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
-import { Slider } from './card-slider'
+import { Slider } from '../../../ui/slider'
+
 import styles from './index.module.scss'
 
 export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
-  const { title, totalTickets, categories, eventDate, eventId, images } = data
+  const { title, totalTickets, categories, date, eventId, images } = data
   const { data: user } = useProfile()
 
   const { mutate: mutateEvent } = useDeleteEvent()
@@ -68,10 +68,22 @@ export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
         </div>
         <p className={styles.date}>
           Дата проведения:{' '}
-          <span>{new Date(eventDate.slice(0, 10)).toLocaleDateString()}</span>
+          <span>
+            {new Date(date).toLocaleDateString('ru-RU', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            })}
+          </span>
         </p>
         <p className={styles.date}>
-          Время проведения: <span>{eventDate.slice(-5)}</span>
+          Время проведения:{' '}
+          <span>
+            {new Date(date).toLocaleTimeString('ru-RU', {
+              hour: 'numeric',
+              minute: 'numeric'
+            })}
+          </span>
         </p>
         {type !== 'link' && !ticketsCount && (
           <p className={styles.totalTickets}>
@@ -81,7 +93,7 @@ export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
         {ticketsCount && <p>Билетов взято: {ticketsCount}</p>}
 
         <Link
-          to={`${URL_PAGES.MANAGE_EVENTS.slice(0, -1)}/${eventId}`}
+          to={`${URL_PAGES.MANAGE_EVENTS}/${eventId}`}
           className={styles.details}
         >
           Подробнее

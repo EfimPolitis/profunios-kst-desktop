@@ -2,4 +2,9 @@
   height: 100svh;
   display: grid;
   grid-template-columns: auto 1fr;
+
+  .page_layout {
+    display: grid;
+    grid-template-rows: 60px 1fr;
+  }
 }

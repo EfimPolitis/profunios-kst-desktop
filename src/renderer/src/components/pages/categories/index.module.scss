@@ -1,0 +1,8 @@
+.page {
+  height: calc(100svh - 80px);
+  padding: 200px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: scroll;
+}

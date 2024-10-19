@@ -3,6 +3,7 @@ import { contextBridge, ipcRenderer } from 'electron'
 
 import { IApplicationData } from '@shared/types/application.types'
 import { IFormData } from '@shared/types/auth.types'
+import { ICategory } from '@shared/types/category.types'
 import { IEventFormData } from '@shared/types/event.types'
 import { IGetData } from '@shared/types/sort.types'
 
@@ -18,8 +19,10 @@ const api = {
   getUser: (userId: string) => ipcRenderer.invoke('getUser', userId),
   getProfile: () => ipcRenderer.invoke('getProfile'),
   getUsers: (search: IGetData) => ipcRenderer.invoke('getUsers', search),
+
   updateUser: (data: IFormData, userId: string) =>
     ipcRenderer.invoke('updateUser', data, userId),
+  deleteUser: (id: string) => ipcRenderer.invoke('deleteUser', id),
 
   //event
   getEventById: (eventId: string) =>
@@ -37,11 +40,24 @@ const api = {
   createBuffer: (arrayBuffer: ArrayBuffer) => Buffer.from(arrayBuffer),
 
   //application
+  getApplications: (data: IGetData) =>
+    ipcRenderer.invoke('getApplications', data),
   createApplication: (data: IApplicationData) =>
     ipcRenderer.invoke('createApplication', data),
+  sendStatusApplication: (status: string, id: string) =>
+    ipcRenderer.invoke('sendStatusApplication', status, id),
+
+  //reservations
+  getReservations: (data: IGetData) =>
+    ipcRenderer.invoke('getReservations', data),
 
   //category
   getCategories: () => ipcRenderer.invoke('getCategories'),
+  createCategory: (data: ICategory) =>
+    ipcRenderer.invoke('createCategory', data),
+  updateCategory: (data: ICategory, id: string) =>
+    ipcRenderer.invoke('updateCategory', data, id),
+  deleteCategory: (id: string) => ipcRenderer.invoke('deleteCategory', id),
 
   //window
   setTitle: (title: string) => ipcRenderer.send('setTitle', title),

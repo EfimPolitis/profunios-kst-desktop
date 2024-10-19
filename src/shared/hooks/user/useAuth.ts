@@ -28,9 +28,13 @@ export const useAuth = (isLogin: boolean, reset: UseFormReset<any>) => {
     },
     onSuccess: () => {
       toast.dismiss()
-      toast.success('Вы успешно вошли в систему')
+      toast.success(
+        isLogin
+          ? 'Вы успешно вошли в систему'
+          : 'Новый пользователь успешно создан'
+      )
       reset()
-      navigate({ to: URL_PAGES.MANAGE_EVENTS })
+      navigate({ to: URL_PAGES.MANAGE_USERS })
       useResize(1200, 800)
     },
     onError: error => {

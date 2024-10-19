@@ -1,0 +1,12 @@
+.listRowParent {
+  width: 500px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+@media (max-width: 600px) {
+  .listRowParent {
+    width: 350px;
+  }
+}

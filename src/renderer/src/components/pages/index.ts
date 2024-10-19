@@ -1,4 +1,7 @@
+import ApplicationsPage from './applications'
+import CategoriesPage from './categories'
+import EventsPage from './events/page'
 import LoginPage from './login'
-import EventsPage from './events/events'
+import UsersPage from './users/page'
 
-export { LoginPage, EventsPage }
+export { LoginPage, UsersPage, EventsPage, ApplicationsPage, CategoriesPage }

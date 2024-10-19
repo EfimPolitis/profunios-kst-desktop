@@ -15,31 +15,34 @@ export const applicationService = {
   async getAll(data: IGetData) {
     const { url } = getUrlForRequest(data)
 
-    const response = await axiosWithAuth.get<IResponeApplications>(
-      `${API_URL}/application?${url}`
-    )
+    const { headers, config, request, ...response } =
+      await axiosWithAuth.get<IResponeApplications>(
+        `${API_URL}/application?${url}`
+      )
     return response
   },
 
   async getByUserId(userId: string) {
-    const response = await axiosWithAuth.get<IResponeApplications>(
-      `${API_URL}/application/${userId}`
-    )
+    const { headers, config, request, ...response } =
+      await axiosWithAuth.get<IResponeApplications>(
+        `${API_URL}/application/${userId}`
+      )
     return response
   },
 
   async create(data: IApplicationData) {
-    const response = await axiosWithAuth.post<IApplication>(
-      `${API_URL}/application`,
-      data
-    )
+    const { headers, config, request, ...response } =
+      await axiosWithAuth.post<IApplication>(`${API_URL}/application`, data)
     return response
   },
 
   async sendStatus(status: string, id: string) {
-    const response = await axiosWithAuth.patch(`${API_URL}/application/${id}`, {
-      status
-    })
+    const { headers, config, request, ...response } = await axiosWithAuth.patch(
+      `${API_URL}/application/${id}`,
+      {
+        status
+      }
+    )
     return response
   }
 }
