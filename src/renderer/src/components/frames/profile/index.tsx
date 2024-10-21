@@ -1,8 +1,4 @@
-import { Link } from '@tanstack/react-router'
-
 import { roles } from '@shared/constants/roles.constants'
-
-import { URL_PAGES } from '@shared/config/url.config'
 
 import { useProfile } from '@shared/hooks/user/useProfile'
 
@@ -29,12 +25,9 @@ export const Profile = () => {
             </>
           )}
         </div>
-        <Link
-          to={URL_PAGES.PROFILE}
-          className={styles.avatar}
-        >
+        <div className={styles.avatar}>
           {isLoading ? <Loader /> : user.firstName?.charAt(0).toUpperCase()}
-        </Link>
+        </div>
       </div>
     </div>
   )

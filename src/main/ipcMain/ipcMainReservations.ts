@@ -1,11 +1,11 @@
 import { ipcMain } from 'electron'
 
-import { IGetData } from '@shared/types/sort.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
 import { reservationService } from '../services/reservation.service'
 
 export const ipcMainReservation = () => {
-  ipcMain.handle('getReservations', (_, data: IGetData) =>
+  ipcMain.handle('getReservations', (_, data: IQueryParam) =>
     reservationService.getAll(data)
   )
 }

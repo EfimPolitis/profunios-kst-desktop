@@ -1,23 +1,24 @@
 @import '@/styles/_variables';
 
-tr {
-  height: 50px;
-  align-items: center;
-  text-align: center;
+.tr {
+  height: 55px;
 
   td {
-    text-align: left;
+    height: 55px;
     border: none;
-    padding: 15px 10px;
+    padding: 14px 15px;
     font-size: 16px;
-    vertical-align: top;
+    white-space: nowrap;
+    text-align: left;
+  }
 
-    .ellipsis {
-      margin-top: 2px;
-      color: #5d5d5d;
-      cursor: pointer;
-      opacity: 0;
-    }
+  .count {
+    width: 60px;
+    text-align: center;
+  }
+
+  .ticketsCount {
+    text-align: center;
   }
 
   .menu {

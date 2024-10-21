@@ -10,11 +10,11 @@ export const useDeleteCategory = () => {
     isPending: isDeletePanding,
     error: deleteError
   } = useMutation({
-    mutationKey: TanStackQueryKey.deleteCategory,
+    mutationKey: [TanStackQueryKey.deleteCategory],
     mutationFn: (id: string) => window.api.deleteCategory(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: TanStackQueryKey.getCategories
+        queryKey: [TanStackQueryKey.getCategories]
       })
     }
   })

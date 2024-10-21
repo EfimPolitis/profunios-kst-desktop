@@ -8,19 +8,8 @@
   justify-content: start;
   gap: 10px;
 
-  .btn {
-    width: min-content;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 10px;
-    background-color: rgb(var(--secondary-color));
-    color: rgb(var(--text-color));
-    border: none;
-
-    span {
-      font-size: 20px;
-    }
+  h5 {
+    font-size: 18px;
   }
 
   .menu {

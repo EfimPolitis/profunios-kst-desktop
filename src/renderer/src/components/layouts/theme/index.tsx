@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import {
   StorageKey,
   ThemeContext,
-  Themes,
+  type Themes,
   getTheme,
   supportedThemes
 } from './theme.helper'

@@ -5,17 +5,16 @@ import type {
   IEventFormData,
   IResponseEvents
 } from '@shared/types/event.types'
-import type { IGetData } from '@shared/types/sort.types'
-
-import { getUrlForRequest } from '@shared/hooks/getUrlForRequest'
+import type { IQueryParam } from '@shared/types/filter.types'
 
 import { axiosClassic, axiosWithAuth } from '../api/interseptors'
 
 export const eventService = {
-  async getAll(data: IGetData) {
-    const { url } = getUrlForRequest(data)
+  async getAll(queryData = {} as IQueryParam) {
     const { headers, config, request, ...response } =
-      await axiosClassic.get<IResponseEvents>(`${API_URL}/event?${url}`)
+      await axiosClassic.get<IResponseEvents>(`${API_URL}/event`, {
+        params: queryData
+      })
 
     return response
   },

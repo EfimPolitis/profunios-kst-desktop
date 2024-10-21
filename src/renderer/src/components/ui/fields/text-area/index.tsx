@@ -1,5 +1,5 @@
 import cn from 'clsx'
-import { TextareaHTMLAttributes, forwardRef } from 'react'
+import { type TextareaHTMLAttributes, forwardRef } from 'react'
 
 import styles from './index.module.scss'
 

@@ -1,20 +1,19 @@
 import type { IFormData } from '@shared/types/auth.types'
-import type { IGetData } from '@shared/types/sort.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 import {
   type IProfileResponse,
   type IResponseUsers,
   IUser
 } from '@shared/types/user.types'
 
-import { getUrlForRequest } from '@shared/hooks/getUrlForRequest'
-
 import { axiosWithAuth } from '../api/interseptors'
 
 export const userService = {
-  async getUsers(data: IGetData) {
-    const { url } = getUrlForRequest(data)
+  async getUsers(queryData = {} as IQueryParam) {
     const { headers, request, config, ...response } =
-      await axiosWithAuth.get<IResponseUsers>(`/users?${url}`)
+      await axiosWithAuth.get<IResponseUsers>(`/users`, {
+        params: queryData
+      })
 
     return response
   },

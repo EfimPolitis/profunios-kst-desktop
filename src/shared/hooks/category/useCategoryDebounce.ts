@@ -1,8 +1,8 @@
 import debounce from 'debounce'
 import { useCallback, useEffect } from 'react'
-import { UseFormWatch } from 'react-hook-form'
+import type { UseFormWatch } from 'react-hook-form'
 
-import { ICategory } from '@shared/types/category.types'
+import type { ICategory } from '@shared/types/category.types'
 
 import { useCreateCategory } from './useCreateCategory'
 import { useUpdateCategory } from './useUpdateCategory'

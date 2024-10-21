@@ -1,75 +1,89 @@
-export const eventSortList = [
+import type { ISortItem } from '@shared/types/filter.types'
+
+export enum EnumSort {
+  ALPHABETIC = 'alphabetic',
+  DATE = 'date',
+  TICKETS = 'tickets',
+  ROLE = 'role',
+  STATUS = 'status',
+  CREATED_AT = 'created_at',
+  UPDATED_AT = 'updated_at'
+}
+
+export enum EnumUserSort {}
+
+export const eventSortList: ISortItem[] = [
   {
-    label: 'По алфавиту',
-    value: 'alphabetic'
+    value: 'По алфавиту',
+    key: EnumSort.ALPHABETIC
   },
   {
-    label: 'По алфавиту',
-    value: 'date'
+    value: 'По дате',
+    key: EnumSort.DATE
   },
   {
-    label: 'По количеству билетов',
-    value: 'tickets'
+    value: 'По количеству билетов',
+    key: EnumSort.TICKETS
   }
 ]
 
-export const userSortList = [
+export const userSortList: ISortItem[] = [
   {
-    label: 'По алфавиту',
-    value: 'alphabetic'
+    value: 'По алфавиту',
+    key: EnumSort.ALPHABETIC
   },
   {
-    label: 'По роли',
-    value: 'role'
+    value: 'По роли',
+    key: EnumSort.ROLE
   },
   {
-    label: 'По дате создания',
-    value: 'createdAt'
+    value: 'По дате создания',
+    key: EnumSort.CREATED_AT
   },
   {
-    label: 'По дате обновления',
-    value: 'updatedAt'
+    value: 'По дате обновления',
+    key: EnumSort.UPDATED_AT
   }
 ]
 
-export const reservationSortList = [
+export const reservationSortList: ISortItem[] = [
   {
-    label: 'По алфавиту',
-    value: 'alphabetic'
+    value: 'По алфавиту',
+    key: EnumSort.ALPHABETIC
   },
   {
-    label: 'По кол-ву билетов',
-    value: 'tickets'
+    value: 'По кол-ву билетов',
+    key: EnumSort.TICKETS
   },
   {
-    label: 'По дате создания',
-    value: 'createdAt'
+    value: 'По дате создания',
+    key: EnumSort.CREATED_AT
   },
   {
-    label: 'По дате обновления',
-    value: 'updatedAt'
+    value: 'По дате обновления',
+    key: EnumSort.UPDATED_AT
   }
 ]
 
-export const applicationSortList = [
+export const applicationSortList: ISortItem[] = [
   {
-    label: 'По алфавиту',
-    value: 'alphabetic'
+    value: 'По алфавиту',
+    key: EnumSort.ALPHABETIC
   },
   {
-    label: 'По статусу',
-    value: 'status'
+    value: 'По статусу',
+    key: EnumSort.STATUS
   },
   {
-    label: 'По кол-ву билетов',
-    value: 'tickets'
+    value: 'По кол-ву билетов',
+    key: EnumSort.TICKETS
   },
   {
-    label: 'По дате создания',
-    value: 'createdAt'
+    value: 'По дате создания',
+    key: EnumSort.CREATED_AT
   },
   {
-    label: 'По дате обновления',
-    value: 'updatedAt'
+    value: 'По дате обновления',
+    key: EnumSort.UPDATED_AT
   }
 ]

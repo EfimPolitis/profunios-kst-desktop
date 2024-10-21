@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 
-import { IEventFormData } from '@shared/types/event.types'
-import { IGetData } from '@shared/types/sort.types'
+import type { IEventFormData } from '@shared/types/event.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
 import { eventService } from '../services/events.service'
 
@@ -10,7 +10,7 @@ export const ipcMainEvent = () => {
     eventService.getById(eventId)
   )
 
-  ipcMain.handle('getEvents', (_, search: IGetData) =>
+  ipcMain.handle('getEvents', (_, search: IQueryParam) =>
     eventService.getAll(search)
   )
 

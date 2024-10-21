@@ -16,7 +16,6 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutUsersIndexImport } from './routes/_layout/users/index'
 import { Route as LayoutReservationsIndexImport } from './routes/_layout/reservations/index'
 import { Route as LayoutReportsIndexImport } from './routes/_layout/reports/index'
-import { Route as LayoutProfileIndexImport } from './routes/_layout/profile/index'
 import { Route as LayoutNewsIndexImport } from './routes/_layout/news/index'
 import { Route as LayoutEventsIndexImport } from './routes/_layout/events/index'
 import { Route as LayoutCategoriesIndexImport } from './routes/_layout/categories/index'
@@ -54,11 +53,6 @@ const LayoutReservationsIndexRoute = LayoutReservationsIndexImport.update({
 
 const LayoutReportsIndexRoute = LayoutReportsIndexImport.update({
   path: '/reports/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutProfileIndexRoute = LayoutProfileIndexImport.update({
-  path: '/profile/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -210,13 +204,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutNewsIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/profile/': {
-      id: '/_layout/profile/'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof LayoutProfileIndexImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/reports/': {
       id: '/_layout/reports/'
       path: '/reports'
@@ -268,7 +255,6 @@ interface LayoutRouteChildren {
   LayoutCategoriesIndexRoute: typeof LayoutCategoriesIndexRoute
   LayoutEventsIndexRoute: typeof LayoutEventsIndexRoute
   LayoutNewsIndexRoute: typeof LayoutNewsIndexRoute
-  LayoutProfileIndexRoute: typeof LayoutProfileIndexRoute
   LayoutReportsIndexRoute: typeof LayoutReportsIndexRoute
   LayoutReservationsIndexRoute: typeof LayoutReservationsIndexRoute
   LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute
@@ -287,7 +273,6 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutCategoriesIndexRoute: LayoutCategoriesIndexRoute,
   LayoutEventsIndexRoute: LayoutEventsIndexRoute,
   LayoutNewsIndexRoute: LayoutNewsIndexRoute,
-  LayoutProfileIndexRoute: LayoutProfileIndexRoute,
   LayoutReportsIndexRoute: LayoutReportsIndexRoute,
   LayoutReservationsIndexRoute: LayoutReservationsIndexRoute,
   LayoutUsersIndexRoute: LayoutUsersIndexRoute,
@@ -311,7 +296,6 @@ export interface FileRoutesByFullPath {
   '/categories': typeof LayoutCategoriesIndexRoute
   '/events': typeof LayoutEventsIndexRoute
   '/news': typeof LayoutNewsIndexRoute
-  '/profile': typeof LayoutProfileIndexRoute
   '/reports': typeof LayoutReportsIndexRoute
   '/reservations': typeof LayoutReservationsIndexRoute
   '/users': typeof LayoutUsersIndexRoute
@@ -332,7 +316,6 @@ export interface FileRoutesByTo {
   '/categories': typeof LayoutCategoriesIndexRoute
   '/events': typeof LayoutEventsIndexRoute
   '/news': typeof LayoutNewsIndexRoute
-  '/profile': typeof LayoutProfileIndexRoute
   '/reports': typeof LayoutReportsIndexRoute
   '/reservations': typeof LayoutReservationsIndexRoute
   '/users': typeof LayoutUsersIndexRoute
@@ -354,7 +337,6 @@ export interface FileRoutesById {
   '/_layout/categories/': typeof LayoutCategoriesIndexRoute
   '/_layout/events/': typeof LayoutEventsIndexRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
-  '/_layout/profile/': typeof LayoutProfileIndexRoute
   '/_layout/reports/': typeof LayoutReportsIndexRoute
   '/_layout/reservations/': typeof LayoutReservationsIndexRoute
   '/_layout/users/': typeof LayoutUsersIndexRoute
@@ -377,7 +359,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/events'
     | '/news'
-    | '/profile'
     | '/reports'
     | '/reservations'
     | '/users'
@@ -397,7 +378,6 @@ export interface FileRouteTypes {
     | '/categories'
     | '/events'
     | '/news'
-    | '/profile'
     | '/reports'
     | '/reservations'
     | '/users'
@@ -417,7 +397,6 @@ export interface FileRouteTypes {
     | '/_layout/categories/'
     | '/_layout/events/'
     | '/_layout/news/'
-    | '/_layout/profile/'
     | '/_layout/reports/'
     | '/_layout/reservations/'
     | '/_layout/users/'
@@ -465,7 +444,6 @@ export const routeTree = rootRoute
         "/_layout/categories/",
         "/_layout/events/",
         "/_layout/news/",
-        "/_layout/profile/",
         "/_layout/reports/",
         "/_layout/reservations/",
         "/_layout/users/",
@@ -514,10 +492,6 @@ export const routeTree = rootRoute
     },
     "/_layout/news/": {
       "filePath": "_layout/news/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/profile/": {
-      "filePath": "_layout/profile/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/reports/": {

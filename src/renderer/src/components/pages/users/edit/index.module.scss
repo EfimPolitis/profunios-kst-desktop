@@ -1,5 +1,5 @@
 .page {
-  height: 100svh;
+  height: calc(100svh - 80px);
   width: 100%;
   display: flex;
   align-items: center;

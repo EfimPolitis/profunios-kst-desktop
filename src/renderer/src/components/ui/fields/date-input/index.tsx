@@ -1,7 +1,7 @@
 import {
-  CSSProperties,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
+  type CSSProperties,
+  type DetailedHTMLProps,
+  type InputHTMLAttributes,
   forwardRef
 } from 'react'
 
@@ -9,7 +9,7 @@ import styles from './index.module.scss'
 
 interface IDateInput {
   style?: CSSProperties
-  type?: 'datetime-local' | 'date'
+  type?: 'datetime-local' | 'date' | 'time'
 }
 
 type TypeDateInput = IDateInput &
@@ -21,7 +21,7 @@ export const DateInput = forwardRef<HTMLInputElement, TypeDateInput>(
     return (
       <input
         className={styles.date_input}
-        style={{ ...style, width: initialType === 'date' ? '200px' : '260px' }}
+        style={{ ...style }}
         ref={ref}
         type={initialType}
         {...rest}

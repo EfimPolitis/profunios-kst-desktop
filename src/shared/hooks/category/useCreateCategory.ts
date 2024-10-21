@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import { ICategory } from '@shared/types/category.types'
+import type { ICategory } from '@shared/types/category.types'
 
 export const useCreateCategory = () => {
   const queryClient = useQueryClient()
@@ -13,11 +13,11 @@ export const useCreateCategory = () => {
     isSuccess,
     error
   } = useMutation({
-    mutationKey: TanStackQueryKey.createCategory,
+    mutationKey: [TanStackQueryKey.createCategory],
     mutationFn: (data: ICategory) => window.api.createCategory(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: TanStackQueryKey.getCategories
+        queryKey: [TanStackQueryKey.getCategories]
       })
     }
   })

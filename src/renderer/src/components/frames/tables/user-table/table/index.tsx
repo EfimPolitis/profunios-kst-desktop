@@ -1,4 +1,4 @@
-import { IUser } from '@shared/types/user.types'
+import type { IUser } from '@shared/types/user.types'
 
 import { useDeleteUser } from '@shared/hooks/user/useDeleteUser'
 

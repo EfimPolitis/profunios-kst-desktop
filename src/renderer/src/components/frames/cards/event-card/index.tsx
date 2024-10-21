@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, Edit2, Trash2 } from 'lucide-react'
-import { FC } from 'react'
+import type { FC } from 'react'
 
-import { IEventCard } from '@shared/types/event.types'
+import type { IEventCard } from '@shared/types/event.types'
 
 import { URL_PAGES } from '@shared/config/url.config'
 

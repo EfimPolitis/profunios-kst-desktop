@@ -1,11 +1,9 @@
 import cn from 'clsx'
-import { Check } from 'lucide-react'
-import React from 'react'
-
-import { Loader } from '@/components/ui'
+import { Check, X } from 'lucide-react'
 
 import styles from './index.module.scss'
-import { IButton } from './index.types'
+import type { IButton } from './index.types'
+import { Loader } from '@/components/ui'
 
 export const Button = ({
   isPending,
@@ -17,19 +15,15 @@ export const Button = ({
   className,
   disabled,
   onClick,
-  style,
-  isSmall
+  style
 }: IButton) => {
   return (
     <button
       type={type}
-      className={cn(
-        isSmall ? styles.small : styles.standart,
-        isSuccess && styles.success,
-        isError && styles.error,
-        styles.btn,
-        className
-      )}
+      className={cn(styles.btn, className, {
+        [styles.success]: isSuccess,
+        [styles.error]: isError
+      })}
       disabled={disabled}
       onClick={onClick}
       style={style}
@@ -42,7 +36,10 @@ export const Button = ({
           <Check />
         </p>
       ) : isError ? (
-        <p>Произошла ошибка</p>
+        <p>
+          Ошибка
+          <X />
+        </p>
       ) : (
         text
       )}

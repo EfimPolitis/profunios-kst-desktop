@@ -2,13 +2,13 @@ import { useParams } from '@tanstack/react-router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Controller,
-  FieldErrors,
-  SubmitHandler,
+  type FieldErrors,
+  type SubmitHandler,
   useForm
 } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import { IEventFormData, TypeImage } from '@shared/types/event.types'
+import type { IEventFormData, TypeImage } from '@shared/types/event.types'
 
 import { useGetCategories } from '@shared/hooks/category/useGetCategories'
 import { useCreateEvent } from '@shared/hooks/event/useCreateEvent'

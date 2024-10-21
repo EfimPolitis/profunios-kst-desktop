@@ -1,7 +1,7 @@
 .page {
+  height: calc(100svh - 80px);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100svh;
 }

@@ -3,8 +3,8 @@ import { AtSign, Lock, User, UserCog } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import {
   Controller,
-  FieldErrors,
-  SubmitHandler,
+  type FieldErrors,
+  type SubmitHandler,
   useForm
 } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -42,7 +42,6 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
 
     useEffect(() => {
       if (user) {
-        console.log(user)
         setValues({
           userName: user.userName,
           firstName: user.firstName,
@@ -83,7 +82,6 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
 
   const onSubmit: SubmitHandler<IFormData> = data => {
     isEditing ? updateUser({ data, userId }) : authUser(data)
-    console.log(data)
   }
 
   const onError = (errors: FieldErrors<IFormData>) => {
@@ -152,7 +150,7 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
           isPassword
           Icon={Lock}
           type='password'
-          {...register('password', isEditing ? formRules.password : {})}
+          {...register('password', isEditing ? {} : formRules.password)}
         />
         <Button
           text={isLogin ? 'Войти' : isEditing ? 'Редактировать' : 'Создать'}

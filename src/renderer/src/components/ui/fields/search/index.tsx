@@ -1,16 +1,25 @@
 import { SearchIcon, X } from 'lucide-react'
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
+import type { IQueryParam } from '@shared/types/filter.types'
+
+import { useDebounce } from '@shared/hooks/useDebounce'
 
 import styles from './index.module.scss'
 
 interface ISearch {
   placeholder: string
-  value: string
-  setValue: Dispatch<SetStateAction<any>>
+  updateQueryParam: (data: { key: keyof IQueryParam; value: string }) => void
 }
 
-export const Search = ({ placeholder, value, setValue }: ISearch) => {
+export const Search = ({ placeholder, updateQueryParam }: ISearch) => {
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const [debounceSearch, search, setSearch] = useDebounce('', 500)
+
+  useEffect(() => {
+    updateQueryParam({ key: 'search', value: search })
+  }, [debounceSearch])
 
   return (
     <div className={styles.search}>
@@ -19,15 +28,15 @@ export const Search = ({ placeholder, value, setValue }: ISearch) => {
         type='text'
         placeholder={placeholder}
         className={styles.search_input}
-        value={value}
+        value={search}
         ref={inputRef}
-        onChange={event => setValue(event.target.value)}
+        onChange={event => setSearch(event.target.value)}
       />
-      {value && (
+      {search && (
         <X
           className={styles.close}
           onClick={() => {
-            setValue('')
+            setSearch('')
             if (inputRef.current) inputRef.current.focus()
           }}
         />

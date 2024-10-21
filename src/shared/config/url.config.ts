@@ -1,7 +1,6 @@
 class UrlPages {
   HOME = '/'
   LOGIN = '/login'
-  PROFILE = '/profile'
 
   MANAGE_USERS = '/users'
   CREATE_USER = `${this.MANAGE_USERS}/create`

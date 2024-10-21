@@ -4,7 +4,7 @@ import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
 export const useGetEventById = (eventId: string) => {
   const { data, isLoading, isPending, isFetching, error } = useQuery({
-    queryKey: TanStackQueryKey.getEventById,
+    queryKey: [TanStackQueryKey.getEventById],
     queryFn: () => window.api.getEventById(eventId)
   })
 

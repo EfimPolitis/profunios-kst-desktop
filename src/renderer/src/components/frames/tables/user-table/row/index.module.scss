@@ -15,13 +15,16 @@ tr {
     padding: 15px 10px;
     font-size: 16px;
     vertical-align: top;
+    white-space: nowrap;
+  }
 
-    .ellipsis {
-      margin-top: 2px;
-      color: #5d5d5d;
-      cursor: pointer;
-      opacity: 0;
-    }
+  .count {
+    width: 60px;
+    text-align: center;
+  }
+
+  .date {
+    width: 110px;
   }
 
   .menu {

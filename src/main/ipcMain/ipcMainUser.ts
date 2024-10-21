@@ -1,12 +1,12 @@
 import { ipcMain } from 'electron'
 
-import { IFormData } from '@shared/types/auth.types'
-import { IGetData } from '@shared/types/sort.types'
+import type { IFormData } from '@shared/types/auth.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
 import { userService } from '../services/user.service'
 
 export const ipcMainUser = () => {
-  ipcMain.handle('getUsers', (_, search: IGetData) =>
+  ipcMain.handle('getUsers', (_, search: IQueryParam) =>
     userService.getUsers(search)
   )
 

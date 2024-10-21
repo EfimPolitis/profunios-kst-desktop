@@ -1,5 +1,5 @@
 import { Loader2 } from 'lucide-react'
-import { CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 
 import styles from './index.module.scss'
 

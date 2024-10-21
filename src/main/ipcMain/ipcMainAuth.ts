@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
 
-import { IFormData } from '@shared/types/auth.types'
+import type { IFormData } from '@shared/types/auth.types'
 
 import { authService } from '../services/auth/auth.service'
 

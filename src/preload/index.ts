@@ -1,11 +1,11 @@
 import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer } from 'electron'
 
-import { IApplicationData } from '@shared/types/application.types'
-import { IFormData } from '@shared/types/auth.types'
-import { ICategory } from '@shared/types/category.types'
-import { IEventFormData } from '@shared/types/event.types'
-import { IGetData } from '@shared/types/sort.types'
+import type { IApplicationData } from '@shared/types/application.types'
+import type { IFormData } from '@shared/types/auth.types'
+import type { ICategory } from '@shared/types/category.types'
+import type { IEventFormData } from '@shared/types/event.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
 // Custom APIs for renderer
 const api = {
@@ -18,7 +18,8 @@ const api = {
   //user
   getUser: (userId: string) => ipcRenderer.invoke('getUser', userId),
   getProfile: () => ipcRenderer.invoke('getProfile'),
-  getUsers: (search: IGetData) => ipcRenderer.invoke('getUsers', search),
+  getUsers: (queryData: IQueryParam) =>
+    ipcRenderer.invoke('getUsers', queryData),
 
   updateUser: (data: IFormData, userId: string) =>
     ipcRenderer.invoke('updateUser', data, userId),
@@ -27,7 +28,8 @@ const api = {
   //event
   getEventById: (eventId: string) =>
     ipcRenderer.invoke('getEventById', eventId),
-  getEvents: (search: IGetData) => ipcRenderer.invoke('getEvents', search),
+  getEvents: (queryData: IQueryParam) =>
+    ipcRenderer.invoke('getEvents', queryData),
   createEvent: (data: IEventFormData) =>
     ipcRenderer.invoke('createEvent', data),
   updateEvent: (data: IEventFormData, eventId: string) =>
@@ -40,15 +42,15 @@ const api = {
   createBuffer: (arrayBuffer: ArrayBuffer) => Buffer.from(arrayBuffer),
 
   //application
-  getApplications: (data: IGetData) =>
-    ipcRenderer.invoke('getApplications', data),
+  getApplications: (queryData: IQueryParam) =>
+    ipcRenderer.invoke('getApplications', queryData),
   createApplication: (data: IApplicationData) =>
     ipcRenderer.invoke('createApplication', data),
   sendStatusApplication: (status: string, id: string) =>
     ipcRenderer.invoke('sendStatusApplication', status, id),
 
   //reservations
-  getReservations: (data: IGetData) =>
+  getReservations: (data: IQueryParam) =>
     ipcRenderer.invoke('getReservations', data),
 
   //category

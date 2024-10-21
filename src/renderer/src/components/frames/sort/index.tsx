@@ -1,14 +1,17 @@
 import cn from 'clsx'
 import { ArrowDownUp, ChevronDown, ChevronUp } from 'lucide-react'
+import { useState } from 'react'
 
-import { EType, ISort } from '@shared/types/sort.types'
+import { EnumOrder, type ISort } from '@shared/types/filter.types'
 
 import { useOutside } from '@shared/hooks/useOutside'
 
 import styles from './index.module.scss'
 
-export const Sort = ({ list, sort, setSort, type, setType }: ISort) => {
+export const Sort = ({ data, value, updateQueryParam }: ISort) => {
   const { isShow, setIsShow, ref } = useOutside(false)
+
+  const [order, setOrder] = useState(EnumOrder.ASC)
 
   return (
     <div
@@ -21,7 +24,7 @@ export const Sort = ({ list, sort, setSort, type, setType }: ISort) => {
           className={styles.selected}
           onClick={() => setIsShow(!isShow)}
         >
-          <span>{sort?.label}</span>
+          <span>{value?.value}</span>
           {isShow ? (
             <ChevronDown className={styles.icon} />
           ) : (
@@ -29,10 +32,18 @@ export const Sort = ({ list, sort, setSort, type, setType }: ISort) => {
           )}
         </div>
         <button
-          className={cn(styles.order, type === EType.desc && styles.active)}
-          onClick={() => setType(type === EType.asc ? EType.desc : EType.asc)}
+          className={cn(
+            styles.order,
+            order === EnumOrder.DESC && styles.active
+          )}
+          onClick={() => {
+            setOrder(order === EnumOrder.ASC ? EnumOrder.DESC : EnumOrder.ASC)
+            updateQueryParam({ key: 'order', value: order })
+          }}
           title={
-            type === EType.asc ? 'В порядке убывания' : 'В порядке возрастания'
+            order === EnumOrder.ASC
+              ? 'В порядке убывания'
+              : 'В порядке возрастания'
           }
         >
           <ArrowDownUp size={24} />
@@ -41,15 +52,15 @@ export const Sort = ({ list, sort, setSort, type, setType }: ISort) => {
       {isShow && (
         <div className={styles.menu}>
           <ul>
-            {list.map(item => (
+            {data.map(item => (
               <li
                 onClick={() => {
-                  setSort(item)
+                  updateQueryParam({ key: 'sort', value: item.key })
                   setIsShow(!isShow)
                 }}
-                key={item.value}
+                key={item.key}
               >
-                {item.label}
+                {item.value}
               </li>
             ))}
           </ul>

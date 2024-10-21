@@ -1,7 +1,7 @@
 @import '@/styles/_variables';
 
 .table_container {
-  height: 610px;
+  height: 550px;
 
   .table {
     background-color: rgb(var(--secondary-color));
@@ -30,6 +30,10 @@
             border-radius: 0 8px 8px 0;
           }
         }
+
+        .ticketsCount {
+          text-align: center;
+        }
       }
     }
 
@@ -46,16 +50,18 @@
         td {
           text-align: left;
           border: none;
-          padding: 15px 10px;
+          padding: 10px 15px;
           font-size: 16px;
           vertical-align: top;
+        }
 
-          .ellipsis {
-            margin-top: 2px;
-            color: #5d5d5d;
-            cursor: pointer;
-            opacity: 0;
-          }
+        .ticketsCount {
+          text-align: center;
+        }
+
+        .count {
+          width: 60px;
+          text-align: center;
         }
       }
     }

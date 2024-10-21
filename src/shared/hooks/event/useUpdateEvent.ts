@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import { IEventFormData } from '@shared/types/event.types'
+import type { IEventFormData } from '@shared/types/event.types'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
@@ -18,7 +18,7 @@ export const useUpdateEvent = () => {
     isSuccess: isSuccessUpdate,
     error: updateError
   } = useMutation({
-    mutationKey: TanStackQueryKey.updateEvent,
+    mutationKey: [TanStackQueryKey.updateEvent],
     mutationFn: ({
       data,
       eventId
@@ -32,13 +32,12 @@ export const useUpdateEvent = () => {
     onSuccess: () => {
       toast.dismiss()
       toast.success('Мероприятие успешно обнавленно')
-      queryClient.invalidateQueries({ queryKey: TanStackQueryKey.getEvents })
+      queryClient.invalidateQueries({ queryKey: [TanStackQueryKey.getEvents] })
       navigate({ to: URL_PAGES.MANAGE_EVENTS })
     },
-    onError: error => {
+    onError: () => {
       toast.dismiss()
       toast.error('Произошла ошибка')
-      console.log(error)
     }
   })
 

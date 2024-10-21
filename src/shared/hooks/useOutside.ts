@@ -1,4 +1,11 @@
-import { Dispatch, RefObject, SetStateAction, useEffect, useRef, useState } from 'react'
+import {
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 
 type TypeOut = {
   ref: RefObject<HTMLDivElement> | undefined

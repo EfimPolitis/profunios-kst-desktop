@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import { IResponseCategory } from '@shared/types/category.types'
+import type { IResponseCategory } from '@shared/types/category.types'
 
 export const useGetCategories = () => {
   const { data, isLoading, error } = useQuery({
-    queryKey: TanStackQueryKey.getCategories,
+    queryKey: [TanStackQueryKey.getCategories],
     queryFn: () => window.api.getCategories()
   })
 

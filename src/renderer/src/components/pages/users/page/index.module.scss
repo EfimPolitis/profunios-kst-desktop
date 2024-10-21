@@ -5,47 +5,75 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
-  gap: 20px;
+  overflow-y: scroll;
+  padding-top: 20px;
+  padding-bottom: 20px;
 
-  .top {
-    margin-bottom: 40px;
+  .wrap {
     display: flex;
-    align-items: center;
-    gap: 40px;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
 
-    .create_user {
-      width: 35px;
-      height: 35px;
+    .top {
       display: flex;
       align-items: center;
-      padding: 5px;
-      border-radius: 5px;
-      background-color: rgb(var(--secondary-color));
-      color: rgb(var(--text-color));
-      cursor: pointer;
-      transition: all linear 0.2s;
+      gap: 40px;
 
-      &:hover {
-        background-color: rgb(var(--secondary-color-hover));
+      .create_user {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
+
+        &:hover {
+          background-color: rgb(var(--secondary-color-hover));
+        }
       }
-    }
 
-    .getReport {
-      width: 35px;
-      height: 35px;
-      display: flex;
-      align-items: center;
-      border: none;
-      padding: 5px;
-      border-radius: 5px;
-      background-color: rgb(var(--secondary-color));
-      color: rgb(var(--text-color));
-      cursor: pointer;
-      transition: all linear 0.2s;
+      .getReport {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
 
-      &:hover {
+        &:hover {
+          background-color: rgb(var(--secondary-color-hover));
+        }
+      }
+
+      .filter {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
+      }
+
+      .active {
         background-color: rgb(var(--secondary-color-hover));
       }
     }

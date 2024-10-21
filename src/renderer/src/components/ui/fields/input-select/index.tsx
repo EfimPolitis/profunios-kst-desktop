@@ -5,15 +5,17 @@ import { useEffect, useState } from 'react'
 import { useOutside } from '@shared/hooks/useOutside'
 
 import styles from './index.module.scss'
-import { TypeInputSelectProps } from './index.types'
+import type { TypeInputSelectProps } from './index.types'
 
 export const InputSelect = ({
-  style,
-  className,
   initialValue,
   setState,
-  variants,
+  data,
   Icon,
+  top,
+  updateQueryParam,
+  queryKey,
+  style,
   ...rest
 }: TypeInputSelectProps) => {
   const [value, setValue] = useState(initialValue)
@@ -25,18 +27,21 @@ export const InputSelect = ({
 
   return (
     <div
-      className={cn(styles.inputSelect, className)}
+      className={cn(styles.inputSelect)}
       ref={ref}
     >
-      <div className={styles.input}>
+      <div
+        className={styles.input}
+        style={style}
+      >
         {Icon && (
           <div className={styles.icon}>
-            <Icon />
+            <Icon size={30} />
           </div>
         )}
         <input
-          style={style}
           value={value}
+          readOnly
           {...rest}
         />
         <div
@@ -47,16 +52,21 @@ export const InputSelect = ({
         </div>
       </div>
       {isShow && (
-        <div className={styles.menu}>
+        <div
+          className={styles.menu}
+          style={{ top: `${top}px` }}
+        >
           <ul>
-            {variants.map(item => (
+            {data?.map(item => (
               <li
                 onClick={() => {
-                  setState(item.value)
+                  if (updateQueryParam && queryKey)
+                    updateQueryParam({ key: queryKey, value: item.key })
+                  if (setState) setState(item.key)
                   setValue(item.label)
                   setIsShow(!isShow)
                 }}
-                key={item.value}
+                key={item.key}
               >
                 {item.label}
               </li>

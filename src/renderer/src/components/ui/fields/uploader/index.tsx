@@ -1,15 +1,15 @@
 import { Download, File, Plus, Trash2, X } from 'lucide-react'
 import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
+  type ChangeEvent,
+  type Dispatch,
+  type SetStateAction,
   memo,
   useEffect,
   useRef,
   useState
 } from 'react'
 
-import { TypeImage } from '@shared/types/event.types'
+import type { TypeImage } from '@shared/types/event.types'
 
 import styles from './index.module.scss'
 

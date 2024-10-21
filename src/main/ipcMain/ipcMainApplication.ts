@@ -1,12 +1,12 @@
 import { ipcMain } from 'electron'
 
-import { IApplicationData } from '@shared/types/application.types'
-import { IGetData } from '@shared/types/sort.types'
+import type { IApplicationData } from '@shared/types/application.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
 import { applicationService } from '../services/application.service'
 
 export const ipcMainApplication = () => {
-  ipcMain.handle('getApplications', (_, data: IGetData) =>
+  ipcMain.handle('getApplications', (_, data: IQueryParam) =>
     applicationService.getAll(data)
   )
 

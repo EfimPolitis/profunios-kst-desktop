@@ -1,4 +1,4 @@
-import { IReservation } from '@shared/types/reservation.types'
+import type { IReservation } from '@shared/types/reservation.types'
 
 import styles from './index.module.scss'
 import { Loader } from '@/components/ui'
@@ -20,7 +20,7 @@ export const ReservationTable = ({
             <td></td>
             <td>Пользователь</td>
             <td>Мероприятие</td>
-            <td>Количество билетов</td>
+            <td className={styles.ticketsCount}>Количество билетов</td>
             <td>Забронированно</td>
           </tr>
         </thead>
@@ -28,11 +28,15 @@ export const ReservationTable = ({
           {isLoading ||
             reservations?.map((reservation, i) => (
               <tr key={reservation.id}>
-                <td>{i + 1}</td>
+                <td className={styles.count}>{i + 1}</td>
                 <td>{reservation.user.userName}</td>
                 <td>{reservation.events.title}</td>
-                <td>{reservation.ticketsCount}</td>
-                <td>{reservation.createdAt.slice(0, 10)}</td>
+                <td className={styles.ticketsCount}>
+                  {reservation.ticketsCount}
+                </td>
+                <td className={styles.date}>
+                  {reservation.createdAt.slice(0, 10)}
+                </td>
               </tr>
             ))}
         </tbody>

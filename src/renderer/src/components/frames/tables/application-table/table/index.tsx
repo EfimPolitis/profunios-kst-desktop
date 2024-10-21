@@ -1,4 +1,4 @@
-import { IApplication } from '@shared/types/application.types'
+import type { IApplication } from '@shared/types/application.types'
 
 import { TableRow } from '../row'
 
@@ -23,7 +23,7 @@ export const ApplicationTable = ({
             <td>ФИО</td>
             <td>Мероприятие</td>
             <td>Статус</td>
-            <td>Количество билетов</td>
+            <td className={styles.ticketsCount}>Количество билетов</td>
             <td>Создан</td>
             <td>Обновлён</td>
             <td></td>

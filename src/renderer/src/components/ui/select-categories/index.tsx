@@ -1,20 +1,26 @@
 import { X } from 'lucide-react'
-import { Dispatch, SetStateAction, memo, useEffect, useState } from 'react'
+import {
+  type Dispatch,
+  type SetStateAction,
+  memo,
+  useEffect,
+  useState
+} from 'react'
 
-import { IResponseCategories } from '@shared/types/category.types'
+import type { IResponseCategory } from '@shared/types/category.types'
 
 import styles from './index.module.scss'
 
 interface ISelectCategories {
   onChange: Dispatch<SetStateAction<string[]>>
   value: string[]
-  categories: IResponseCategories[]
+  categories: IResponseCategory[]
 }
 
 export const SelectCategories = memo(
   ({ onChange, value, categories }: ISelectCategories) => {
     const [categoriesName, setCategoriesName] = useState<string[]>([])
-    const onClickCategory = (category: IResponseCategories) => {
+    const onClickCategory = (category: IResponseCategory) => {
       onChange(
         [...value, category.id].filter(
           (item, pos) => [...value, category.id].indexOf(item) == pos

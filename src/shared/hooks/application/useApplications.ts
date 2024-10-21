@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import { IGetData } from '@shared/types/sort.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
-export const useApplications = (search: IGetData) => {
+export const useApplications = (queryData: IQueryParam, enabled: boolean) => {
   const { data, isLoading, isFetching, refetch } = useQuery({
-    queryKey: TanStackQueryKey.getApplications,
-    queryFn: () => window.api.getApplications(search)
+    queryKey: [TanStackQueryKey.getApplications, queryData],
+    queryFn: () => window.api.getApplications(queryData),
+    enabled: enabled
   })
 
   return { data, isLoading, isFetching, refetch }

@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import { IGetData } from '@shared/types/sort.types'
+import type { IQueryParam } from '@shared/types/filter.types'
 
-export const useGetReservation = (searchData: IGetData) => {
+export const useGetReservation = (queryData: IQueryParam, enabled: boolean) => {
   const { data, isLoading, isPending, isFetching, refetch, error } = useQuery({
-    queryKey: TanStackQueryKey.getReservations,
-    queryFn: () => window.api.getReservations(searchData)
+    queryKey: [TanStackQueryKey.getReservations, queryData],
+    queryFn: () => window.api.getReservations(queryData),
+    enabled: enabled
   })
 
   return { data, isLoading, isPending, isFetching, refetch, error }

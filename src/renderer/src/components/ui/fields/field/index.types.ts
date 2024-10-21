@@ -1,6 +1,6 @@
-import { LucideIcon } from 'lucide-react'
-import { InputHTMLAttributes } from 'react'
-import { FieldError } from 'react-hook-form'
+import type { LucideIcon } from 'lucide-react'
+import type { InputHTMLAttributes } from 'react'
+import type { FieldError } from 'react-hook-form'
 
 export interface IFieldProps {
   placeholder?: string

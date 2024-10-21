@@ -1,6 +1,9 @@
 @import '@/styles/_variables';
 
 .btn {
+  height: 60px;
+  font-size: 20px;
+  border-radius: 10px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -24,10 +27,10 @@
 }
 
 .success {
-  background-color: #12ae01;
+  background-color: #0c7400;
 
   &:hover {
-    background-color: #12ae01;
+    background-color: #158b07;
   }
 }
 
@@ -42,16 +45,4 @@
 .btn:disabled {
   cursor: not-allowed;
   background-color: #888;
-}
-
-.standart {
-  height: 60px;
-  font-size: 20px;
-  border-radius: 10px;
-}
-
-.small {
-  height: 40px;
-  font-size: 14px;
-  border-radius: 6px;
 }

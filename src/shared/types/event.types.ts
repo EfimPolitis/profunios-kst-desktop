@@ -1,4 +1,4 @@
-import { IResponseCategory } from './category.types'
+import type { IResponseCategory } from './category.types'
 
 export type TypeImage = {
   id: string

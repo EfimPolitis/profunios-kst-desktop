@@ -1,6 +1,6 @@
 import { EventCard } from './cards/event-card'
 import { EventCardSkeleton } from './cards/event-card/index.skeleton'
-import { EventFilter } from './filters/event-filter'
+import { FilterComponent } from './filter'
 import AuthForm from './forms/auth-form'
 import { EventForm } from './forms/event-form'
 import { ListRowParent } from './list-view/list-row-parent'
@@ -16,6 +16,6 @@ export {
   EventCardSkeleton,
   ListRowParent,
   Sort,
-  EventFilter,
+  FilterComponent,
   Pagination
 }

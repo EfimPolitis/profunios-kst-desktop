@@ -1,19 +1,22 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
 import { AxiosResponse } from 'axios'
 
-import {
+import type {
   IApplicationData,
   IResponeApplications
 } from '@shared/types/application.types'
-import { IFormData } from '@shared/types/auth.types'
-import { ICategory, IResponseCategories } from '@shared/types/category.types'
-import {
+import type { IFormData } from '@shared/types/auth.types'
+import type {
+  ICategory,
+  IResponseCategories
+} from '@shared/types/category.types'
+import type {
   IEvent,
   IEventFormData,
   IResponseEvents
 } from '@shared/types/event.types'
-import { IGetData } from '@shared/types/sort.types'
-import {
+import type { IQueryParam } from '@shared/types/filter.types'
+import type {
   IProfileResponse,
   IResponseUsers,
   IUser
@@ -35,7 +38,7 @@ declare global {
       getUser: (userId: string) => AxiosResponse<IUser, any> | undefined
       getProfile: () => Promise<IProfileResponse>
       getUsers: (
-        search: IGetData
+        queryData: IQueryParam
       ) => AxiosResponse<IResponseUsers, any> | undefined
       updateUser: (data: IFormData, userId: string) => Promise<any>
       deleteUser: (id: string) => Promise<any>
@@ -43,7 +46,7 @@ declare global {
       //event
       getEventById: (eventId: string) => AxiosResponse<IEvent, any> | undefined
       getEvents: (
-        search: IGetData
+        queryData: IQueryParam
       ) => AxiosResponse<IResponseEvents, any> | undefined
       createEvent: (data: IEventFormData) => Promise<any>
       updateEvent: (data: IEventFormData, eventId: string) => Promise<any>
@@ -51,7 +54,7 @@ declare global {
 
       //applications
       getApplications: (
-        data: IGetData
+        queryData: IQueryParam
       ) => AxiosResponse<IResponeApplications, any> | undefined
       createApplication: (
         data: IApplicationData
@@ -63,7 +66,7 @@ declare global {
 
       //reservations
       getReservations: (
-        data: IGetData
+        queryData: IQueryParam
       ) => AxiosResponse<IResponseReservations, any> | undefined
 
       //image

@@ -1,8 +1,8 @@
 import cn from 'clsx'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { CSSProperties, useState } from 'react'
+import { type CSSProperties, useState } from 'react'
 
-import { TypeImage } from '@shared/types/event.types'
+import type { TypeImage } from '@shared/types/event.types'
 
 import styles from './index.module.scss'
 

@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 
-import { IResponseCategory } from '@shared/types/category.types'
+import type { IResponseCategory } from '@shared/types/category.types'
 
 import styles from './index.module.scss'
 

@@ -10,14 +10,14 @@ export const useDeleteUser = () => {
     isPending,
     error
   } = useMutation({
-    mutationKey: TanStackQueryKey.deleteUser,
+    mutationKey: [TanStackQueryKey.deleteUser],
     mutationFn: (id: string) => window.api.deleteUser(id),
     onMutate: () => {
       toast.loading('Загрузка...')
     },
     onSuccess: () => {
       toast.success('Пользователь успешно удалён')
-      queryClient.invalidateQueries({ queryKey: TanStackQueryKey.getUsers })
+      queryClient.invalidateQueries({ queryKey: [TanStackQueryKey.getUsers] })
     },
     onError: () => {
       toast.error('При удалении произошла ошибка')

@@ -1,14 +1,10 @@
-'use client'
-
+import useFiltersStore from '@shared/store/store'
 import { FileText } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { reservationSortList } from '@shared/constants/sort.constants'
 
-import { EType } from '@shared/types/sort.types'
-
 import { useGetReservation } from '@shared/hooks/reservation/useGetReservation'
-import { useDebounce } from '@shared/hooks/useDebounce'
 
 import styles from './index.module.scss'
 import { Pagination, Sort } from '@/components/frames'
@@ -18,20 +14,21 @@ import { Search } from '@/components/ui'
 const ReservationsPage = () => {
   window.api.setTitle('Бронь')
 
-  const [type, setType] = useState<EType>(EType.asc)
-  const [sort, setSort] = useState(reservationSortList[0])
-  const [debounseSearh, search, setSearch] = useDebounce('', 500)
-  const [page, setPage] = useState(0)
-  const { data, isFetching, refetch } = useGetReservation({
-    search,
-    page,
-    sort,
-    type
-  })
+  const { queryParams, isFilterUpdated, updateQueryParam, reset } =
+    useFiltersStore()
+
+  useEffect(() => {
+    reset()
+  }, [])
+
+  const { data, isFetching, refetch } = useGetReservation(
+    queryParams,
+    isFilterUpdated
+  )
 
   useEffect(() => {
     refetch()
-  }, [debounseSearh, page, sort, type, refetch])
+  }, [queryParams])
 
   const reservations = data?.data?.items
   const countPage = data?.data?.countPage
@@ -42,15 +39,14 @@ const ReservationsPage = () => {
         <div className={styles.top}>
           <Search
             placeholder={'Поиск...'}
-            value={search}
-            setValue={setSearch}
+            updateQueryParam={updateQueryParam}
           />
           <Sort
-            list={reservationSortList}
-            sort={sort}
-            setSort={setSort}
-            type={type}
-            setType={setType}
+            data={reservationSortList}
+            value={reservationSortList.find(
+              value => value.key === queryParams.sort
+            )}
+            updateQueryParam={updateQueryParam}
           />
           <button
             className={styles.getReport}
@@ -66,8 +62,7 @@ const ReservationsPage = () => {
       </div>
       <Pagination
         countPage={countPage || 0}
-        value={page}
-        setValue={setPage}
+        updateQueryParam={updateQueryParam}
       />
     </div>
   )

@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, SetStateAction, memo } from 'react'
+import type { CSSProperties, Dispatch, SetStateAction } from 'react'
 
 import styles from './index.module.scss'
 

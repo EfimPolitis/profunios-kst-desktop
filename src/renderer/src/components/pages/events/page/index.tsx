@@ -1,23 +1,20 @@
+import useFiltersStore from '@shared/store/store'
 import { Link } from '@tanstack/react-router'
-import { CalendarPlus, FileText } from 'lucide-react'
+import cn from 'clsx'
+import { CalendarPlus, FileText, Filter } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { eventSortList } from '@shared/constants/sort.constants'
 
-import { FilterField } from '@shared/types/filter.types'
-import { EType } from '@shared/types/sort.types'
-
 import { URL_PAGES } from '@shared/config/url.config'
 
 import { useGetEvents } from '@shared/hooks/event/useGetEvents'
-import { useDebounce } from '@shared/hooks/useDebounce'
-import { useFilter } from '@shared/hooks/useFilter'
 
 import styles from './index.module.scss'
 import {
   EventCard,
   EventCardSkeleton,
-  EventFilter,
+  FilterComponent,
   Pagination,
   Sort
 } from '@/components/frames'
@@ -26,28 +23,26 @@ import { Search } from '@/components/ui'
 const EventsPage = () => {
   window.api.setTitle('Мероприятия')
 
-  const [type, setType] = useState<EType>(EType.asc)
-  const [sort, setSort] = useState(eventSortList[0])
-  const [page, setPage] = useState(0)
-  const [debounceSearch, search, setSearch] = useDebounce('', 500)
+  const { queryParams, isFilterUpdated, updateQueryParam, reset } =
+    useFiltersStore()
 
-  const handleFilterChange = (filters: { [key: string]: string | null }) => {
-    console.log(filters)
-  }
+  const { data, isFetching, refetch } = useGetEvents(
+    queryParams,
+    isFilterUpdated
+  )
 
-  const { data, isFetching, refetch } = useGetEvents({
-    page,
-    search,
-    sort,
-    type
-  })
+  useEffect(() => {
+    reset()
+  }, [])
 
   useEffect(() => {
     refetch()
-  }, [debounceSearch, page, sort, type, refetch])
+  }, [queryParams])
 
   const events = data?.data?.items
   const countPage = data?.data?.countPage
+
+  const [isOpenFilter, setIsOpenFilter] = useState(false)
 
   return (
     <div className={styles.page}>
@@ -55,16 +50,22 @@ const EventsPage = () => {
         <div className={styles.top}>
           <Search
             placeholder='Поиск...'
-            value={search}
-            setValue={setSearch}
+            updateQueryParam={updateQueryParam}
           />
           <Sort
-            list={eventSortList}
-            sort={sort}
-            setSort={setSort}
-            type={type}
-            setType={setType}
+            data={eventSortList}
+            value={eventSortList.find(value => value.key === queryParams.sort)}
+            updateQueryParam={updateQueryParam}
           />
+          <button
+            className={cn(styles.filter, {
+              [styles.active]: isOpenFilter
+            })}
+            title={isOpenFilter ? 'Закрыть фильтры' : 'Открыть фильтры'}
+            onClick={() => setIsOpenFilter(!isOpenFilter)}
+          >
+            <Filter size={30} />
+          </button>
           <Link
             to={URL_PAGES.CREATE_EVENT}
             className={styles.create_event}
@@ -79,7 +80,11 @@ const EventsPage = () => {
             <FileText size={30} />
           </button>
         </div>
-        <EventFilter />
+        <FilterComponent
+          isOpen={isOpenFilter}
+          type='event'
+          updateQueryParam={updateQueryParam}
+        />
         <div className={styles.events_block}>
           {isFetching
             ? [...new Array(6)].map((_, i) => <EventCardSkeleton key={i} />)
@@ -99,8 +104,7 @@ const EventsPage = () => {
       </div>
       <Pagination
         countPage={countPage || 0}
-        value={page}
-        setValue={setPage}
+        updateQueryParam={updateQueryParam}
       />
     </div>
   )

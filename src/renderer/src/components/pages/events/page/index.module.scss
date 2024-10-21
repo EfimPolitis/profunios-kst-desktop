@@ -24,7 +24,7 @@
       align-items: center;
       justify-content: start;
       margin-bottom: 20px;
-
+      font-size: 16px;
       flex-wrap: wrap;
 
       .create_event {
@@ -60,6 +60,24 @@
         &:hover {
           background-color: rgb(var(--secondary-color-hover));
         }
+      }
+
+      .filter {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
+      }
+
+      .active {
+        background-color: rgb(var(--secondary-color-hover));
       }
     }
 

@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
-import { IEvent } from '@shared/types/event.types'
+import type { IEvent } from '@shared/types/event.types'
 
 import { useCreateApplication } from '@shared/hooks/application/useCreateApplication'
 
@@ -26,7 +26,8 @@ export const RegisterBlock = ({
     mutate: mutateApplication,
     isPending,
     isSuccess,
-    isError
+    isError,
+    reset
   } = useCreateApplication()
 
   const onClickBtn = (eventId: string, userId: string | undefined) => {
@@ -44,6 +45,8 @@ export const RegisterBlock = ({
 
     mutateApplication(responseData)
   }
+
+  if (isSuccess || isError) setTimeout(() => reset(), 1500)
 
   return (
     <div className={styles.event_card}>
@@ -97,11 +100,7 @@ export const RegisterBlock = ({
         </p>
       ) : (
         <Button
-          text={
-            totalTickets === 0
-              ? 'Все билеты уже забронированны'
-              : 'Забронировать'
-          }
+          text={totalTickets === 0 ? 'Билетов больше нет' : 'Забронировать'}
           onClick={() => onClickBtn(event?.eventId, userId)}
           className={styles.button}
           isPending={isPending}

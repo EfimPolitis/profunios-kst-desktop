@@ -1,20 +1,16 @@
 import { API_URL } from '@shared/constants/api.constants'
 
+import { IQueryParam } from '@shared/types/filter.types'
 import { IResponseReservations } from '@shared/types/reservation.types'
-import { IGetData } from '@shared/types/sort.types'
-
-import { getUrlForRequest } from '@shared/hooks/getUrlForRequest'
 
 import { axiosWithAuth } from '../api/interseptors'
 
 export const reservationService = {
-  async getAll(data: IGetData) {
-    const { url } = getUrlForRequest(data)
-
+  async getAll(queryData = {} as IQueryParam) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.get<IResponseReservations>(
-        `${API_URL}/reservation?${url}`
-      )
+      await axiosWithAuth.get<IResponseReservations>(`${API_URL}/reservation`, {
+        params: queryData
+      })
     return response
   },
 

@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import { IEventFormData } from '@shared/types/event.types'
+import type { IEventFormData } from '@shared/types/event.types'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
@@ -17,7 +17,7 @@ export const useCreateEvent = () => {
     isSuccess: isSuccessCreate,
     error: createError
   } = useMutation({
-    mutationKey: TanStackQueryKey.createEvent,
+    mutationKey: [TanStackQueryKey.createEvent],
     mutationFn: (data: IEventFormData) => window.api.createEvent(data),
     onMutate: () => {
       toast.loading('Загрузка...')
@@ -25,13 +25,12 @@ export const useCreateEvent = () => {
     onSuccess: () => {
       toast.dismiss()
       toast.success('Мероприятие успешно созданно')
-      queryClient.invalidateQueries({ queryKey: TanStackQueryKey.getEvents })
+      queryClient.invalidateQueries({ queryKey: [TanStackQueryKey.getEvents] })
       navigate({ to: URL_PAGES.MANAGE_EVENTS })
     },
-    onError: error => {
+    onError: () => {
       toast.dismiss()
       toast.error('Произошла ошибка')
-      console.log(error)
     }
   })
 

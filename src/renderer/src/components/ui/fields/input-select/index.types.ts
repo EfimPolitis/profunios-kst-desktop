@@ -1,16 +1,21 @@
-import { LucideIcon } from 'lucide-react'
-import { Dispatch, InputHTMLAttributes, SetStateAction } from 'react'
+import type { LucideIcon } from 'lucide-react'
+import type { Dispatch, InputHTMLAttributes, SetStateAction } from 'react'
 
-interface IVariant {
+import type { IQueryParam } from '@shared/types/filter.types'
+
+interface IData {
+  key: string
   label: string
-  value: string
 }
 
 export interface IFieldProps {
-  variants: IVariant[]
+  data?: IData[]
   Icon?: LucideIcon
-  setState: Dispatch<SetStateAction<string>>
-  initialValue: string
+  setState?: Dispatch<SetStateAction<string>>
+  initialValue?: string
+  updateQueryParam?: (data: { key: keyof IQueryParam; value: string }) => void
+  queryKey?: keyof IQueryParam
+  top?: number
 }
 
 export type TypeInputSelectProps = InputHTMLAttributes<HTMLInputElement> &

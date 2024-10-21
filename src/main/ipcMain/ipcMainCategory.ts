@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
 
-import { ICategory } from '@shared/types/category.types'
+import type { ICategory } from '@shared/types/category.types'
 
 import { categoryService } from '../services/category.service'
 

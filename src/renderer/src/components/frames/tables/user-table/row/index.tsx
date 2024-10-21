@@ -1,12 +1,12 @@
-import { UseMutateFunction } from '@tanstack/react-query'
+import type { UseMutateFunction } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
 import cn from 'clsx'
 import { Edit2, Trash2 } from 'lucide-react'
 
 import { roles } from '@shared/constants/roles.constants'
 
-import { IUser } from '@shared/types/user.types'
+import type { IUser } from '@shared/types/user.types'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
@@ -30,13 +30,13 @@ export const UserTableRow = ({
 
   return (
     <tr>
-      <td>{count + 1}</td>
+      <td className={styles.count}>{count + 1}</td>
       <td>{user.userName}</td>
       <td>{roles[user.role]}</td>
-      <td>{`${user.lastName} ${user.firstName} ${user.middleName}`}</td>
+      <td>{`${user.lastName} ${user.firstName}`}</td>
       <td>{user.email}</td>
-      <td>{user.createdAt.slice(0, 10)}</td>
-      <td>{user.updatedAt.slice(0, 10)}</td>
+      <td className={styles.date}>{user.createdAt.slice(0, 10)}</td>
+      <td className={styles.date}>{user.updatedAt.slice(0, 10)}</td>
       {isPending ? (
         <Loader
           size={30}

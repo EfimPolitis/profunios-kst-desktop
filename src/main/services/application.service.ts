@@ -5,20 +5,16 @@ import {
   IApplicationData,
   IResponeApplications
 } from '@shared/types/application.types'
-import { IGetData } from '@shared/types/sort.types'
-
-import { getUrlForRequest } from '@shared/hooks/getUrlForRequest'
+import { IQueryParam } from '@shared/types/filter.types'
 
 import { axiosWithAuth } from '../api/interseptors'
 
 export const applicationService = {
-  async getAll(data: IGetData) {
-    const { url } = getUrlForRequest(data)
-
+  async getAll(queryData = {} as IQueryParam) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.get<IResponeApplications>(
-        `${API_URL}/application?${url}`
-      )
+      await axiosWithAuth.get<IResponeApplications>(`${API_URL}/application`, {
+        params: queryData
+      })
     return response
   },
 

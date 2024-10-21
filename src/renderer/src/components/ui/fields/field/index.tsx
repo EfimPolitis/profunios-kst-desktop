@@ -1,9 +1,9 @@
 import cn from 'clsx'
 import { Eye, EyeOff } from 'lucide-react'
-import { HTMLInputTypeAttribute, forwardRef, useState } from 'react'
+import { type HTMLInputTypeAttribute, forwardRef, useState } from 'react'
 
 import styles from './index.module.scss'
-import { TypeInputProps } from './index.types'
+import type { TypeInputProps } from './index.types'
 
 export const Field = forwardRef<HTMLInputElement, TypeInputProps>(
   ({ type: initialType, isPassword, style, className, Icon, ...rest }, ref) => {
