@@ -1,9 +1,10 @@
-import type { IAuthResponse, IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData, IAuthResponse } from '@shared/types/auth.types'
 
 import { axiosClassic, axiosWithAuth } from '../../api/interseptors'
 
 import {
   getRefreshToken,
+  getRefreshTokenFromCookie,
   removeFromStorage,
   saveAccessToken,
   saveRefreshToken
@@ -15,11 +16,11 @@ export enum EnumTokens {
 }
 
 export const authService = {
-  async main(type: 'login' | 'register', data: IFormData) {
+  async main(type: 'login' | 'register', data: IAuthFormData) {
     const { request, config, headers, ...response } =
       type === 'login'
-        ? await axiosClassic.post<IAuthResponse>(`/auth/login`, data)
-        : await axiosWithAuth.post(`/auth/register`, data)
+        ? await axiosClassic.post<IAuthResponse>('/auth/login', data)
+        : await axiosWithAuth.post('/auth/register', data)
 
     const accessToken = response?.data.accessToken
     const refreshToken = getRefreshToken(headers)
@@ -33,11 +34,29 @@ export const authService = {
   },
 
   async getNewTokens() {
-    const response = await axiosClassic.post<IAuthResponse>(
-      '/auth/login/access-token'
-    )
+    const refreshTokenFromCookie = await getRefreshTokenFromCookie()
 
-    if (response.data.accessToken) saveAccessToken(response.data.accessToken)
+    if (!refreshTokenFromCookie) removeFromStorage()
+
+    const { headers, config, request, ...response } =
+      await axiosClassic.post<IAuthResponse>(
+        '/auth/login/access-token',
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            Cookie: `refreshToken=${refreshTokenFromCookie}`
+          }
+        }
+      )
+
+    const accessToken = response?.data.accessToken
+    const refreshToken = getRefreshToken(headers)
+
+    if (accessToken && refreshToken) {
+      saveAccessToken(accessToken)
+      saveRefreshToken(refreshToken)
+    }
 
     return response
   },

@@ -18,6 +18,14 @@
     }
   }
 
+  .card_link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   .menu {
     position: absolute;
     right: 15px;
@@ -91,7 +99,7 @@
     }
 
     .date,
-    .totalTickets {
+    .places {
       color: rgba(var(--text-color), 0.6);
 
       span {
@@ -122,12 +130,13 @@
       align-items: center;
       gap: 5px;
 
-      svg {
+      .arrow {
+        margin-top: 4px;
         transition: all ease-in-out 0.2s;
       }
 
       &:hover {
-        svg {
+        .arrow {
           transform: translateX(10px);
         }
       }

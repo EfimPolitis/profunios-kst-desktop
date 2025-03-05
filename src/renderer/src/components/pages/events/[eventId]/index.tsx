@@ -11,7 +11,7 @@ import { RegisterBlock } from '@/components/frames/event-register-block'
 import { UndoBtn } from '@/components/ui'
 import { Slider } from '@/components/ui/slider'
 
-export const EventPage = () => {
+export const EventPageId = () => {
   const eventId = useParams({
     from: '/_layout/events/$eventId',
     select: params => params.eventId
@@ -50,7 +50,6 @@ export const EventPage = () => {
                 date={event.date}
                 event={event}
                 userId={userId}
-                type={event.link ? 'link' : 'btn'}
               />
               <div className={styles.info_block}>
                 <div className={styles.categories}>
@@ -63,8 +62,8 @@ export const EventPage = () => {
                     </div>
                   ))}
                 </div>
-                {event.totalTickets ? (
-                  <h3>Колличество билетов: {event.totalTickets}</h3>
+                {event.places ? (
+                  <h3>Колличество оставшихся мест: {event.places}</h3>
                 ) : (
                   ''
                 )}
@@ -72,7 +71,6 @@ export const EventPage = () => {
                 <div className={styles.description}>
                   {event?.description
                     .split('\n')
-                    // .filter(item => item !== '')
                     ?.map((label, index) => <p key={index}>{label}</p>)}
                 </div>
                 <p>Организатор: {event.organizer}</p>

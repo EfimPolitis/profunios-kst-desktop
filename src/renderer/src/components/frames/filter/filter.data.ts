@@ -2,12 +2,7 @@ import type { CSSProperties } from 'react'
 
 import type { IQueryParam } from '@shared/types/filter.types'
 
-interface IFilterData {
-  user?: IFilterGroup[]
-  event?: IFilterGroup[]
-  news?: IFilterGroup[]
-  application: IFilterGroup[]
-}
+type TypeFilterName = 'user' | 'event' | 'news' | 'application'
 
 interface IFilterGroup {
   title: string
@@ -33,7 +28,7 @@ interface IFilterSelectData {
   label: string
 }
 
-export const FILTER_DATA: IFilterData = {
+export const FILTER_DATA: Record<TypeFilterName, IFilterGroup[]> = {
   event: [
     {
       title: 'По дате проведения',
@@ -79,24 +74,6 @@ export const FILTER_DATA: IFilterData = {
           options: {
             type: 'time',
             style: { width: 140 }
-          }
-        }
-      ]
-    },
-    {
-      title: 'По типу мероприятия',
-      type: 'select',
-      inputs_block: [
-        {
-          type: 'select',
-          queryKey: 'type',
-          options: {
-            style: { width: 220, height: 50, borderWidth: 2 },
-            data: [
-              { label: 'Все типы', key: '' },
-              { label: 'Внутренние', key: 'ticket' },
-              { label: 'Внешние', key: 'link' }
-            ]
           }
         }
       ]
@@ -195,15 +172,17 @@ export const FILTER_DATA: IFilterData = {
           }
         }
       ]
-    },
+    }
+  ],
+  news: [
     {
-      title: 'По дате обновления',
+      title: 'По дате публикации',
       type: 'date',
       inputs_block: [
         {
           label: 'С',
           type: 'date',
-          queryKey: 'updated_at_start',
+          queryKey: 'created_at_start',
           options: {
             type: 'date',
             style: { width: 200 }
@@ -212,33 +191,13 @@ export const FILTER_DATA: IFilterData = {
         {
           label: 'По',
           type: 'date',
-          queryKey: 'updated_at_end',
+          queryKey: 'created_at_end',
           options: {
             type: 'date',
             style: { width: 200 }
           }
         }
       ]
-    },
-    {
-      title: 'По статусу',
-      type: 'select',
-      inputs_block: [
-        {
-          type: 'select',
-          queryKey: 'status',
-          options: {
-            style: { width: 220, height: 50, borderWidth: 2 },
-            data: [
-              { label: 'Все статусы', key: '' },
-              { label: 'Принято', key: 'approved' },
-              { label: 'Отклоненно', key: 'rejected' },
-              { label: 'В ожидании', key: 'pending' }
-            ]
-          }
-        }
-      ]
     }
-  ],
-  news: []
+  ]
 }

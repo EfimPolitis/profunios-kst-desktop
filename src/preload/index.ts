@@ -2,28 +2,29 @@ import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer } from 'electron'
 
 import type { IApplicationData } from '@shared/types/application.types'
-import type { IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData } from '@shared/types/auth.types'
 import type { ICategory } from '@shared/types/category.types'
 import type { IEventFormData } from '@shared/types/event.types'
 import type { IQueryParam } from '@shared/types/filter.types'
+import { INewsFormData } from '@shared/types/news.types'
 
 // Custom APIs for renderer
 const api = {
   //auth
-  auth: (type: 'login' | 'register', data: IFormData) =>
+  auth: (type: 'login' | 'register', data: IAuthFormData) =>
     ipcRenderer.invoke('auth', type, data),
   logout: () => ipcRenderer.invoke('logout'),
   getAccessToken: () => ipcRenderer.invoke('getAccessToken'),
 
   //user
-  getUser: (userId: string) => ipcRenderer.invoke('getUser', userId),
+  getUser: (userId: number) => ipcRenderer.invoke('getUser', userId),
   getProfile: () => ipcRenderer.invoke('getProfile'),
   getUsers: (queryData: IQueryParam) =>
     ipcRenderer.invoke('getUsers', queryData),
 
-  updateUser: (data: IFormData, userId: string) =>
+  updateUser: (data: IAuthFormData, userId: number) =>
     ipcRenderer.invoke('updateUser', data, userId),
-  deleteUser: (id: string) => ipcRenderer.invoke('deleteUser', id),
+  deleteUser: (id: number) => ipcRenderer.invoke('deleteUser', id),
 
   //event
   getEventById: (eventId: string) =>
@@ -36,9 +37,15 @@ const api = {
     ipcRenderer.invoke('updateEvent', data, eventId),
   deleteEvent: (eventId: string) => ipcRenderer.invoke('deleteEvent', eventId),
 
-  //image
-  uploadImage: (fileData: { buffer: Buffer; name: string; type: string }) =>
-    ipcRenderer.invoke('uploadImage', fileData),
+  //news
+  getNewsById: (newsId: string) => ipcRenderer.invoke('getNewsById', newsId),
+  getNews: (queryData: IQueryParam) => ipcRenderer.invoke('getNews', queryData),
+  createNews: (data: INewsFormData) => ipcRenderer.invoke('createNews', data),
+  updateNews: (data: INewsFormData, newsId: string) =>
+    ipcRenderer.invoke('updateNews', data, newsId),
+  deleteNews: (newsId: string) => ipcRenderer.invoke('deleteNews', newsId),
+
+  //buffer
   createBuffer: (arrayBuffer: ArrayBuffer) => Buffer.from(arrayBuffer),
 
   //application
@@ -60,6 +67,25 @@ const api = {
   updateCategory: (data: ICategory, id: string) =>
     ipcRenderer.invoke('updateCategory', data, id),
   deleteCategory: (id: string) => ipcRenderer.invoke('deleteCategory', id),
+
+  //image
+  uploadImage: (
+    fileData: {
+      buffer: Buffer
+      name: string
+      type: string
+    },
+    entity: 'event' | 'news'
+  ) => {
+    return entity === 'event'
+      ? ipcRenderer.invoke('uploadEventImage', fileData)
+      : ipcRenderer.invoke('uploadNewsImage', fileData)
+  },
+  deleteImage: (fileName: string, entity: 'event' | 'news') => {
+    return entity === 'event'
+      ? ipcRenderer.invoke('deleteEventImage', fileName)
+      : ipcRenderer.invoke('deleteNewsImage', fileName)
+  },
 
   //window
   setTitle: (title: string) => ipcRenderer.send('setTitle', title),

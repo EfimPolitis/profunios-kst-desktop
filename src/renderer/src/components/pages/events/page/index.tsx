@@ -93,7 +93,6 @@ const EventsPage = () => {
                 <EventCard
                   key={event.eventId}
                   data={event}
-                  type={event.link.length > 0 ? 'link' : 'noLink'}
                 />
               ))}
         </div>

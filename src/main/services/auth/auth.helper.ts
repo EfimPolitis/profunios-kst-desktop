@@ -1,11 +1,19 @@
-import { EnumTokens } from './auth.service'
 import { session } from 'electron'
+
 import { API_URL } from '@shared/constants/api.constants'
+
+import { EnumTokens } from './auth.service'
 
 export const getAccessToken = async () => {
   const cookies = await session.defaultSession.cookies.get({ url: API_URL })
-  const accessToken = cookies.find((cookie) => cookie.name === 'accessToken')
+  const accessToken = cookies.find(cookie => cookie.name === 'accessToken')
   return accessToken ? accessToken.value : null
+}
+
+export const getRefreshTokenFromCookie = async () => {
+  const cookies = await session.defaultSession.cookies.get({ url: API_URL })
+  const refreshToken = cookies.find(cookie => cookie.name === 'refreshToken')
+  return refreshToken ? refreshToken.value : null
 }
 
 export const getRefreshToken = (headers: Record<string, any>) => {

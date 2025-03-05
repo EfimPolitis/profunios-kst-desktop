@@ -1,5 +1,3 @@
-import { API_URL } from '@shared/constants/api.constants'
-
 import {
   IApplication,
   IApplicationData,
@@ -12,7 +10,7 @@ import { axiosWithAuth } from '../api/interseptors'
 export const applicationService = {
   async getAll(queryData = {} as IQueryParam) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.get<IResponeApplications>(`${API_URL}/application`, {
+      await axiosWithAuth.get<IResponeApplications>('/application', {
         params: queryData
       })
     return response
@@ -20,21 +18,19 @@ export const applicationService = {
 
   async getByUserId(userId: string) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.get<IResponeApplications>(
-        `${API_URL}/application/${userId}`
-      )
+      await axiosWithAuth.get<IResponeApplications>(`/application/${userId}`)
     return response
   },
 
   async create(data: IApplicationData) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.post<IApplication>(`${API_URL}/application`, data)
+      await axiosWithAuth.post<IApplication>('/application', data)
     return response
   },
 
   async sendStatus(status: string, id: string) {
     const { headers, config, request, ...response } = await axiosWithAuth.patch(
-      `${API_URL}/application/${id}`,
+      `/application/${id}`,
       {
         status
       }

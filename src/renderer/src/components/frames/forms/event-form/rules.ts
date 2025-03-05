@@ -1,4 +1,19 @@
-export const formRules = {
+import type { RegisterOptions } from 'react-hook-form'
+
+import type { IEventFormData } from '@shared/types/event.types'
+
+type TFormRules = {
+  title: RegisterOptions<IEventFormData, 'title'>
+  description: RegisterOptions<IEventFormData, 'description'>
+  organizer: RegisterOptions<IEventFormData, 'organizer'>
+  imagesId: RegisterOptions<IEventFormData, 'imagesId'>
+  categoriesId: RegisterOptions<IEventFormData, 'categoriesId'>
+  date: RegisterOptions<IEventFormData, 'date'>
+  link: RegisterOptions<IEventFormData, 'link'>
+  places: RegisterOptions<IEventFormData, 'places'>
+}
+
+export const formRules: TFormRules = {
   title: {
     required: {
       value: true,
@@ -35,11 +50,20 @@ export const formRules = {
       message: '"Дата проведения" - обязательное поле'
     }
   },
-  type: {
+  link: {
     required: {
       value: true,
-      message:
-        '"Тип мероприятия" - обязательное поле, нужно выбрать одно из двух'
+      message: '"Дата проведения" - обязательное поле'
+    },
+    pattern: {
+      value: /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}(\/.*)?$/,
+      message: 'Введите корректный URL'
+    }
+  },
+  places: {
+    required: {
+      value: true,
+      message: '"Количество мест" - обязательное поле'
     }
   }
 }

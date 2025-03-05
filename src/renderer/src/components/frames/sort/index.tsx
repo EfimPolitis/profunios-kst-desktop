@@ -1,6 +1,6 @@
 import cn from 'clsx'
 import { ArrowDownUp, ChevronDown, ChevronUp } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { EnumOrder, type ISort } from '@shared/types/filter.types'
 

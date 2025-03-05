@@ -13,7 +13,5 @@ export const ipcMainWidnow = (mainWindow: BrowserWindow) => {
     mainWindow.setPosition(x, y)
   })
 
-  ipcMain.handle('getAccessToken', () => {
-    return getAccessToken()
-  })
+  ipcMain.handle('getAccessToken', async () => await getAccessToken())
 }

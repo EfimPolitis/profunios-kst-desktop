@@ -36,11 +36,12 @@
     display: flex;
     margin-top: 20px;
     gap: 20px;
+    flex-wrap: wrap;
 
     img {
       width: 200px;
       height: 120px;
-      border-radius: 10px;
+      border-radius: 5px;
       box-shadow: 1px 1px 5px rgba(var(--text-color), 0.25);
     }
   }

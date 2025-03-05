@@ -21,7 +21,6 @@ import {
   Button,
   DateInput,
   Field,
-  InputRadio,
   SelectCategories,
   TextArea,
   Uploader
@@ -31,17 +30,6 @@ interface IEventForm {
   isEditing?: boolean
 }
 
-const variants = [
-  {
-    value: 'link',
-    label: 'С сылкой на форму или объявление'
-  },
-  {
-    value: 'noLink',
-    label: 'С определённым количеством билетов'
-  }
-]
-
 const initialValues = {
   title: '',
   description: '',
@@ -50,7 +38,7 @@ const initialValues = {
   date: '',
   categoriesId: [],
   link: '',
-  totalTickets: 0
+  places: 0
 }
 
 export const EventForm = ({ isEditing }: IEventForm) => {
@@ -69,18 +57,13 @@ export const EventForm = ({ isEditing }: IEventForm) => {
   const [values, setValues] = useState<IEventFormData>(initialValues)
   const [images, setImages] = useState<TypeImage[]>([])
 
-  const initialTypeEvent = useMemo(
-    () => (isEditing ? (event?.link ? 'link' : 'noLink') : 'link'),
-    [isEditing, event?.link]
-  )
-
-  const [typeEvent, setTypeEvent] = useState(initialTypeEvent)
-  const isLink = typeEvent === 'link'
-
   useEffect(() => {
     if (event) {
       const categoriesId = event.categories.map(category => category.id)
       const imagesId = event.images.map(image => image.id)
+
+      const date = new Date(event.date)
+      date.setHours(date.getHours() + 3)
 
       setImages(event.images)
       setValues({
@@ -88,10 +71,10 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         description: event.description,
         organizer: event.organizer,
         imagesId,
-        date: event.date,
+        date: date.toISOString().slice(0, 16),
         categoriesId,
         link: event.link,
-        totalTickets: event.totalTickets
+        places: event.places
       })
     }
   }, [event])
@@ -109,7 +92,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
   })
 
   const onSubmit: SubmitHandler<IEventFormData> = useCallback(data => {
-    data.totalTickets = Number(data.totalTickets)
+    data.places = Number(data.places)
     isEditing ? eventId && updateEvent({ data, eventId }) : createEvent(data)
   }, [])
 
@@ -131,7 +114,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         {...register('title', formRules.title)}
       />
       <TextArea
-        style={{ maxWidth: '800px' }}
+        style={{ maxWidth: '800px', minHeight: '400px' }}
         placeholder='Описание'
         {...register('description', formRules.description)}
       />
@@ -149,6 +132,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
             imagesId={imagesId}
             setImagesId={setImagesId}
             images={images}
+            entity={'event'}
           />
         )}
       />
@@ -156,7 +140,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         control={control}
         name='categoriesId'
         rules={formRules.categoriesId}
-        render={({ field: { onChange, value } }) => (
+        render={({ field: { value, onChange } }) => (
           <SelectCategories
             onChange={onChange}
             value={value}
@@ -168,27 +152,19 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         <DateInput {...register('date', formRules.date)} />
       </div>
       <div>
-        <h3>Тип меропрития</h3>
-        <InputRadio
-          setState={setTypeEvent}
-          variants={variants}
-          checked={initialTypeEvent}
-          style={{ marginBottom: '20px' }}
+        <Field
+          placeholder={'Введите ссылку на мероприятие'}
+          style={{ width: '500px', paddingLeft: '20px' }}
+          {...register('link', formRules.link)}
         />
-        {isLink ? (
-          <Field
-            placeholder={'Введите ссылку'}
-            style={{ width: '500px', paddingLeft: '20px' }}
-            {...register('link', isLink && formRules.type)}
-          />
-        ) : (
-          <Field
-            placeholder='Количество билетов'
-            style={{ width: '120px', textAlign: 'center', padding: '5px' }}
-            type={'number'}
-            {...register('totalTickets', !isLink && formRules.type)}
-          />
-        )}
+      </div>
+      <div>
+        <h3>Количество мест</h3>
+        <Field
+          style={{ width: '120px', textAlign: 'center', padding: '5px' }}
+          type={'number'}
+          {...register('places', formRules.places)}
+        />
       </div>
       <Button
         text={isEditing ? 'Сохранить изменения' : 'Создать'}
@@ -200,3 +176,27 @@ export const EventForm = ({ isEditing }: IEventForm) => {
     </form>
   )
 }
+
+// <div>
+//   <h3>Тип меропрития</h3>
+//   <InputRadio
+//     setState={setTypeEvent}
+//     variants={variants}
+//     checked={initialTypeEvent}
+//     style={{ marginBottom: '20px' }}
+//   />
+//   {isLink ? (
+//     <Field
+//       placeholder={'Введите ссылку'}
+//       style={{ width: '500px', paddingLeft: '20px' }}
+//       {...register('link', isLink && formRules.type)}
+//     />
+//   ) : (
+//     <Field
+//       placeholder='Количество билетов'
+//       style={{ width: '120px', textAlign: 'center', padding: '5px' }}
+//       type={'number'}
+//       {...register('places', !isLink && formRules.type)}
+//     />
+//   )}
+// </div>

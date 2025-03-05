@@ -21,11 +21,6 @@ export const SidebarData = [
     link: URL_PAGES.MANAGE_USERS
   },
   {
-    name: 'Бронь',
-    icon: SquareGanttChart,
-    link: URL_PAGES.MANAGE_RESERVATIONS
-  },
-  {
     name: 'Заявки',
     icon: SquareGanttChart,
     link: URL_PAGES.MANAGE_APPLICATIONS
@@ -39,10 +34,5 @@ export const SidebarData = [
     name: 'Категории',
     icon: BookCopy,
     link: URL_PAGES.MANAGE_CATEGORY
-  },
-  {
-    name: 'Отчёты',
-    icon: FileSpreadsheet,
-    link: URL_PAGES.MANAGE_REPORTS
   }
 ]

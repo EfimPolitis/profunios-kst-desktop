@@ -13,8 +13,8 @@ import { Slider } from '../../../ui/slider'
 
 import styles from './index.module.scss'
 
-export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
-  const { title, totalTickets, categories, date, eventId, images } = data
+export const EventCard: FC<IEventCard> = ({ data }) => {
+  const { title, places, categories, date, eventId, images } = data
   const { data: user } = useProfile()
 
   const { mutate: mutateEvent } = useDeleteEvent()
@@ -26,6 +26,10 @@ export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
 
   return (
     <div className={styles.card}>
+      <Link
+        className={styles.card_link}
+        to={`${URL_PAGES.MANAGE_EVENTS}/${eventId}`}
+      />
       {user?.role === 'ADMIN' || user?.role === 'MODER' ? (
         <div className={styles.menu}>
           <Link
@@ -49,8 +53,11 @@ export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
         style={{ borderRadius: '10px 10px 0px 0px' }}
       />
       <div className={styles.info_block}>
-        <p className={styles.title}>
-          {title.length > 28 ? title.slice(0, 27) + '...' : title}
+        <p
+          className={styles.title}
+          title={title}
+        >
+          {title.length > 30 ? title.slice(0, 30) + '...' : title}
         </p>
         <div className={styles.categories}>
           {categories.map((category, i) => {
@@ -85,19 +92,19 @@ export const EventCard: FC<IEventCard> = ({ ticketsCount, type, data }) => {
             })}
           </span>
         </p>
-        {type !== 'link' && !ticketsCount && (
-          <p className={styles.totalTickets}>
-            Билетов осталось: <span>{totalTickets}</span>
-          </p>
-        )}
-        {ticketsCount && <p>Билетов взято: {ticketsCount}</p>}
+        <p className={styles.places}>
+          Мест осталось: <span>{places}</span>
+        </p>
 
         <Link
           to={`${URL_PAGES.MANAGE_EVENTS}/${eventId}`}
           className={styles.details}
         >
           Подробнее
-          <ArrowRight size={20} />
+          <ArrowRight
+            size={20}
+            className={styles.arrow}
+          />
         </Link>
       </div>
     </div>

@@ -1,23 +1,39 @@
+import type { RegisterOptions } from 'react-hook-form'
+
 import { regularEmail } from '@shared/constants/regular-email'
 
-export const formRules = {
-  login: {
+import type { IAuthFormData } from '@shared/types/auth.types'
+
+type TFormRules = {
+  userName: RegisterOptions<IAuthFormData, 'userName'>
+  firstName: RegisterOptions<IAuthFormData, 'firstName'>
+  lastName: RegisterOptions<IAuthFormData, 'lastName'>
+  middleName: RegisterOptions<IAuthFormData, 'middleName'>
+  email: RegisterOptions<IAuthFormData, 'email'>
+  password: RegisterOptions<IAuthFormData, 'password'>
+}
+
+export const formRules: TFormRules = {
+  userName: {
     required: {
       value: true,
       message: '"Логин" - обязательное поле!'
     }
   },
-  name: {
+  firstName: {
     required: {
       value: true,
       message: '"Имя" - обязательное поле!'
     }
   },
-  surname: {
+  lastName: {
     required: {
       value: true,
       message: '"Фамилия" - обязательное поле!'
     }
+  },
+  middleName: {
+    required: false
   },
   email: {
     required: {

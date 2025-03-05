@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import type { IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData } from '@shared/types/auth.types'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
@@ -18,7 +18,7 @@ export const useUpdateUser = () => {
     error
   } = useMutation({
     mutationKey: [TanStackQueryKey.updateUser],
-    mutationFn: ({ data, userId }: { data: IFormData; userId: string }) =>
+    mutationFn: ({ data, userId }: { data: IAuthFormData; userId: number }) =>
       window.api.updateUser(data, userId),
     onMutate: () => {
       toast.loading('Обработка...')

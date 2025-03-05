@@ -1,4 +1,4 @@
-import type { IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData } from '@shared/types/auth.types'
 import type { IQueryParam } from '@shared/types/filter.types'
 import {
   type IProfileResponse,
@@ -18,7 +18,7 @@ export const userService = {
     return response
   },
 
-  async getUser(userId: string) {
+  async getUser(userId: number) {
     const { headers, request, config, ...response } =
       await axiosWithAuth.get<IUser>(`/users/${userId}`)
 
@@ -31,7 +31,7 @@ export const userService = {
     return response.data
   },
 
-  async updateUser(data: IFormData, id: string) {
+  async updateUser(data: IAuthFormData, id: number) {
     const { headers, request, config, ...response } = await axiosWithAuth.patch(
       `/users/${id}`,
       data
@@ -39,7 +39,7 @@ export const userService = {
     return response
   },
 
-  async deleteUser(id: string) {
+  async deleteUser(id: number) {
     const { headers, request, config, ...response } =
       await axiosWithAuth.delete(`/users/${id}`)
     return response

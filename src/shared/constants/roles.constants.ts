@@ -7,14 +7,14 @@ export const roles = {
 export const variantsRoles = [
   {
     label: 'Админ',
-    value: 'ADMIN'
+    key: 'ADMIN'
   },
   {
     label: 'Модер',
-    value: 'MODER'
+    key: 'MODER'
   },
   {
     label: 'Пользователь',
-    value: 'USER'
+    key: 'USER'
   }
 ]

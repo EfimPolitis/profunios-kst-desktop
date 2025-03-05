@@ -11,6 +11,7 @@ import { URL_PAGES } from '@shared/config/url.config'
 export const useCreateEvent = () => {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+
   const {
     mutate: createEvent,
     isPending: isPendingCreate,

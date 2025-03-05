@@ -10,7 +10,7 @@ export interface IAuthResponse {
   user: IUser
 }
 
-export interface IFormData {
+export interface IAuthFormData {
   userName: string
   firstName: string
   lastName: string

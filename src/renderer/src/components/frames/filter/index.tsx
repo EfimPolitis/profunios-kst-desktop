@@ -32,6 +32,7 @@ export const FilterComponent = ({
         <div className={styles.fields}>
           {FILTER_DATA[type]?.map(({ title, type, inputs_block }) => (
             <section
+              key={title}
               className={cn({
                 [styles.date_section]: type === 'date',
                 [styles.type_section]: type === 'select'
@@ -39,7 +40,10 @@ export const FilterComponent = ({
             >
               <h5>{title}</h5>
               {inputs_block.map(input => (
-                <div className={styles.input_block}>
+                <div
+                  className={styles.input_block}
+                  key={input.queryKey}
+                >
                   {input.type === 'date' && (
                     <>
                       <span>{input?.label}</span>

@@ -11,16 +11,10 @@ interface IRegisterBlock {
   date: string
   event: IEvent
   userId: string | undefined
-  type: string
 }
 
-export const RegisterBlock = ({
-  date,
-  event,
-  userId,
-  type
-}: IRegisterBlock) => {
-  const { totalTickets, link } = event
+export const RegisterBlock = ({ date, event, userId }: IRegisterBlock) => {
+  const { places } = event
 
   const {
     mutate: mutateApplication,
@@ -33,15 +27,14 @@ export const RegisterBlock = ({
   const onClickBtn = (eventId: string, userId: string | undefined) => {
     if (!userId) return
 
-    const count = 1
+    const takePlaces = 1
 
-    if (!count) return
+    if (!takePlaces) return
 
-    if (totalTickets < Number(count))
-      return alert('Вы не можете взять билетов больше чем есть в наличии!')
+    if (places < Number(takePlaces))
+      return alert('Вы не можете забронировать мест больше чем есть в наличии!')
 
-    const ticketsCount = Number(count)
-    const responseData = { eventId, userId, ticketsCount }
+    const responseData = { eventId, userId, places: takePlaces }
 
     mutateApplication(responseData)
   }
@@ -86,30 +79,18 @@ export const RegisterBlock = ({
         </div>
       </div>
       <div className={styles.line}></div>
-      {type === 'link' ? (
-        <p>
-          Для регистрации
-          <br />
-          <Link
-            to={link}
-            className={styles.link}
-            target='_blank'
-          >
-            Перейти на мероприятие
-          </Link>
-        </p>
-      ) : (
-        <Button
-          text={totalTickets === 0 ? 'Билетов больше нет' : 'Забронировать'}
-          onClick={() => onClickBtn(event?.eventId, userId)}
-          className={styles.button}
-          isPending={isPending}
-          isError={isError}
-          isSuccess={isSuccess}
-          disabled={totalTickets === 0}
-          style={{ width: '200px', fontSize: '20px' }}
-        />
-      )}
+      <Button
+        text={
+          places === 0 ? 'Мест на мероприятие больше нет' : 'Хочу учавствовать'
+        }
+        onClick={() => onClickBtn(event?.eventId, userId)}
+        className={styles.button}
+        isPending={isPending}
+        isError={isError}
+        isSuccess={isSuccess}
+        disabled={places === 0}
+        style={{ width: '200px', fontSize: '20px' }}
+      />
     </div>
   )
 }

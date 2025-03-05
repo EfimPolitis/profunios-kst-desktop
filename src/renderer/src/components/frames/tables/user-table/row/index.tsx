@@ -16,7 +16,7 @@ import { Loader } from '@/components/ui'
 interface ITableField {
   user: IUser
   count: number
-  deleteUser: UseMutateFunction<AxiosResponse<any, any>, Error, string, unknown>
+  deleteUser: UseMutateFunction<AxiosResponse<any, any>, Error, number, unknown>
   isPending: boolean
 }
 

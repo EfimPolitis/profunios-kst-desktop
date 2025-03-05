@@ -30,4 +30,7 @@ export const DateInput = forwardRef<HTMLInputElement, TypeDateInput>(
   }
 )
 
+//"2025-03-21T17:16"
+//"2025-03-20T17:00:00.000Z"
+
 DateInput.displayName = 'dateInput'

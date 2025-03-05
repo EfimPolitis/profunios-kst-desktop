@@ -5,10 +5,8 @@ export interface IApplication {
   id: string
   user: IUser
   events: IEvent
-  ticketsCount: number
-  status: 'PENDING' | 'APPROVED' | 'REJECTED'
+  places: number
   createdAt: string
-  updatedAt: string
 }
 
 export interface IResponeApplications {
@@ -19,11 +17,5 @@ export interface IResponeApplications {
 export interface IApplicationData {
   userId: string
   eventId: string
-  ticketsCount: number
-}
-
-export enum EStatus {
-  PENDING = 'В ожидании',
-  APPROVED = 'Принято',
-  REJECTED = 'Отклонено'
+  places: number
 }

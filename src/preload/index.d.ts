@@ -5,7 +5,7 @@ import type {
   IApplicationData,
   IResponeApplications
 } from '@shared/types/application.types'
-import type { IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData } from '@shared/types/auth.types'
 import type {
   ICategory,
   IResponseCategories
@@ -16,6 +16,11 @@ import type {
   IResponseEvents
 } from '@shared/types/event.types'
 import type { IQueryParam } from '@shared/types/filter.types'
+import type {
+  INews,
+  INewsFormData,
+  IResponseNews
+} from '@shared/types/news.types'
 import type {
   IProfileResponse,
   IResponseUsers,
@@ -29,19 +34,19 @@ declare global {
       //auth
       auth: (
         type: 'login' | 'register',
-        data: IFormData
+        data: IAuthFormData
       ) => Promise<IAuthResponse>
       logout: () => any
       getAccessToken: () => Promise<string | null>
 
       //user
-      getUser: (userId: string) => AxiosResponse<IUser, any> | undefined
+      getUser: (userId: number) => AxiosResponse<IUser, any> | undefined
       getProfile: () => Promise<IProfileResponse>
       getUsers: (
         queryData: IQueryParam
       ) => AxiosResponse<IResponseUsers, any> | undefined
-      updateUser: (data: IFormData, userId: string) => Promise<any>
-      deleteUser: (id: string) => Promise<any>
+      updateUser: (data: IAuthFormData, userId: number) => Promise<any>
+      deleteUser: (id: number) => Promise<any>
 
       //event
       getEventById: (eventId: string) => AxiosResponse<IEvent, any> | undefined
@@ -51,6 +56,15 @@ declare global {
       createEvent: (data: IEventFormData) => Promise<any>
       updateEvent: (data: IEventFormData, eventId: string) => Promise<any>
       deleteEvent: (eventId: string) => Promise<any>
+
+      //news
+      getNewsById: (newsId: string) => AxiosResponse<INews, any> | undefined
+      getNews: (
+        queryData: IQueryParam
+      ) => AxiosResponse<IResponseNews, any> | undefined
+      createNews: (data: INewsFormData) => Promise<any>
+      updateNews: (data: INewsFormData, newsId: string) => Promise<any>
+      deleteNews: (newsId: string) => Promise<any>
 
       //applications
       getApplications: (
@@ -69,18 +83,7 @@ declare global {
         queryData: IQueryParam
       ) => AxiosResponse<IResponseReservations, any> | undefined
 
-      //image
-      uploadImage: (fileData: {
-        buffer: Buffer
-        name: string
-        type: string
-      }) => AxiosResponse<
-        {
-          url: string
-          id: string
-        },
-        any
-      >
+      //buffer
       createBuffer: (arrayBuffer: ArrayBuffer) => any
 
       //category
@@ -93,6 +96,26 @@ declare global {
         id: string
       ) => Promise<AxiosResponse<IResponseCategory, any>>
       deleteCategory: (id: string) => Promise<any>
+
+      //image
+      uploadImage: (
+        fileData: {
+          buffer: Buffer
+          name: string
+          type: string
+        },
+        entity: 'event' | 'news'
+      ) => AxiosResponse<
+        {
+          url: string
+          id: string
+        },
+        any
+      >
+      deleteImage: (
+        fileName: string,
+        entity: 'event' | 'news'
+      ) => AxiosResponse<any>
 
       //window
       setTitle: (title: string) => null

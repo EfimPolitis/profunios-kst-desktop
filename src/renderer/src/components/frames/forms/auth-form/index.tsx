@@ -11,7 +11,7 @@ import toast from 'react-hot-toast'
 
 import { roles, variantsRoles } from '@shared/constants/roles.constants'
 
-import type { IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData } from '@shared/types/auth.types'
 
 import { useAuth } from '@shared/hooks/user/useAuth'
 import { useGetUser } from '@shared/hooks/user/useGetUser'
@@ -30,10 +30,12 @@ interface AuthFormProps {
 
 const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
   if (isEditing) {
-    var userId = useParams({
-      from: '/_layout/users/edit/$userId',
-      select: params => params.userId
-    })
+    var userId = Number(
+      useParams({
+        from: '/_layout/users/edit/$userId',
+        select: params => params.userId
+      })
+    )
 
     if (userId) {
       const { data } = useGetUser(userId)
@@ -69,7 +71,7 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
   )
 
   const [values, setValues] = useState(initialValues)
-  const { register, handleSubmit, reset, control } = useForm({
+  const { register, handleSubmit, reset, control } = useForm<IAuthFormData>({
     mode: 'onChange',
     defaultValues: initialValues,
     values
@@ -80,11 +82,11 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
 
   const isPending = isPendingAuth || isPendingUpdate
 
-  const onSubmit: SubmitHandler<IFormData> = data => {
+  const onSubmit: SubmitHandler<IAuthFormData> = data => {
     isEditing ? updateUser({ data, userId }) : authUser(data)
   }
 
-  const onError = (errors: FieldErrors<IFormData>) => {
+  const onError = (errors: FieldErrors<IAuthFormData>) => {
     const errorsKeys = Object.keys(errors).reverse()
     errorsKeys.forEach(error => {
       toast.error(`${errors[error]?.message}`)
@@ -98,7 +100,7 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
           ? 'Вход в систему'
           : isEditing
             ? 'Редактирование'
-            : 'Регистрация'}
+            : 'Создание пользователя'}
       </p>
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
@@ -107,24 +109,24 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
         <Field
           placeholder='Логин'
           Icon={User}
-          {...register('userName', formRules.login)}
+          {...register('userName', formRules.userName)}
         />
         {isLogin || (
           <>
             <Field
               placeholder='Фамилия'
               Icon={User}
-              {...register('lastName', formRules.surname)}
+              {...register('lastName', formRules.lastName)}
             />
             <Field
               placeholder='Имя'
               Icon={User}
-              {...register('firstName', formRules.name)}
+              {...register('firstName', formRules.firstName)}
             />
             <Field
               placeholder='Отчество'
               Icon={User}
-              {...register('middleName')}
+              {...register('middleName', formRules.middleName)}
             />
             <Field
               placeholder='Email'
@@ -139,7 +141,7 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
                   setState={onChange}
                   initialValue={roles[value]}
                   Icon={UserCog}
-                  variants={variantsRoles}
+                  data={variantsRoles}
                 />
               )}
             />

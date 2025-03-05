@@ -14,6 +14,7 @@ const rootComponent = () => {
   useEffect(() => {
     ;(async () => {
       const accessToken = await window.api.getAccessToken()
+
       if (accessToken) {
         useResize(1200, 800)
         navigate({ to: URL_PAGES.MANAGE_EVENTS })

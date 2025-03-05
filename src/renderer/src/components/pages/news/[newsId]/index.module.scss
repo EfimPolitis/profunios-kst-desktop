@@ -1,0 +1,49 @@
+@import '@/styles/_variables';
+
+.page {
+  height: calc(100svh - 80px);
+  padding: 40px 80px;
+  background-color: rgb(var(--secondary-color));
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  overflow-y: scroll;
+
+  .content {
+    max-width: 100%;
+    background-color: rgb(var(--secondary-color));
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px rgba(var(--text-color), 0.4);
+    position: relative;
+
+    .info_block {
+      width: 100%;
+      padding: 40px 40px;
+      display: flex;
+      flex-direction: column;
+      color: rgb(var(--text-color));
+      font-weight: 600;
+      gap: 20px;
+      white-space: normal;
+
+      .views {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .description {
+        width: 100%;
+        text-indent: 10px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        overflow: hidden;
+        word-wrap: break-all;
+        overflow-wrap: break-all;
+      }
+    }
+  }
+}

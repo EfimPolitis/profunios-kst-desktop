@@ -1,38 +1,32 @@
-import { API_URL } from '@shared/constants/api.constants'
-
 import { ICategory, IResponseCategory } from '@shared/types/category.types'
 
 import { axiosWithAuth } from '../api/interseptors'
 
 export const categoryService = {
   async getAll() {
-    const { headers, config, request, ...response } = await axiosWithAuth.get<
-      IResponseCategory[]
-    >(`${API_URL}/category`)
+    const { headers, config, request, ...response } =
+      await axiosWithAuth.get<IResponseCategory[]>('/category')
 
     return response
   },
 
   async create(data: ICategory) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.post<IResponseCategory>(`${API_URL}/category`, data)
+      await axiosWithAuth.post<IResponseCategory>('/category', data)
 
     return response
   },
 
   async update(id: string, data: ICategory) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.patch<IResponseCategory>(
-        `${API_URL}/category/${id}`,
-        data
-      )
+      await axiosWithAuth.patch<IResponseCategory>(`/category/${id}`, data)
 
     return response
   },
 
   async delete(categoryId: string) {
     const { headers, config, request, ...response } =
-      await axiosWithAuth.delete(`${API_URL}/category/${categoryId}`)
+      await axiosWithAuth.delete(`/category/${categoryId}`)
 
     return response
   }

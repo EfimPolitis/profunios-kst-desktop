@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
-import type { IAuthResponse, IFormData } from '@shared/types/auth.types'
+import type { IAuthFormData, IAuthResponse } from '@shared/types/auth.types'
 import { errorList } from '@shared/types/error.types'
 import { ERole } from '@shared/types/user.types'
 
@@ -23,7 +23,7 @@ export const useAuth = (isLogin: boolean, reset: UseFormReset<any>) => {
     error
   } = useMutation({
     mutationKey: [TanStackQueryKey.auth],
-    mutationFn: (data: IFormData) =>
+    mutationFn: (data: IAuthFormData) =>
       window.api.auth(isLogin ? 'login' : 'register', data),
     onMutate: () => {
       toast.loading('Загрузка...')

@@ -1,5 +1,10 @@
 import type { IResponseCategory } from './category.types'
 
+enum EStatus {
+  ITERNAL,
+  EVERYONE
+}
+
 export type TypeImage = {
   id: string
   url: string
@@ -9,13 +14,14 @@ export type TypeImage = {
 export interface IEvent {
   eventId: string
   images: TypeImage[]
+  categories: IResponseCategory[]
   title: string
   description: string
-  categories: IResponseCategory[]
   date: string
   organizer: string
   link: string
-  totalTickets: number
+  status: EStatus
+  places: number
   createdAt: string
   updatedAt: string
 }
@@ -26,18 +32,17 @@ export interface IResponseEvents {
 }
 
 export interface IEventCard {
-  ticketsCount?: number
-  type: string
+  places?: number
   data: IEvent
 }
 
 export interface IEventFormData {
   title: string
   description: string
+  imagesId: string[]
   categoriesId: string[]
   organizer: string
-  imagesId: string[]
   date: string
   link?: string
-  totalTickets?: number
+  places?: number
 }

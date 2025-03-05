@@ -26,12 +26,17 @@ export const ipcMainEvent = () => {
     eventService.delete(eventId)
   )
 
-  ipcMain.handle('uploadImage', async (_, { buffer, name, type }) => {
+  ipcMain.handle('uploadEventImage', async (_, { buffer, name, type }) => {
     const formData = new FormData()
     const blob = new Blob([buffer], { type })
     formData.append('image', blob, name)
 
     const response = await eventService.uploadImage(formData)
+
     return response
   })
+
+  ipcMain.handle('deleteEventImage', (_, fileName: string) =>
+    eventService.deleteImage(fileName)
+  )
 }

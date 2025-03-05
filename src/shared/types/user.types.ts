@@ -5,7 +5,7 @@ export enum ERole {
 }
 
 export interface IUser {
-  userId: string
+  userId: number
   firstName: string
   lastName: string
   middleName: string

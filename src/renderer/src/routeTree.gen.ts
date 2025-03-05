@@ -14,19 +14,17 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutUsersIndexImport } from './routes/_layout/users/index'
-import { Route as LayoutReservationsIndexImport } from './routes/_layout/reservations/index'
-import { Route as LayoutReportsIndexImport } from './routes/_layout/reports/index'
 import { Route as LayoutNewsIndexImport } from './routes/_layout/news/index'
 import { Route as LayoutEventsIndexImport } from './routes/_layout/events/index'
 import { Route as LayoutCategoriesIndexImport } from './routes/_layout/categories/index'
 import { Route as LayoutApplicationsIndexImport } from './routes/_layout/applications/index'
 import { Route as LayoutUsersCreateImport } from './routes/_layout/users/create'
-import { Route as LayoutNewsEditImport } from './routes/_layout/news/edit'
 import { Route as LayoutNewsCreateImport } from './routes/_layout/news/create'
 import { Route as LayoutNewsNewsIdImport } from './routes/_layout/news/$newsId'
 import { Route as LayoutEventsCreateImport } from './routes/_layout/events/create'
 import { Route as LayoutEventsEventIdImport } from './routes/_layout/events/$eventId'
 import { Route as LayoutUsersEditUserIdImport } from './routes/_layout/users/edit.$userId'
+import { Route as LayoutNewsEditNewsIdImport } from './routes/_layout/news/edit.$newsId'
 import { Route as LayoutEventsEditEventIdImport } from './routes/_layout/events/edit.$eventId'
 
 // Create/Update Routes
@@ -43,16 +41,6 @@ const LayoutRoute = LayoutImport.update({
 
 const LayoutUsersIndexRoute = LayoutUsersIndexImport.update({
   path: '/users/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutReservationsIndexRoute = LayoutReservationsIndexImport.update({
-  path: '/reservations/',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutReportsIndexRoute = LayoutReportsIndexImport.update({
-  path: '/reports/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -81,11 +69,6 @@ const LayoutUsersCreateRoute = LayoutUsersCreateImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutNewsEditRoute = LayoutNewsEditImport.update({
-  path: '/news/edit',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
 const LayoutNewsCreateRoute = LayoutNewsCreateImport.update({
   path: '/news/create',
   getParentRoute: () => LayoutRoute,
@@ -108,6 +91,11 @@ const LayoutEventsEventIdRoute = LayoutEventsEventIdImport.update({
 
 const LayoutUsersEditUserIdRoute = LayoutUsersEditUserIdImport.update({
   path: '/users/edit/$userId',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutNewsEditNewsIdRoute = LayoutNewsEditNewsIdImport.update({
+  path: '/news/edit/$newsId',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -162,13 +150,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutNewsCreateImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/news/edit': {
-      id: '/_layout/news/edit'
-      path: '/news/edit'
-      fullPath: '/news/edit'
-      preLoaderRoute: typeof LayoutNewsEditImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/users/create': {
       id: '/_layout/users/create'
       path: '/users/create'
@@ -204,20 +185,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutNewsIndexImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/reports/': {
-      id: '/_layout/reports/'
-      path: '/reports'
-      fullPath: '/reports'
-      preLoaderRoute: typeof LayoutReportsIndexImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/reservations/': {
-      id: '/_layout/reservations/'
-      path: '/reservations'
-      fullPath: '/reservations'
-      preLoaderRoute: typeof LayoutReservationsIndexImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/users/': {
       id: '/_layout/users/'
       path: '/users'
@@ -230,6 +197,13 @@ declare module '@tanstack/react-router' {
       path: '/events/edit/$eventId'
       fullPath: '/events/edit/$eventId'
       preLoaderRoute: typeof LayoutEventsEditEventIdImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/news/edit/$newsId': {
+      id: '/_layout/news/edit/$newsId'
+      path: '/news/edit/$newsId'
+      fullPath: '/news/edit/$newsId'
+      preLoaderRoute: typeof LayoutNewsEditNewsIdImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/users/edit/$userId': {
@@ -249,16 +223,14 @@ interface LayoutRouteChildren {
   LayoutEventsCreateRoute: typeof LayoutEventsCreateRoute
   LayoutNewsNewsIdRoute: typeof LayoutNewsNewsIdRoute
   LayoutNewsCreateRoute: typeof LayoutNewsCreateRoute
-  LayoutNewsEditRoute: typeof LayoutNewsEditRoute
   LayoutUsersCreateRoute: typeof LayoutUsersCreateRoute
   LayoutApplicationsIndexRoute: typeof LayoutApplicationsIndexRoute
   LayoutCategoriesIndexRoute: typeof LayoutCategoriesIndexRoute
   LayoutEventsIndexRoute: typeof LayoutEventsIndexRoute
   LayoutNewsIndexRoute: typeof LayoutNewsIndexRoute
-  LayoutReportsIndexRoute: typeof LayoutReportsIndexRoute
-  LayoutReservationsIndexRoute: typeof LayoutReservationsIndexRoute
   LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute
   LayoutEventsEditEventIdRoute: typeof LayoutEventsEditEventIdRoute
+  LayoutNewsEditNewsIdRoute: typeof LayoutNewsEditNewsIdRoute
   LayoutUsersEditUserIdRoute: typeof LayoutUsersEditUserIdRoute
 }
 
@@ -267,16 +239,14 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutEventsCreateRoute: LayoutEventsCreateRoute,
   LayoutNewsNewsIdRoute: LayoutNewsNewsIdRoute,
   LayoutNewsCreateRoute: LayoutNewsCreateRoute,
-  LayoutNewsEditRoute: LayoutNewsEditRoute,
   LayoutUsersCreateRoute: LayoutUsersCreateRoute,
   LayoutApplicationsIndexRoute: LayoutApplicationsIndexRoute,
   LayoutCategoriesIndexRoute: LayoutCategoriesIndexRoute,
   LayoutEventsIndexRoute: LayoutEventsIndexRoute,
   LayoutNewsIndexRoute: LayoutNewsIndexRoute,
-  LayoutReportsIndexRoute: LayoutReportsIndexRoute,
-  LayoutReservationsIndexRoute: LayoutReservationsIndexRoute,
   LayoutUsersIndexRoute: LayoutUsersIndexRoute,
   LayoutEventsEditEventIdRoute: LayoutEventsEditEventIdRoute,
+  LayoutNewsEditNewsIdRoute: LayoutNewsEditNewsIdRoute,
   LayoutUsersEditUserIdRoute: LayoutUsersEditUserIdRoute,
 }
 
@@ -290,16 +260,14 @@ export interface FileRoutesByFullPath {
   '/events/create': typeof LayoutEventsCreateRoute
   '/news/$newsId': typeof LayoutNewsNewsIdRoute
   '/news/create': typeof LayoutNewsCreateRoute
-  '/news/edit': typeof LayoutNewsEditRoute
   '/users/create': typeof LayoutUsersCreateRoute
   '/applications': typeof LayoutApplicationsIndexRoute
   '/categories': typeof LayoutCategoriesIndexRoute
   '/events': typeof LayoutEventsIndexRoute
   '/news': typeof LayoutNewsIndexRoute
-  '/reports': typeof LayoutReportsIndexRoute
-  '/reservations': typeof LayoutReservationsIndexRoute
   '/users': typeof LayoutUsersIndexRoute
   '/events/edit/$eventId': typeof LayoutEventsEditEventIdRoute
+  '/news/edit/$newsId': typeof LayoutNewsEditNewsIdRoute
   '/users/edit/$userId': typeof LayoutUsersEditUserIdRoute
 }
 
@@ -310,16 +278,14 @@ export interface FileRoutesByTo {
   '/events/create': typeof LayoutEventsCreateRoute
   '/news/$newsId': typeof LayoutNewsNewsIdRoute
   '/news/create': typeof LayoutNewsCreateRoute
-  '/news/edit': typeof LayoutNewsEditRoute
   '/users/create': typeof LayoutUsersCreateRoute
   '/applications': typeof LayoutApplicationsIndexRoute
   '/categories': typeof LayoutCategoriesIndexRoute
   '/events': typeof LayoutEventsIndexRoute
   '/news': typeof LayoutNewsIndexRoute
-  '/reports': typeof LayoutReportsIndexRoute
-  '/reservations': typeof LayoutReservationsIndexRoute
   '/users': typeof LayoutUsersIndexRoute
   '/events/edit/$eventId': typeof LayoutEventsEditEventIdRoute
+  '/news/edit/$newsId': typeof LayoutNewsEditNewsIdRoute
   '/users/edit/$userId': typeof LayoutUsersEditUserIdRoute
 }
 
@@ -331,16 +297,14 @@ export interface FileRoutesById {
   '/_layout/events/create': typeof LayoutEventsCreateRoute
   '/_layout/news/$newsId': typeof LayoutNewsNewsIdRoute
   '/_layout/news/create': typeof LayoutNewsCreateRoute
-  '/_layout/news/edit': typeof LayoutNewsEditRoute
   '/_layout/users/create': typeof LayoutUsersCreateRoute
   '/_layout/applications/': typeof LayoutApplicationsIndexRoute
   '/_layout/categories/': typeof LayoutCategoriesIndexRoute
   '/_layout/events/': typeof LayoutEventsIndexRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
-  '/_layout/reports/': typeof LayoutReportsIndexRoute
-  '/_layout/reservations/': typeof LayoutReservationsIndexRoute
   '/_layout/users/': typeof LayoutUsersIndexRoute
   '/_layout/events/edit/$eventId': typeof LayoutEventsEditEventIdRoute
+  '/_layout/news/edit/$newsId': typeof LayoutNewsEditNewsIdRoute
   '/_layout/users/edit/$userId': typeof LayoutUsersEditUserIdRoute
 }
 
@@ -353,16 +317,14 @@ export interface FileRouteTypes {
     | '/events/create'
     | '/news/$newsId'
     | '/news/create'
-    | '/news/edit'
     | '/users/create'
     | '/applications'
     | '/categories'
     | '/events'
     | '/news'
-    | '/reports'
-    | '/reservations'
     | '/users'
     | '/events/edit/$eventId'
+    | '/news/edit/$newsId'
     | '/users/edit/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -372,16 +334,14 @@ export interface FileRouteTypes {
     | '/events/create'
     | '/news/$newsId'
     | '/news/create'
-    | '/news/edit'
     | '/users/create'
     | '/applications'
     | '/categories'
     | '/events'
     | '/news'
-    | '/reports'
-    | '/reservations'
     | '/users'
     | '/events/edit/$eventId'
+    | '/news/edit/$newsId'
     | '/users/edit/$userId'
   id:
     | '__root__'
@@ -391,16 +351,14 @@ export interface FileRouteTypes {
     | '/_layout/events/create'
     | '/_layout/news/$newsId'
     | '/_layout/news/create'
-    | '/_layout/news/edit'
     | '/_layout/users/create'
     | '/_layout/applications/'
     | '/_layout/categories/'
     | '/_layout/events/'
     | '/_layout/news/'
-    | '/_layout/reports/'
-    | '/_layout/reservations/'
     | '/_layout/users/'
     | '/_layout/events/edit/$eventId'
+    | '/_layout/news/edit/$newsId'
     | '/_layout/users/edit/$userId'
   fileRoutesById: FileRoutesById
 }
@@ -438,16 +396,14 @@ export const routeTree = rootRoute
         "/_layout/events/create",
         "/_layout/news/$newsId",
         "/_layout/news/create",
-        "/_layout/news/edit",
         "/_layout/users/create",
         "/_layout/applications/",
         "/_layout/categories/",
         "/_layout/events/",
         "/_layout/news/",
-        "/_layout/reports/",
-        "/_layout/reservations/",
         "/_layout/users/",
         "/_layout/events/edit/$eventId",
+        "/_layout/news/edit/$newsId",
         "/_layout/users/edit/$userId"
       ]
     },
@@ -470,10 +426,6 @@ export const routeTree = rootRoute
       "filePath": "_layout/news/create.tsx",
       "parent": "/_layout"
     },
-    "/_layout/news/edit": {
-      "filePath": "_layout/news/edit.tsx",
-      "parent": "/_layout"
-    },
     "/_layout/users/create": {
       "filePath": "_layout/users/create.tsx",
       "parent": "/_layout"
@@ -494,20 +446,16 @@ export const routeTree = rootRoute
       "filePath": "_layout/news/index.tsx",
       "parent": "/_layout"
     },
-    "/_layout/reports/": {
-      "filePath": "_layout/reports/index.tsx",
-      "parent": "/_layout"
-    },
-    "/_layout/reservations/": {
-      "filePath": "_layout/reservations/index.tsx",
-      "parent": "/_layout"
-    },
     "/_layout/users/": {
       "filePath": "_layout/users/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/events/edit/$eventId": {
       "filePath": "_layout/events/edit.$eventId.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/news/edit/$newsId": {
+      "filePath": "_layout/news/edit.$newsId.tsx",
       "parent": "/_layout"
     },
     "/_layout/users/edit/$userId": {

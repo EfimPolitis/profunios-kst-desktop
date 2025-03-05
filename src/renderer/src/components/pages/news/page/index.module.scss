@@ -1,0 +1,123 @@
+@import '@/styles/_variables';
+
+.page {
+  height: calc(100svh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  font-size: 20px;
+  overflow-y: scroll;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  .wrap {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+    margin-bottom: 40px;
+
+    .top {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+      justify-content: start;
+      margin-bottom: 20px;
+      font-size: 16px;
+      flex-wrap: wrap;
+
+      .create_news {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
+
+        &:hover {
+          background-color: rgb(var(--secondary-color-hover));
+        }
+      }
+
+      .getReport {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
+
+        &:hover {
+          background-color: rgb(var(--secondary-color-hover));
+        }
+      }
+
+      .filter {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        cursor: pointer;
+        transition: all linear 0.2s;
+      }
+
+      .active {
+        background-color: rgb(var(--secondary-color-hover));
+      }
+    }
+
+    .news_block {
+      width: auto;
+      margin-top: 10px;
+      padding: 10px;
+      display: grid;
+    }
+
+    .not_found {
+      display: inline-block;
+      position: absolute;
+      inset: 0;
+      top: 150px;
+      left: calc(50% - 200px);
+    }
+  }
+}
+
+@media (max-width: 1920px) {
+  .wrap {
+    width: 1300px;
+
+    .news_block {
+      grid-template-rows: min-content min-content min-content;
+      grid-template-columns: auto auto auto;
+      gap: 40px;
+    }
+  }
+}
+
+@media (max-width: 1600px) {
+  .wrap {
+    width: auto;
+
+    .news_block {
+      grid-template-rows: min-content min-content;
+      grid-template-columns: auto auto;
+      gap: 20px;
+    }
+  }
+}

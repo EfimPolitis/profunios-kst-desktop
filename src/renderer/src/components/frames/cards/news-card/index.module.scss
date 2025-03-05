@@ -1,0 +1,153 @@
+@import '@/styles/_variables';
+
+.card {
+  width: 400px;
+  height: 450px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px 0px rgba(var(--text-color), 0.2);
+  position: relative;
+  display: inline-block;
+  background-color: rgb(var(--secondary-color));
+  transition: all linear 0.2s;
+
+  &:hover {
+    box-shadow: 0px 0px 10px 2px rgba(var(--text-color), 0.4);
+
+    .menu {
+      opacity: 1;
+    }
+  }
+
+  .views {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    background-color: rgb(var(--secondary-color));
+    border-radius: 8px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    z-index: 1;
+  }
+
+  .card_link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .menu {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    background-color: rgb(var(--secondary-color));
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all linear 0.2s;
+    z-index: 1;
+
+    .edit {
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+      color: rgb(var(--text-color));
+      border-radius: 5px;
+
+      &:hover {
+        color: #6075ff;
+        background-color: rgb(var(--secondary-color-hover));
+      }
+    }
+
+    .trash {
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      padding: 5px;
+      border: none;
+      background-color: transparent;
+      color: rgb(var(--text-color));
+      border-radius: 5px;
+
+      &:hover {
+        color: #ff4c4c;
+        background-color: rgb(var(--secondary-color-hover));
+      }
+    }
+  }
+
+  img {
+    border-radius: 15px;
+  }
+
+  .info_block {
+    margin-top: 5px;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: rgb(var(--text-color));
+    font-weight: 600;
+    font-size: 14px;
+
+    .date {
+      color: rgba(var(--text-color), 0.6);
+
+      span {
+        color: rgba(var(--text-color));
+      }
+    }
+
+    .title {
+      font-size: 16px;
+    }
+
+    .description {
+      color: rgba(var(--text-color), 0.6);
+    }
+
+    .details {
+      position: absolute;
+      font-size: 16px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      .arrow {
+        margin-top: 4px;
+        transition: all ease-in-out 0.2s;
+      }
+
+      &:hover {
+        .arrow {
+          transform: translateX(10px);
+        }
+      }
+    }
+
+    a {
+      color: #005ab8;
+    }
+
+    .btn {
+      width: 380px;
+      bottom: -25px;
+    }
+  }
+}

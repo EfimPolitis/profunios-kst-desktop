@@ -10,11 +10,12 @@ class UrlPages {
   CREATE_EVENT = `${this.MANAGE_EVENTS}/create`
   EDIT_EVENT = `${this.MANAGE_EVENTS}/edit`
 
-  MANAGE_RESERVATIONS = '/reservations'
-  MANAGE_APPLICATIONS = '/applications'
   MANAGE_NEWS = '/news'
+  CREATE_NEWS = `${this.MANAGE_NEWS}/create`
+  EDIT_NEWS = `${this.MANAGE_NEWS}/edit`
+
+  MANAGE_APPLICATIONS = '/applications'
   MANAGE_CATEGORY = '/categories'
-  MANAGE_REPORTS = '/reports'
 }
 
 export const URL_PAGES = new UrlPages()
