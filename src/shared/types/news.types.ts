@@ -1,4 +1,4 @@
-import { TypeImage } from './event.types'
+import type { TypeImage } from './event.types'
 
 export interface INews {
   newsId: string

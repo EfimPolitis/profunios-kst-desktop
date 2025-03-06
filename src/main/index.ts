@@ -4,8 +4,6 @@ import { join } from 'path'
 
 import { API_URL } from '@shared/constants/api.constants'
 
-import icon from '../../resources/icon.png?asset'
-
 import { ipcMainApi } from './ipcMainApi'
 import { ipcMainWidnow } from './ipcMainWindow'
 
@@ -19,7 +17,7 @@ function createWindow(): void {
     autoHideMenuBar: true,
     center: true,
     title: 'Профсоюз КСТ',
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon: join(__dirname, '../build/icon.ico'),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false

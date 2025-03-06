@@ -10,13 +10,13 @@ export const ipcMainUser = () => {
     userService.getUsers(search)
   )
 
-  ipcMain.handle('getUser', (_, userId: number) => userService.getUser(userId))
+  ipcMain.handle('getUser', (_, userId: string) => userService.getUser(userId))
 
   ipcMain.handle('getProfile', () => userService.getProfile())
 
-  ipcMain.handle('updateUser', (_, data: IAuthFormData, userId: number) =>
+  ipcMain.handle('updateUser', (_, data: IAuthFormData, userId: string) =>
     userService.updateUser(data, userId)
   )
 
-  ipcMain.handle('deleteUser', (_, id: number) => userService.deleteUser(id))
+  ipcMain.handle('deleteUser', (_, userId: string) => userService.deleteUser(userId))
 }

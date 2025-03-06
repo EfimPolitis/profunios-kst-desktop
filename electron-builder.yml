@@ -41,3 +41,12 @@ npmRebuild: false
 publish:
   provider: generic
   url: https://example.com/auto-updates
+nsis:
+  oneClick: false  # Позволяет выбрать путь установки (если true - путь нельзя менять)
+  perMachine: false  # Установка для текущего пользователя (true - для всех пользователей)
+  allowToChangeInstallationDirectory: true  # Позволяет изменять путь установки
+  createDesktopShortcut: true  # Создавать ярлык на рабочем столе
+  createStartMenuShortcut: true  # Создавать ярлык в меню Пуск
+  installerIcon: "build/icon.ico"  # Иконка установщика
+  uninstallerIcon: "build/uninstall.ico"  # Иконка для удаления
+  artifactName: "${productName}-setup-${version}.${ext}"  # Имя выходного файла

@@ -13,8 +13,4 @@ export const ipcMainApplication = () => {
   ipcMain.handle('createApplication', (_, data: IApplicationData) =>
     applicationService.create(data)
   )
-
-  ipcMain.handle('sendStatusApplication', (_, status: string, id: string) =>
-    applicationService.sendStatus(status, id)
-  )
 }

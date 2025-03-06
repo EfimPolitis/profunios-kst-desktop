@@ -18,7 +18,7 @@ export const useUpdateUser = () => {
     error
   } = useMutation({
     mutationKey: [TanStackQueryKey.updateUser],
-    mutationFn: ({ data, userId }: { data: IAuthFormData; userId: number }) =>
+    mutationFn: ({ data, userId }: { data: IAuthFormData; userId: string }) =>
       window.api.updateUser(data, userId),
     onMutate: () => {
       toast.loading('Обработка...')

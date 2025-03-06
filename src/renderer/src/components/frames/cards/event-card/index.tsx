@@ -9,7 +9,7 @@ import { URL_PAGES } from '@shared/config/url.config'
 import { useDeleteEvent } from '@shared/hooks/event/useDeleteEvent'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
-import { Slider } from '../../../ui/slider'
+import { Slider } from '@/components/ui/slider'
 
 import styles from './index.module.scss'
 
@@ -28,12 +28,14 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
     <div className={styles.card}>
       <Link
         className={styles.card_link}
-        to={`${URL_PAGES.MANAGE_EVENTS}/${eventId}`}
+        to={'/events/$eventId'}
+        params={{eventId}}
       />
       {user?.role === 'ADMIN' || user?.role === 'MODER' ? (
         <div className={styles.menu}>
           <Link
-            to={`${URL_PAGES.EDIT_EVENT}/${eventId}`}
+            to={'/events/edit/$eventId'}
+            params={{eventId}}
             title='Редактировать'
             className={styles.edit}
           >
@@ -97,7 +99,8 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
         </p>
 
         <Link
-          to={`${URL_PAGES.MANAGE_EVENTS}/${eventId}`}
+          to={'/events/$eventId'}
+          params={{eventId}}
           className={styles.details}
         >
           Подробнее

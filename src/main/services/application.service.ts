@@ -27,14 +27,4 @@ export const applicationService = {
       await axiosWithAuth.post<IApplication>('/application', data)
     return response
   },
-
-  async sendStatus(status: string, id: string) {
-    const { headers, config, request, ...response } = await axiosWithAuth.patch(
-      `/application/${id}`,
-      {
-        status
-      }
-    )
-    return response
-  }
 }

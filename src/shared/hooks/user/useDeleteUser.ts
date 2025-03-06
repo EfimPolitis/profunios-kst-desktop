@@ -11,7 +11,7 @@ export const useDeleteUser = () => {
     error
   } = useMutation({
     mutationKey: [TanStackQueryKey.deleteUser],
-    mutationFn: (id: number) => window.api.deleteUser(id),
+    mutationFn: (userId: string) => window.api.deleteUser(userId),
     onMutate: () => {
       toast.loading('Загрузка...')
     },

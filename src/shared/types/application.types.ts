@@ -1,5 +1,5 @@
-import { IEvent } from './event.types'
-import { IUser } from './user.types'
+import type { IEvent } from './event.types'
+import type { IUser } from './user.types'
 
 export interface IApplication {
   id: string

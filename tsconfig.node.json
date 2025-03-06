@@ -5,14 +5,16 @@
     "src/main/**/*",
     "src/preload/*",
     "src/shared/**/*",
-    "src/renderer/src/components/layouts/useTheme.ts"
+    "src/renderer/src/components/layouts/theme/theme.helper.ts"
   ],
   "compilerOptions": {
+    "types": ["node"],
     "composite": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/main/*"],
-      "@shared/*": ["src/shared/*"]
+      "@shared/*": ["src/shared/*"],
+      "@renderer/*": ["src/renderer/*"]
     }
   }
 }

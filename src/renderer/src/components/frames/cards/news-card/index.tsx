@@ -9,7 +9,7 @@ import { URL_PAGES } from '@shared/config/url.config'
 import { useDeleteNews } from '@shared/hooks/news/useDeleteNews'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
-import { Slider } from '../../../ui/slider'
+import { Slider } from '@/components/ui/slider'
 
 import styles from './index.module.scss'
 
@@ -28,7 +28,8 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
     <div className={styles.card}>
       <Link
         className={styles.card_link}
-        to={`${URL_PAGES.MANAGE_NEWS}/${newsId}`}
+        to={'/news/$newsId'}
+        params={{newsId}}
       />
       <p className={styles.views}>
         <Eye />
@@ -37,7 +38,8 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
       {user?.role === 'ADMIN' || user?.role === 'MODER' ? (
         <div className={styles.menu}>
           <Link
-            to={`${URL_PAGES.EDIT_NEWS}/${newsId}`}
+            to={'/news/edit/$newsId'}
+            params={{newsId}}
             title='Редактировать'
             className={styles.edit}
           >
@@ -74,7 +76,8 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
             : description}
         </p>
         <Link
-          to={`${URL_PAGES.MANAGE_NEWS}/${newsId}`}
+          to={'/news/$newsId'}
+          params={{newsId}}
           className={styles.details}
         >
           Подробнее

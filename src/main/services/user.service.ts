@@ -18,7 +18,7 @@ export const userService = {
     return response
   },
 
-  async getUser(userId: number) {
+  async getUser(userId: string) {
     const { headers, request, config, ...response } =
       await axiosWithAuth.get<IUser>(`/users/${userId}`)
 
@@ -31,17 +31,17 @@ export const userService = {
     return response.data
   },
 
-  async updateUser(data: IAuthFormData, id: number) {
+  async updateUser(data: IAuthFormData, userId: string) {
     const { headers, request, config, ...response } = await axiosWithAuth.patch(
-      `/users/${id}`,
+      `/users/${userId}`,
       data
     )
     return response
   },
 
-  async deleteUser(id: number) {
+  async deleteUser(userId: string) {
     const { headers, request, config, ...response } =
-      await axiosWithAuth.delete(`/users/${id}`)
+      await axiosWithAuth.delete(`/users/${userId}`)
     return response
   }
 }

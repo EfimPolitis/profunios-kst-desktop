@@ -17,14 +17,14 @@ const api = {
   getAccessToken: () => ipcRenderer.invoke('getAccessToken'),
 
   //user
-  getUser: (userId: number) => ipcRenderer.invoke('getUser', userId),
+  getUser: (userId: string) => ipcRenderer.invoke('getUser', userId),
   getProfile: () => ipcRenderer.invoke('getProfile'),
   getUsers: (queryData: IQueryParam) =>
     ipcRenderer.invoke('getUsers', queryData),
 
-  updateUser: (data: IAuthFormData, userId: number) =>
+  updateUser: (data: IAuthFormData, userId: string) =>
     ipcRenderer.invoke('updateUser', data, userId),
-  deleteUser: (id: number) => ipcRenderer.invoke('deleteUser', id),
+  deleteUser: (userId: string) => ipcRenderer.invoke('deleteUser', userId),
 
   //event
   getEventById: (eventId: string) =>
@@ -53,12 +53,6 @@ const api = {
     ipcRenderer.invoke('getApplications', queryData),
   createApplication: (data: IApplicationData) =>
     ipcRenderer.invoke('createApplication', data),
-  sendStatusApplication: (status: string, id: string) =>
-    ipcRenderer.invoke('sendStatusApplication', status, id),
-
-  //reservations
-  getReservations: (data: IQueryParam) =>
-    ipcRenderer.invoke('getReservations', data),
 
   //category
   getCategories: () => ipcRenderer.invoke('getCategories'),

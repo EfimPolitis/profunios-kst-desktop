@@ -30,12 +30,12 @@ interface AuthFormProps {
 
 const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
   if (isEditing) {
-    var userId = Number(
+    var userId = 
       useParams({
         from: '/_layout/users/edit/$userId',
         select: params => params.userId
       })
-    )
+    
 
     if (userId) {
       const { data } = useGetUser(userId)

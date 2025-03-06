@@ -1,5 +1,5 @@
 import { useParams } from '@tanstack/react-router'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   Controller,
   type FieldErrors,
@@ -11,40 +11,17 @@ import toast from 'react-hot-toast'
 import type { IEventFormData, TypeImage } from '@shared/types/event.types'
 import type { INewsFormData } from '@shared/types/news.types'
 
-import { useGetCategories } from '@shared/hooks/category/useGetCategories'
-import { useCreateEvent } from '@shared/hooks/event/useCreateEvent'
-import { useGetEventById } from '@shared/hooks/event/useGetEventById'
-import { useUpdateEvent } from '@shared/hooks/event/useUpdateEvent'
 import { useCreateNews } from '@shared/hooks/news/useCreateNews'
 import { useGetNewsById } from '@shared/hooks/news/useGetNewsById'
 import { useUpdateNews } from '@shared/hooks/news/useUpdateNews'
 
 import styles from './index.module.scss'
 import { formRules } from './rules'
-import {
-  Button,
-  DateInput,
-  Field,
-  InputRadio,
-  SelectCategories,
-  TextArea,
-  Uploader
-} from '@/components/ui'
+import { Button, Field, TextArea, Uploader } from '@/components/ui'
 
 interface INewsForm {
   isEditing?: boolean
 }
-
-const variants = [
-  {
-    value: 'link',
-    label: 'С сылкой на форму или объявление'
-  },
-  {
-    value: 'noLink',
-    label: 'С определённым количеством билетов'
-  }
-]
 
 const initialValues = {
   title: '',
