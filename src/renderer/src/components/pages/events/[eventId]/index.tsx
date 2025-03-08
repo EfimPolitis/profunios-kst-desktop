@@ -1,4 +1,5 @@
 import { useParams } from '@tanstack/react-router'
+import { useEffect } from 'react'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
@@ -17,11 +18,16 @@ export const EventPageId = () => {
     select: params => params.eventId
   })
 
-  const { data, isPending } = useGetEventById(eventId)
+  const { data, isPending, isFetching, isLoading, refetch } =
+    useGetEventById(eventId)
   const { data: user } = useProfile()
 
   const event = data?.data
-  const userId = user?.userId
+  const userId = user?.data?.userId
+
+  useEffect(() => {
+    refetch()
+  }, [isPending, isFetching, isLoading])
 
   window.api.setTitle(`${event?.title}`)
 

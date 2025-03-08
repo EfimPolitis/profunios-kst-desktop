@@ -30,7 +30,7 @@ export const UserTableRow = ({
 
   return (
     <tr>
-      <td className={styles.count}>{count + 1}</td>
+      <td className={styles.count}>{count}</td>
       <td>{user.userName}</td>
       <td>{roles[user.role]}</td>
       <td>{`${user.lastName} ${user.firstName}`}</td>

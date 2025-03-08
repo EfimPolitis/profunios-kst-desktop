@@ -3,8 +3,8 @@ import type { IUser } from './user.types'
 
 export interface IApplication {
   id: string
-  user: IUser
-  events: IEvent
+  user: Pick<IUser, 'firstName' | 'lastName' | 'middleName'>
+  event: Pick<IEvent, 'title'>
   places: number
   createdAt: string
 }

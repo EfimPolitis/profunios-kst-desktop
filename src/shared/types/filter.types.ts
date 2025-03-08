@@ -3,16 +3,16 @@ import type { EnumSort } from '@shared/constants/sort.constants'
 import type { ERole } from './user.types'
 
 export enum EnumOrder {
-  ASC = 'asc',
-  DESC = 'desc'
+  ASC = '1',
+  DESC = '2'
 }
 
 export interface IQueryParam {
   sort?: EnumSort
-  order?: EnumOrder
+  order: EnumOrder
   search?: string
   role?: ERole
-  page?: string | number
+  page: number
   date_start?: string
   date_end?: string
   time_start?: string

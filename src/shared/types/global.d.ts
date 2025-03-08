@@ -41,7 +41,7 @@ declare global {
 
       //user
       getUser: (userId: string) => AxiosResponse<IUser, any> | undefined
-      getProfile: () => Promise<IProfileResponse>
+      getProfile: () => AxiosResponse<IProfileResponse>
       getUsers: (
         queryData: IQueryParam
       ) => AxiosResponse<IResponseUsers, any> | undefined

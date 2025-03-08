@@ -8,9 +8,9 @@ import { Loader } from '@/components/ui'
 export const Profile = () => {
   const { data, isLoading } = useProfile()
 
-  const user = { ...data }
+  const user = data?.data
 
-  if (!user.role) return
+  if (!user?.role) return
 
   return (
     <div className={styles.profile}>

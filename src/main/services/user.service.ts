@@ -28,7 +28,8 @@ export const userService = {
   async getProfile() {
     const { headers, request, config, ...response } =
       await axiosWithAuth.get<IProfileResponse>('/users/profile')
-    return response.data
+
+    return response
   },
 
   async updateUser(data: IAuthFormData, userId: string) {

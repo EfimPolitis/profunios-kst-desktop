@@ -1,15 +1,14 @@
 import { create } from 'zustand'
 
+import { EnumOrder } from '@shared/types/filter.types'
+
 import type { IStore } from './store.types'
 
 const initialQuearyParams: Pick<IStore, 'queryParams'> = {
   queryParams: {
     search: '',
     page: 1,
-    date_start: '',
-    date_end: '',
-    time_start: '',
-    time_end: ''
+    order: EnumOrder.ASC
   }
 }
 

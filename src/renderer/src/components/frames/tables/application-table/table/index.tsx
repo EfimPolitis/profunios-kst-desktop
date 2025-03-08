@@ -1,3 +1,5 @@
+import useFiltersStore from '@shared/store/store'
+
 import type { IApplication } from '@shared/types/application.types'
 
 import { TableRow } from '../row'
@@ -14,6 +16,8 @@ export const ApplicationTable = ({
   applications,
   isLoading
 }: IApplicationTable) => {
+  const countPage = useFiltersStore.getState().queryParams.page
+
   return (
     <div className={styles.table_container}>
       <table className={styles.table}>
@@ -23,7 +27,7 @@ export const ApplicationTable = ({
             <td>ФИО</td>
             <td>Мероприятие</td>
             <td className={styles.places}>Зарезервированных мест</td>
-            <td>Создан</td>
+            <td>Поданна</td>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +36,7 @@ export const ApplicationTable = ({
               <TableRow
                 application={application}
                 key={application.id}
-                count={count}
+                count={(countPage - 1) * 10 + (count + 1)}
               />
             ))}
         </tbody>

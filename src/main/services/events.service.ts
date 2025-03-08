@@ -5,12 +5,12 @@ import type {
 } from '@shared/types/event.types'
 import type { IQueryParam } from '@shared/types/filter.types'
 
-import { axiosClassic, axiosWithAuth } from '../api/interseptors'
+import { axiosWithAuth } from '../api/interseptors'
 
 export const eventService = {
   async getAll(queryData = {} as IQueryParam) {
     const { headers, config, request, ...response } =
-      await axiosClassic.get<IResponseEvents>('/event', {
+      await axiosWithAuth.get<IResponseEvents>('/event', {
         params: queryData
       })
 
@@ -19,7 +19,7 @@ export const eventService = {
 
   async getById(eventId: string) {
     const { headers, config, request, ...response } =
-      await axiosClassic.get<IEvent>(`/event/${eventId}`)
+      await axiosWithAuth.get<IEvent>(`/event/${eventId}`)
 
     return response
   },

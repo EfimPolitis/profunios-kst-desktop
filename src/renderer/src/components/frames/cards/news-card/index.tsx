@@ -9,13 +9,14 @@ import { URL_PAGES } from '@shared/config/url.config'
 import { useDeleteNews } from '@shared/hooks/news/useDeleteNews'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
-import { Slider } from '@/components/ui/slider'
-
 import styles from './index.module.scss'
+import { Slider } from '@/components/ui/slider'
 
 export const NewsCard: FC<INewsCard> = ({ data }) => {
   const { title, newsId, images, description, views, createdAt } = data
-  const { data: user } = useProfile()
+  const { data: userData } = useProfile()
+
+  const user = userData?.data
 
   const { mutateNews } = useDeleteNews()
 
@@ -29,7 +30,7 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
       <Link
         className={styles.card_link}
         to={'/news/$newsId'}
-        params={{newsId}}
+        params={{ newsId }}
       />
       <p className={styles.views}>
         <Eye />
@@ -39,7 +40,7 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
         <div className={styles.menu}>
           <Link
             to={'/news/edit/$newsId'}
-            params={{newsId}}
+            params={{ newsId }}
             title='Редактировать'
             className={styles.edit}
           >
@@ -77,7 +78,7 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
         </p>
         <Link
           to={'/news/$newsId'}
-          params={{newsId}}
+          params={{ newsId }}
           className={styles.details}
         >
           Подробнее

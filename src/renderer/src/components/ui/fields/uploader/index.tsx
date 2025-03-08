@@ -26,6 +26,8 @@ export const Uploader = memo(
     const [fileNames, setFileNames] = useState<string[]>([])
     const [imagesUrl, setImagesUrl] = useState<string[]>([])
 
+    console.log(images)
+
     const handleChangeImage = async ({
       target: { files }
     }: ChangeEvent<HTMLInputElement>) => {

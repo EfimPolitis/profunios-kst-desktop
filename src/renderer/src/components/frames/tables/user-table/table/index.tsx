@@ -1,3 +1,5 @@
+import useFiltersStore from '@shared/store/store'
+
 import type { IUser } from '@shared/types/user.types'
 
 import { useDeleteUser } from '@shared/hooks/user/useDeleteUser'
@@ -14,6 +16,8 @@ interface IUserTable {
 
 export const UserTable = ({ users, isLoading }: IUserTable) => {
   const { deleteUser, isPending } = useDeleteUser()
+
+  const countPage = useFiltersStore.getState().queryParams.page
 
   return (
     <div className={styles.table_container}>
@@ -35,7 +39,7 @@ export const UserTable = ({ users, isLoading }: IUserTable) => {
             <UserTableRow
               key={user.userId}
               user={user}
-              count={count}
+              count={(countPage - 1) * 10 + count + 1}
               deleteUser={deleteUser}
               isPending={isPending}
             />

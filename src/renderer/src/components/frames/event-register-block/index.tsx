@@ -25,11 +25,16 @@ export const RegisterBlock = ({ date, event, userId }: IRegisterBlock) => {
   } = useCreateApplication()
 
   const onClickBtn = (eventId: string, userId: string | undefined) => {
+    console.log(3)
     if (!userId) return
 
     const takePlaces = 1
 
+    console.log(1)
+
     if (!takePlaces) return
+
+    console.log(2)
 
     if (places < Number(takePlaces))
       return alert('Вы не можете забронировать мест больше чем есть в наличии!')

@@ -96,7 +96,7 @@ const NewsPage = () => {
         </div>
 
         {!isFetching && !news?.length && (
-          <h3 className={styles.not_found}>Мероприятия не найденны</h3>
+          <h3 className={styles.not_found}>Новости не найденны</h3>
         )}
       </div>
       <Pagination

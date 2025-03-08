@@ -12,12 +12,18 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: profunion-kst-desktop
+  executableName: Профсоюз КСТ
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
-  createDesktopShortcut: always
+  oneClick: false # Позволяет выбрать путь установки (если true - путь нельзя менять)
+  perMachine: false # Установка для текущего пользователя (true - для всех пользователей)
+  allowToChangeInstallationDirectory: true # Позволяет изменять путь установки
+  createDesktopShortcut: false # Создавать ярлык на рабочем столе
+  createStartMenuShortcut: false # Создавать ярлык в меню Пуск
+  installerIcon: 'build/icon.ico' # Иконка установщика
+  uninstallerIcon: 'build/icon.ico' # Иконка для удаления # Имя выходного файла
 mac:
   entitlementsInherit: build/entitlements.mac.plist
   extendInfo:
@@ -41,12 +47,3 @@ npmRebuild: false
 publish:
   provider: generic
   url: https://example.com/auto-updates
-nsis:
-  oneClick: false  # Позволяет выбрать путь установки (если true - путь нельзя менять)
-  perMachine: false  # Установка для текущего пользователя (true - для всех пользователей)
-  allowToChangeInstallationDirectory: true  # Позволяет изменять путь установки
-  createDesktopShortcut: true  # Создавать ярлык на рабочем столе
-  createStartMenuShortcut: true  # Создавать ярлык в меню Пуск
-  installerIcon: "build/icon.ico"  # Иконка установщика
-  uninstallerIcon: "build/uninstall.ico"  # Иконка для удаления
-  artifactName: "${productName}-setup-${version}.${ext}"  # Имя выходного файла
