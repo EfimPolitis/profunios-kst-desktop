@@ -5,8 +5,8 @@ import type { IApplicationData } from '@shared/types/application.types'
 import type { IAuthFormData } from '@shared/types/auth.types'
 import type { ICategory } from '@shared/types/category.types'
 import type { IEventFormData } from '@shared/types/event.types'
-import type { IQueryParam } from '@shared/types/filter.types'
 import { INewsFormData } from '@shared/types/news.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 // Custom APIs for renderer
 const api = {
@@ -79,6 +79,18 @@ const api = {
     return entity === 'event'
       ? ipcRenderer.invoke('deleteEventImage', fileName)
       : ipcRenderer.invoke('deleteNewsImage', fileName)
+  },
+
+  //report
+  getReport: (entity: 'event' | 'application' | 'user') => {
+    switch (entity) {
+      case 'application':
+        return ipcRenderer.invoke('getApplicationReport')
+      case 'event':
+        return ipcRenderer.invoke('getEventReport')
+      case 'user':
+        return ipcRenderer.invoke('getUserReport')
+    }
   },
 
   //window

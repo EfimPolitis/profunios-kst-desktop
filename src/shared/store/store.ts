@@ -1,18 +1,15 @@
 import { create } from 'zustand'
 
-import { EnumOrder } from '@shared/types/filter.types'
+import type { IBookingStore, IFilterStore } from './store.types'
 
-import type { IStore } from './store.types'
-
-const initialQuearyParams: Pick<IStore, 'queryParams'> = {
+const initialQuearyParams: Pick<IFilterStore, 'queryParams'> = {
   queryParams: {
     search: '',
-    page: 1,
-    order: EnumOrder.ASC
+    page: 1
   }
 }
 
-const useFiltersStore = create<IStore>(set => ({
+export const useFiltersStore = create<IFilterStore>(set => ({
   ...initialQuearyParams,
   isFilterUpdated: false,
 
@@ -26,4 +23,24 @@ const useFiltersStore = create<IStore>(set => ({
   reset: () => set(() => ({ ...initialQuearyParams, isFilterUpdated: true }))
 }))
 
-export default useFiltersStore
+export const useBookingStore = create<IBookingStore>(set => ({
+  count: 0,
+
+  increment: () => {
+    set(state => ({
+      count: state.count + 1
+    }))
+  },
+
+  decrement: () => {
+    set(state => ({
+      count: state.count === 0 ? state.count : state.count - 1
+    }))
+  },
+
+  setCount: count => {
+    set(() => ({
+      count
+    }))
+  }
+}))

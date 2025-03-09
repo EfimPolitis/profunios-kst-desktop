@@ -3,7 +3,7 @@ import {
   IApplicationData,
   IResponeApplications
 } from '@shared/types/application.types'
-import { IQueryParam } from '@shared/types/filter.types'
+import { IQueryParam } from '@shared/types/query.types'
 
 import { axiosWithAuth } from '../api/interseptors'
 
@@ -27,4 +27,11 @@ export const applicationService = {
       await axiosWithAuth.post<IApplication>('/application', data)
     return response
   },
+
+  async getReport() {
+    const { headers, request, config, ...response } = await axiosWithAuth.get(
+      '/application/report'
+    )
+    return response
+  }
 }

@@ -1,10 +1,12 @@
-import { IQueryParam } from '@shared/types/filter.types'
 import { INews, INewsFormData, IResponseNews } from '@shared/types/news.types'
+import { IQueryParam } from '@shared/types/query.types'
 
 import { axiosClassic, axiosWithAuth } from '../api/interseptors'
 
 export const newsService = {
   async getById(id: string) {
+    await axiosClassic.post(`/news/views/${id}`)
+
     const { headers, config, request, ...response } =
       await axiosClassic.get<INews>(`/news/${id}`)
 

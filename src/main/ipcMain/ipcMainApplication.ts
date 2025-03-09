@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 
 import type { IApplicationData } from '@shared/types/application.types'
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { applicationService } from '../services/application.service'
 
@@ -13,4 +13,6 @@ export const ipcMainApplication = () => {
   ipcMain.handle('createApplication', (_, data: IApplicationData) =>
     applicationService.create(data)
   )
+
+  ipcMain.handle('getApplicationReport', () => applicationService.getReport())
 }

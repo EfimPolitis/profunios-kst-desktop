@@ -42,6 +42,7 @@ a {
 ::-webkit-scrollbar-thumb {
   width: 8px;
   border: 1px solid rgb(var(--secondary-color));
+  background-color: rgb(var(--secondary-color-active));
   border-radius: 5px;
 }
 

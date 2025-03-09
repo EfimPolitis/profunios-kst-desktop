@@ -1,7 +1,7 @@
 import cn from 'clsx'
 import { m } from 'framer-motion'
 
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { FILTER_DATA } from './filter.data'
 import styles from './index.module.scss'

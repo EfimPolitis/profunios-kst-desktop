@@ -1,6 +1,6 @@
 import type { IResponseCategory } from './category.types'
 
-enum EStatus {
+export enum EStatus {
   ITERNAL,
   EVERYONE
 }

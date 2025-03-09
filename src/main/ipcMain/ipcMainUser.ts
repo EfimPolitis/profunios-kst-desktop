@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 
 import type { IAuthFormData } from '@shared/types/auth.types'
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { userService } from '../services/user.service'
 
@@ -18,5 +18,9 @@ export const ipcMainUser = () => {
     userService.updateUser(data, userId)
   )
 
-  ipcMain.handle('deleteUser', (_, userId: string) => userService.deleteUser(userId))
+  ipcMain.handle('deleteUser', (_, userId: string) =>
+    userService.deleteUser(userId)
+  )
+
+  ipcMain.handle('getUserReport', () => userService.getReport())
 }

@@ -1,6 +1,7 @@
 import cn from 'clsx'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { type CSSProperties, useState } from 'react'
+import toast from 'react-hot-toast'
 
 import type { TypeImage } from '@shared/types/event.types'
 
@@ -15,6 +16,8 @@ interface ISlider {
 
 export const Slider = ({ images, height, style }: ISlider) => {
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  if (!images) return toast.error('Нету картинок')
 
   const prevSlide = () => {
     setCurrentIndex(prevIndex =>

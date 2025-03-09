@@ -1,17 +1,44 @@
 import cn from 'clsx'
 import { ArrowDownUp, ChevronDown, ChevronUp } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { EnumOrder, type ISort } from '@shared/types/filter.types'
+import type {
+  EApplicationSort,
+  EEventSort,
+  ENewsSort,
+  EUserSort,
+  ISort,
+  ISortItem
+} from '@shared/types/query.types'
 
 import { useOutside } from '@shared/hooks/useOutside'
 
 import styles from './index.module.scss'
 
-export const Sort = ({ data, value, updateQueryParam }: ISort) => {
+enum EnumOrder {
+  ASC = 'asc',
+  DESC = 'desc'
+}
+
+export const Sort = ({ data, queryParams, updateQueryParam }: ISort) => {
   const { isShow, setIsShow, ref } = useOutside(false)
 
-  const [order, setOrder] = useState(EnumOrder.ASC)
+  const [order, setOrder] = useState<EnumOrder>(EnumOrder.DESC)
+  const [sort, setSort] = useState<
+    EUserSort | EEventSort | ENewsSort | EApplicationSort
+  >()
+  const [current, setCurrent] = useState<ISortItem | undefined>(
+    data.find(value => value.keys[order] === queryParams?.sort)
+  )
+
+  useEffect(() => {
+    if (!sort) return
+
+    updateQueryParam({
+      key: 'sort',
+      value: sort
+    })
+  }, [order, sort, current])
 
   return (
     <div
@@ -24,7 +51,7 @@ export const Sort = ({ data, value, updateQueryParam }: ISort) => {
           className={styles.selected}
           onClick={() => setIsShow(!isShow)}
         >
-          <span>{value?.value}</span>
+          <span>{current?.message}</span>
           {isShow ? (
             <ChevronDown className={styles.icon} />
           ) : (
@@ -32,13 +59,12 @@ export const Sort = ({ data, value, updateQueryParam }: ISort) => {
           )}
         </div>
         <button
-          className={cn(
-            styles.order,
-            order === EnumOrder.DESC && styles.active
-          )}
+          className={cn(styles.order, order === EnumOrder.ASC && styles.active)}
           onClick={() => {
-            setOrder(order === EnumOrder.ASC ? EnumOrder.DESC : EnumOrder.ASC)
-            updateQueryParam({ key: 'order', value: order })
+            setOrder(order === EnumOrder.DESC ? EnumOrder.ASC : EnumOrder.DESC)
+            setSort(
+              order === EnumOrder.DESC ? current?.keys.asc : current?.keys.desc
+            )
           }}
           title={
             order === EnumOrder.ASC
@@ -55,12 +81,15 @@ export const Sort = ({ data, value, updateQueryParam }: ISort) => {
             {data.map(item => (
               <li
                 onClick={() => {
-                  updateQueryParam({ key: 'sort', value: item.key })
+                  setSort(
+                    order === EnumOrder.DESC ? item.keys.desc : item.keys.asc
+                  )
+                  setCurrent(item)
                   setIsShow(!isShow)
                 }}
-                key={item.key}
+                key={order === EnumOrder.DESC ? item.keys.desc : item.keys.asc}
               >
-                {item.value}
+                {item.message}
               </li>
             ))}
           </ul>

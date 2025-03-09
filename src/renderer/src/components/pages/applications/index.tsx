@@ -1,4 +1,4 @@
-import useFiltersStore from '@shared/store/store'
+import { useFiltersStore } from '@shared/store/store'
 import cn from 'clsx'
 import { FileText, Filter } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -63,6 +63,7 @@ const ApplicationsPage = () => {
           <button
             className={styles.getReport}
             title='Скачать отчёт'
+            onClick={() => window.api.getReport('application')}
           >
             <FileText size={30} />
           </button>

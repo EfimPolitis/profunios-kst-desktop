@@ -1,4 +1,4 @@
-import useFiltersStore from '@shared/store/store'
+import { useFiltersStore } from '@shared/store/store'
 
 import type { IApplication } from '@shared/types/application.types'
 

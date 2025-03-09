@@ -11,7 +11,7 @@
   overflow-y: scroll;
 
   .content {
-    max-width: 100%;
+    width: 100%;
     background-color: rgb(var(--secondary-color));
     border-radius: 10px;
     box-shadow: 1px 1px 10px rgba(var(--text-color), 0.4);

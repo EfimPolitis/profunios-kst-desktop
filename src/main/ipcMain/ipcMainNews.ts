@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 
-import { IQueryParam } from '@shared/types/filter.types'
 import { INewsFormData } from '@shared/types/news.types'
+import { IQueryParam } from '@shared/types/query.types'
 
 import { newsService } from '../services/news.service'
 

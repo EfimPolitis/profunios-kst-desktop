@@ -1,8 +1,4 @@
-import { Link } from '@tanstack/react-router'
-
 import type { IEvent } from '@shared/types/event.types'
-
-import { useCreateApplication } from '@shared/hooks/application/useCreateApplication'
 
 import styles from './index.module.scss'
 import { Button } from '@/components/ui'
@@ -11,40 +7,21 @@ interface IRegisterBlock {
   date: string
   event: IEvent
   userId: string | undefined
+  setIsShow: React.Dispatch<React.SetStateAction<boolean>>
+  isPending: boolean
+  isSuccess: boolean
+  isError: boolean
 }
 
-export const RegisterBlock = ({ date, event, userId }: IRegisterBlock) => {
+export const RegisterBlock = ({
+  date,
+  event,
+  setIsShow,
+  isError,
+  isPending,
+  isSuccess
+}: IRegisterBlock) => {
   const { places } = event
-
-  const {
-    mutate: mutateApplication,
-    isPending,
-    isSuccess,
-    isError,
-    reset
-  } = useCreateApplication()
-
-  const onClickBtn = (eventId: string, userId: string | undefined) => {
-    console.log(3)
-    if (!userId) return
-
-    const takePlaces = 1
-
-    console.log(1)
-
-    if (!takePlaces) return
-
-    console.log(2)
-
-    if (places < Number(takePlaces))
-      return alert('Вы не можете забронировать мест больше чем есть в наличии!')
-
-    const responseData = { eventId, userId, places: takePlaces }
-
-    mutateApplication(responseData)
-  }
-
-  if (isSuccess || isError) setTimeout(() => reset(), 1500)
 
   return (
     <div className={styles.event_card}>
@@ -52,11 +29,9 @@ export const RegisterBlock = ({ date, event, userId }: IRegisterBlock) => {
         <div className={styles.event_date}>
           <div className={styles.date_day}>{new Date(date).getDate()}</div>
           <div className={styles.date_month}>
-            {new Date(date)
-              .toLocaleDateString('ru-RU', {
-                month: 'short'
-              })
-              .slice(0, -1)}
+            {new Date(date).toLocaleDateString('ru-RU', {
+              month: 'long'
+            })}
           </div>
         </div>
         <div className={styles.event_details}>
@@ -70,7 +45,7 @@ export const RegisterBlock = ({ date, event, userId }: IRegisterBlock) => {
           <div className={styles.event_date_full}>
             {new Date(date).toLocaleDateString('ru-RU', {
               day: 'numeric',
-              month: 'short',
+              month: 'long',
               year: 'numeric'
             })}
           </div>
@@ -88,7 +63,7 @@ export const RegisterBlock = ({ date, event, userId }: IRegisterBlock) => {
         text={
           places === 0 ? 'Мест на мероприятие больше нет' : 'Хочу учавствовать'
         }
-        onClick={() => onClickBtn(event?.eventId, userId)}
+        onClick={() => setIsShow(true)}
         className={styles.button}
         isPending={isPending}
         isError={isError}

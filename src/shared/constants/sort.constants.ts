@@ -1,4 +1,10 @@
-import type { ISortItem } from '@shared/types/filter.types'
+import {
+  EApplicationSort,
+  EEventSort,
+  ENewsSort,
+  EUserSort,
+  ISortItem
+} from '@shared/types/query.types'
 
 export enum EnumSort {
   ALPHABETIC = 'alphabetic',
@@ -11,68 +17,91 @@ export enum EnumSort {
   UPDATED_AT = 'updated_at'
 }
 
-export enum EnumUserSort {}
-
 export const eventSortList: ISortItem[] = [
   {
-    value: 'По алфавиту',
-    key: EnumSort.ALPHABETIC
+    message: 'По алфовиту',
+    keys: {
+      asc: EEventSort.ALPHABETIC_ASC,
+      desc: EEventSort.ALPHABETIC_DESC
+    }
   },
   {
-    value: 'По дате проведения',
-    key: EnumSort.DATE
+    message: 'По дате проведения',
+    keys: {
+      asc: EEventSort.DATE_ASC,
+      desc: EEventSort.DATE_DESC
+    }
   },
   {
-    value: 'По количеству мест',
-    key: EnumSort.PLACES
+    message: 'По кол-ву мест',
+    keys: {
+      asc: EEventSort.PLACES_ASC,
+      desc: EEventSort.PLACES_DESC
+    }
   }
 ]
 
 export const newsSortList: ISortItem[] = [
   {
-    value: 'По дате публикации',
-    key: EnumSort.DATE
+    message: 'По алфовиту',
+    keys: {
+      asc: ENewsSort.ALPHABETIC_ASC,
+      desc: ENewsSort.ALPHABETIC_DESC
+    }
   },
   {
-    value: 'По количеству просмотров',
-    key: EnumSort.VIEWS
+    message: 'По дате публикации',
+    keys: {
+      asc: ENewsSort.CREATED_AT_ASC,
+      desc: ENewsSort.CREATED_AT_DESC
+    }
   },
   {
-    value: 'По алфавиту',
-    key: EnumSort.ALPHABETIC
+    message: 'По кол-ву просмотров',
+    keys: {
+      asc: ENewsSort.VIEWS_ASC,
+      desc: ENewsSort.VIEWS_DESC
+    }
   }
 ]
 
 export const userSortList: ISortItem[] = [
   {
-    value: 'По алфавиту',
-    key: EnumSort.ALPHABETIC
+    message: 'По алфовиту',
+    keys: {
+      asc: EUserSort.ALPHABETIC_ASC,
+      desc: EUserSort.ALPHABETIC_DESC
+    }
   },
   {
-    value: 'По роли',
-    key: EnumSort.ROLE
+    message: 'По дате создания',
+    keys: {
+      asc: EUserSort.CREATED_AT_ASC,
+      desc: EUserSort.CREATED_AT_DESC
+    }
   },
   {
-    value: 'По дате создания',
-    key: EnumSort.CREATED_AT
-  },
-  {
-    value: 'По дате обновления',
-    key: EnumSort.UPDATED_AT
+    message: 'По дате обновления',
+    keys: {
+      asc: EUserSort.UPDATED_AT_ASC,
+      desc: EUserSort.UPDATED_AT_DESC
+    }
   }
 ]
 
 export const applicationSortList: ISortItem[] = [
   {
-    value: 'По алфавиту',
-    key: EnumSort.ALPHABETIC
+    message: 'По кол-ву мест',
+    keys: {
+      asc: EApplicationSort.PLACES_ASK,
+      desc: EApplicationSort.PLACES_DESC
+    }
   },
   {
-    value: 'По кол-ву мест',
-    key: EnumSort.PLACES
-  },
-  {
-    value: 'По дате создания',
-    key: EnumSort.CREATED_AT
+    message: 'По дате',
+    keys: {
+      asc: EApplicationSort.CREATED_AT_ASC,
+      desc: EApplicationSort.CREATED_AT_DESC
+    }
   }
 ]

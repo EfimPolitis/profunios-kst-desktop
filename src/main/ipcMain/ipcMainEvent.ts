@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron'
 
 import type { IEventFormData } from '@shared/types/event.types'
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { eventService } from '../services/events.service'
 
@@ -25,6 +25,8 @@ export const ipcMainEvent = () => {
   ipcMain.handle('deleteEvent', (_, eventId: string) =>
     eventService.delete(eventId)
   )
+
+  ipcMain.handle('getEventReport', () => eventService.getReport())
 
   ipcMain.handle('uploadEventImage', async (_, { buffer, name, type }) => {
     const formData = new FormData()

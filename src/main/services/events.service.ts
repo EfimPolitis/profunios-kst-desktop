@@ -3,7 +3,7 @@ import type {
   IEventFormData,
   IResponseEvents
 } from '@shared/types/event.types'
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { axiosWithAuth } from '../api/interseptors'
 
@@ -44,6 +44,12 @@ export const eventService = {
     const { headers, config, request, ...response } =
       await axiosWithAuth.delete(`/event/${eventId}`)
 
+    return response
+  },
+
+  async getReport() {
+    const { headers, request, config, ...response } =
+      await axiosWithAuth.get('/event/report')
     return response
   },
 

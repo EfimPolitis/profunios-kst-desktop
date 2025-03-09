@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 type TypeFilterName = 'user' | 'event' | 'news' | 'application'
 

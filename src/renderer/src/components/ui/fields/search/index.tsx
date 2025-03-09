@@ -1,7 +1,7 @@
 import { SearchIcon, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { useDebounce } from '@shared/hooks/useDebounce'
 

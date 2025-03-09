@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import type { Dispatch, InputHTMLAttributes, SetStateAction } from 'react'
 
-import type { IQueryParam } from '@shared/types/filter.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 interface IData {
   key: string

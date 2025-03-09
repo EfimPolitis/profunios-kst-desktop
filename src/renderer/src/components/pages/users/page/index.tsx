@@ -1,4 +1,4 @@
-import useFiltersStore from '@shared/store/store'
+import { useFiltersStore } from '@shared/store/store'
 import { Link } from '@tanstack/react-router'
 import cn from 'clsx'
 import { FileText, Filter, UserPlus } from 'lucide-react'
@@ -70,6 +70,7 @@ const UsersPage = () => {
           <button
             className={styles.getReport}
             title='Скачать отчёт'
+            onClick={() => window.api.getReport('user')}
           >
             <FileText size={30} />
           </button>

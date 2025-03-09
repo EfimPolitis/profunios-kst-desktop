@@ -39,10 +39,7 @@ export const formRules: TFormRules = {
     }
   },
   categoriesId: {
-    required: {
-      value: true,
-      message: 'Нужно выбрать хотя бы одну категорию'
-    }
+    required: false
   },
   date: {
     required: {
@@ -51,10 +48,7 @@ export const formRules: TFormRules = {
     }
   },
   link: {
-    required: {
-      value: true,
-      message: '"Дата проведения" - обязательное поле'
-    },
+    required: false,
     pattern: {
       value: /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}(\/.*)?$/,
       message: 'Введите корректный URL'

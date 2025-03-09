@@ -1,4 +1,4 @@
-import useFiltersStore from '@shared/store/store'
+import { useFiltersStore } from '@shared/store/store'
 import { Link } from '@tanstack/react-router'
 import cn from 'clsx'
 import { CalendarPlus, FileText, Filter } from 'lucide-react'
@@ -8,7 +8,6 @@ import { newsSortList } from '@shared/constants/sort.constants'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
-import { useGetEvents } from '@shared/hooks/event/useGetEvents'
 import { useGetNews } from '@shared/hooks/news/useGetNews'
 
 import styles from './index.module.scss'
@@ -71,12 +70,6 @@ const NewsPage = () => {
           >
             <CalendarPlus size={30} />
           </Link>
-          <button
-            className={styles.getReport}
-            title='Скачать отчёт'
-          >
-            <FileText size={30} />
-          </button>
         </div>
         <FilterComponent
           isOpen={isOpenFilter}

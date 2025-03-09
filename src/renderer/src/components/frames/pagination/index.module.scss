@@ -3,6 +3,7 @@
 .pagination {
   display: flex;
   gap: 5px;
+  user-select: none;
 
   .item {
     width: 40px;
@@ -11,10 +12,23 @@
     align-items: center;
     justify-content: center;
     border-radius: 20px;
+  }
+
+  .btn {
     cursor: pointer;
 
     &:hover {
       background-color: rgb(var(--secondary-color-hover));
+    }
+  }
+
+  .disabled {
+    svg {
+      color: rgb(var(--secondary-color-active));
+    }
+
+    &:hover {
+      background-color: rgb(var(--secondary-color));
     }
   }
 

@@ -93,6 +93,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
 
   const onSubmit: SubmitHandler<IEventFormData> = useCallback(data => {
     data.places = Number(data.places)
+    console.log(data)
     isEditing ? eventId && updateEvent({ data, eventId }) : createEvent(data)
   }, [])
 

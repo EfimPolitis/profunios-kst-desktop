@@ -1,4 +1,4 @@
-import useFiltersStore from '@shared/store/store'
+import { useFiltersStore } from '@shared/store/store'
 import { Link } from '@tanstack/react-router'
 import cn from 'clsx'
 import { CalendarPlus, FileText, Filter } from 'lucide-react'
@@ -54,7 +54,7 @@ const EventsPage = () => {
           />
           <Sort
             data={eventSortList}
-            value={eventSortList.find(value => value.key === queryParams.sort)}
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
           />
           <button
@@ -76,6 +76,7 @@ const EventsPage = () => {
           <button
             className={styles.getReport}
             title='Скачать отчёт'
+            onClick={() => window.api.getReport('event')}
           >
             <FileText size={30} />
           </button>

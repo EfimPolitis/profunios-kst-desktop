@@ -15,12 +15,12 @@ import type {
   IEventFormData,
   IResponseEvents
 } from '@shared/types/event.types'
-import type { IQueryParam } from '@shared/types/filter.types'
 import type {
   INews,
   INewsFormData,
   IResponseNews
 } from '@shared/types/news.types'
+import type { IQueryParam } from '@shared/types/query.types'
 import type {
   IProfileResponse,
   IResponseUsers,
@@ -107,6 +107,9 @@ declare global {
         fileName: string,
         entity: 'event' | 'news'
       ) => AxiosResponse<any>
+
+      //report
+      getReport: (entity: 'event' | 'application' | 'user') => any
 
       //window
       setTitle: (title: string) => null
