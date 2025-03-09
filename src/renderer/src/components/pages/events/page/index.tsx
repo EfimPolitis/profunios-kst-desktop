@@ -44,6 +44,10 @@ const EventsPage = () => {
 
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
+  const handleResetFilter = () => {
+    reset()
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.wrap}>
@@ -85,6 +89,7 @@ const EventsPage = () => {
           isOpen={isOpenFilter}
           type='event'
           updateQueryParam={updateQueryParam}
+          handleResetFilter={handleResetFilter}
         />
         <div className={styles.events_block}>
           {isFetching

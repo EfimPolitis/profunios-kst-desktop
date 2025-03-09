@@ -36,6 +36,10 @@ const ApplicationsPage = () => {
 
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
+  const handleResetFilter = () => {
+    reset()
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.wrap}>
@@ -46,9 +50,7 @@ const ApplicationsPage = () => {
           />
           <Sort
             data={applicationSortList}
-            value={applicationSortList.find(
-              value => value.key === queryParams.sort
-            )}
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
           />
           <button
@@ -72,6 +74,7 @@ const ApplicationsPage = () => {
           isOpen={isOpenFilter}
           type='application'
           updateQueryParam={updateQueryParam}
+          handleResetFilter={handleResetFilter}
         />
         <ApplicationTable
           applications={applications}

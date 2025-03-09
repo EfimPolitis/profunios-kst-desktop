@@ -5,17 +5,19 @@ import type { IQueryParam } from '@shared/types/query.types'
 
 import { FILTER_DATA } from './filter.data'
 import styles from './index.module.scss'
-import { DateInput, InputSelect } from '@/components/ui'
+import { Button, DateInput, InputSelect } from '@/components/ui'
 
 interface IFilters {
   isOpen: boolean
   type: 'event' | 'user' | 'application' | 'news'
+  handleResetFilter: () => void
   updateQueryParam: (data: { key: keyof IQueryParam; value: string }) => void
 }
 
 export const FilterComponent = ({
   isOpen,
   type,
+  handleResetFilter,
   updateQueryParam
 }: IFilters) => {
   return (
@@ -74,6 +76,11 @@ export const FilterComponent = ({
             </section>
           ))}
         </div>
+        <Button
+          text='Сбросить фильтры'
+          onClick={handleResetFilter}
+          className={styles.resetBtn}
+        />
       </m.div>
     </div>
   )

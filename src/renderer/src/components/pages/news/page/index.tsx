@@ -41,6 +41,10 @@ const NewsPage = () => {
 
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
+  const handleResetFilter = () => {
+    reset()
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.wrap}>
@@ -51,7 +55,7 @@ const NewsPage = () => {
           />
           <Sort
             data={newsSortList}
-            value={newsSortList.find(value => value.key === queryParams.sort)}
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
           />
           <button
@@ -75,6 +79,7 @@ const NewsPage = () => {
           isOpen={isOpenFilter}
           type='news'
           updateQueryParam={updateQueryParam}
+          handleResetFilter={handleResetFilter}
         />
         <div className={styles.news_block}>
           {isFetching

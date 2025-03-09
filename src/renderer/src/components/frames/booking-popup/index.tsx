@@ -1,5 +1,5 @@
 import { useBookingStore } from '@shared/store/store'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import React from 'react'
 
 import styles from './index.module.scss'
@@ -14,14 +14,14 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose, onConfirm }) => {
   const { count, setCount, increment, decrement } = useBookingStore()
 
   return (
-    <motion.div
+    <m.div
       className={styles.overlay}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       onClick={onClose}
     >
-      <motion.div
+      <m.div
         className={styles.popup}
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -64,8 +64,8 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose, onConfirm }) => {
             style={{ height: '50px', fontSize: '18px' }}
           />
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   )
 }
 

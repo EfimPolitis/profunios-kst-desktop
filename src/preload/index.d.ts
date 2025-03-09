@@ -59,6 +59,7 @@ declare global {
 
       //news
       getNewsById: (newsId: string) => AxiosResponse<INews, any> | undefined
+      incrementView: (newsId: string) => any
       getNews: (
         queryData: IQueryParam
       ) => AxiosResponse<IResponseNews, any> | undefined
@@ -99,6 +100,7 @@ declare global {
       ) => AxiosResponse<
         {
           url: string
+          name: string
           id: string
         },
         any

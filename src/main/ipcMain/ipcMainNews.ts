@@ -10,6 +10,10 @@ export const ipcMainNews = () => {
     newsService.getById(newsId)
   )
 
+  ipcMain.handle('incrementView', (_, newsId: string) =>
+    newsService.incrementView(newsId)
+  )
+
   ipcMain.handle('getNews', (_, queryData: IQueryParam) =>
     newsService.getAll(queryData)
   )

@@ -1,3 +1,6 @@
+import { BrowserWindow, dialog } from 'electron'
+import fs from 'fs'
+
 import {
   IApplication,
   IApplicationData,
@@ -29,9 +32,25 @@ export const applicationService = {
   },
 
   async getReport() {
-    const { headers, request, config, ...response } = await axiosWithAuth.get(
-      '/application/report'
-    )
-    return response
+    const win = BrowserWindow.getFocusedWindow()
+    if (!win) return
+
+    const { filePath } = await dialog.showSaveDialog(win, {
+      title: 'Сохранить отчёт',
+      defaultPath: 'report.xlsx',
+      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
+    })
+
+    if (!filePath) return
+
+    try {
+      const response = await axiosWithAuth.get('http://localhost:3000/report', {
+        responseType: 'arraybuffer'
+      })
+
+      fs.writeFileSync(filePath, response.data)
+    } catch (error) {
+      console.error('Ошибка загрузки отчёта:', error)
+    }
   }
 }

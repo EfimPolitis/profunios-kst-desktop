@@ -8,7 +8,11 @@ import {
 } from 'react-hook-form'
 import toast from 'react-hot-toast'
 
-import type { IEventFormData, TypeImage } from '@shared/types/event.types'
+import {
+  EStatus,
+  type IEventFormData,
+  type TypeImage
+} from '@shared/types/event.types'
 
 import { useGetCategories } from '@shared/hooks/category/useGetCategories'
 import { useCreateEvent } from '@shared/hooks/event/useCreateEvent'
@@ -21,6 +25,7 @@ import {
   Button,
   DateInput,
   Field,
+  InputRadio,
   SelectCategories,
   TextArea,
   Uploader
@@ -29,6 +34,17 @@ import {
 interface IEventForm {
   isEditing?: boolean
 }
+
+const variants = [
+  {
+    value: EStatus.EVERYONE,
+    label: 'Открытый'
+  },
+  {
+    value: EStatus.ITERNAL,
+    label: 'Скрытый'
+  }
+]
 
 const initialValues = {
   title: '',
@@ -167,6 +183,15 @@ export const EventForm = ({ isEditing }: IEventForm) => {
           {...register('places', formRules.places)}
         />
       </div>
+      <div>
+        <h3>Тип меропрития</h3>
+        {/* <InputRadio
+          setState={setTypeEvent}
+          variants={variants}
+          checked={}
+          style={{ marginBottom: '20px' }}
+        /> */}
+      </div>
       <Button
         text={isEditing ? 'Сохранить изменения' : 'Создать'}
         isPending={isPending}
@@ -177,27 +202,3 @@ export const EventForm = ({ isEditing }: IEventForm) => {
     </form>
   )
 }
-
-// <div>
-//   <h3>Тип меропрития</h3>
-//   <InputRadio
-//     setState={setTypeEvent}
-//     variants={variants}
-//     checked={initialTypeEvent}
-//     style={{ marginBottom: '20px' }}
-//   />
-//   {isLink ? (
-//     <Field
-//       placeholder={'Введите ссылку'}
-//       style={{ width: '500px', paddingLeft: '20px' }}
-//       {...register('link', isLink && formRules.type)}
-//     />
-//   ) : (
-//     <Field
-//       placeholder='Количество билетов'
-//       style={{ width: '120px', textAlign: 'center', padding: '5px' }}
-//       type={'number'}
-//       {...register('places', !isLink && formRules.type)}
-//     />
-//   )}
-// </div>

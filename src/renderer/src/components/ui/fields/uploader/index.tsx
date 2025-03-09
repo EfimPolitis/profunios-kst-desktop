@@ -59,7 +59,7 @@ export const Uploader = memo(
           entity
         )
 
-        setFileNames(prev => [...prev, file.name])
+        setFileNames(prev => [...prev, data.name])
         setImagesUrl([...imagesUrl, data.url])
         setImagesId([...imagesId, data.id])
 

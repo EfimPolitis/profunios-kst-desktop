@@ -38,6 +38,10 @@ const UsersPage = () => {
 
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
+  const handleResetFilter = () => {
+    reset()
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.wrap}>
@@ -48,7 +52,7 @@ const UsersPage = () => {
           />
           <Sort
             data={userSortList}
-            value={userSortList.find(value => value.key === queryParams.sort)}
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
           />
           <button
@@ -79,6 +83,7 @@ const UsersPage = () => {
           isOpen={isOpenFilter}
           type='user'
           updateQueryParam={updateQueryParam}
+          handleResetFilter={handleResetFilter}
         />
         <UserTable
           users={users}

@@ -1,9 +1,11 @@
 import { useParams } from '@tanstack/react-router'
 import { Eye } from 'lucide-react'
+import { useEffect } from 'react'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
 import { useGetNewsById } from '@shared/hooks/news/useGetNewsById'
+import { useIncrementView } from '@shared/hooks/news/useIncrementNews'
 
 import styles from './index.module.scss'
 import NewsPageSkeleton from './index.skeleton'
@@ -17,8 +19,13 @@ export const NewsPageId = () => {
   })
 
   const { data, isPending } = useGetNewsById(newsId)
-
   const news = data?.data
+
+  const { mutate } = useIncrementView()
+
+  useEffect(() => {
+    mutate(newsId)
+  }, [newsId])
 
   window.api.setTitle(`${news?.title}`)
 

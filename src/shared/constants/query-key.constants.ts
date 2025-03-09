@@ -15,6 +15,7 @@ export const TanStackQueryKey = {
   createEvent: 'createEvent',
   updateEvent: 'updateEvent',
   deleteEvent: 'deleteEvent',
+  incrementView: 'incrementView',
   getNewsById: 'getNewsById',
   getNews: 'getNews',
   createNews: 'createNews',

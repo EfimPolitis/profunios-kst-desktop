@@ -39,6 +39,8 @@ const api = {
 
   //news
   getNewsById: (newsId: string) => ipcRenderer.invoke('getNewsById', newsId),
+  incrementView: (newsId: string) =>
+    ipcRenderer.invoke('incrementView', newsId),
   getNews: (queryData: IQueryParam) => ipcRenderer.invoke('getNews', queryData),
   createNews: (data: INewsFormData) => ipcRenderer.invoke('createNews', data),
   updateNews: (data: INewsFormData, newsId: string) =>

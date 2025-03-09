@@ -7,6 +7,7 @@ import type { INewsCard } from '@shared/types/news.types'
 import { URL_PAGES } from '@shared/config/url.config'
 
 import { useDeleteNews } from '@shared/hooks/news/useDeleteNews'
+import { useIncrementView } from '@shared/hooks/news/useIncrementNews'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
 import styles from './index.module.scss'

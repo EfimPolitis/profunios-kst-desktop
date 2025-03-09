@@ -1,3 +1,6 @@
+import { BrowserWindow, dialog } from 'electron'
+import fs from 'fs'
+
 import type {
   IEvent,
   IEventFormData,
@@ -48,9 +51,26 @@ export const eventService = {
   },
 
   async getReport() {
-    const { headers, request, config, ...response } =
-      await axiosWithAuth.get('/event/report')
-    return response
+    const win = BrowserWindow.getFocusedWindow()
+    if (!win) return
+
+    const { filePath } = await dialog.showSaveDialog(win, {
+      title: 'Сохранить отчёт',
+      defaultPath: 'report.xlsx',
+      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
+    })
+
+    if (!filePath) return
+
+    try {
+      const response = await axiosWithAuth.get('/event/report', {
+        responseType: 'arraybuffer'
+      })
+
+      fs.writeFileSync(filePath, response.data)
+    } catch (error) {
+      console.error('Ошибка загрузки отчёта:', error)
+    }
   },
 
   async uploadImage(formData: FormData) {

@@ -19,7 +19,7 @@ export enum EnumSort {
 
 export const eventSortList: ISortItem[] = [
   {
-    message: 'По алфовиту',
+    message: 'По алфавиту',
     keys: {
       asc: EEventSort.ALPHABETIC_ASC,
       desc: EEventSort.ALPHABETIC_DESC
@@ -43,7 +43,7 @@ export const eventSortList: ISortItem[] = [
 
 export const newsSortList: ISortItem[] = [
   {
-    message: 'По алфовиту',
+    message: 'По алфавиту',
     keys: {
       asc: ENewsSort.ALPHABETIC_ASC,
       desc: ENewsSort.ALPHABETIC_DESC
@@ -67,7 +67,7 @@ export const newsSortList: ISortItem[] = [
 
 export const userSortList: ISortItem[] = [
   {
-    message: 'По алфовиту',
+    message: 'По алфавиту',
     keys: {
       asc: EUserSort.ALPHABETIC_ASC,
       desc: EUserSort.ALPHABETIC_DESC
