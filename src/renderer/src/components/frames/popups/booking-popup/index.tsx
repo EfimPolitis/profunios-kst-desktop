@@ -54,13 +54,13 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose, onConfirm }) => {
         </div>
         <div className={styles.buttonContainer}>
           <Button
-            text='Отмена'
-            onClick={onClose}
+            text='Подтвердить'
+            onClick={() => onConfirm()}
             style={{ height: '50px', fontSize: '18px' }}
           />
           <Button
-            text='Подтвердить'
-            onClick={() => onConfirm()}
+            text='Отмена'
+            onClick={onClose}
             style={{ height: '50px', fontSize: '18px' }}
           />
         </div>

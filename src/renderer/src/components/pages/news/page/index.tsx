@@ -1,7 +1,7 @@
 import { useFiltersStore } from '@shared/store/store'
 import { Link } from '@tanstack/react-router'
 import cn from 'clsx'
-import { CalendarPlus, FileText, Filter } from 'lucide-react'
+import { CalendarPlus, Filter } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { newsSortList } from '@shared/constants/sort.constants'
@@ -111,10 +111,12 @@ const NewsPage = () => {
           </h3>
         )}
       </div>
-      <Pagination
-        countPage={countPage || 0}
-        updateQueryParam={updateQueryParam}
-      />
+      {!!countPage && countPage > 1 && (
+        <Pagination
+          countPage={countPage || 0}
+          updateQueryParam={updateQueryParam}
+        />
+      )}
     </div>
   )
 }

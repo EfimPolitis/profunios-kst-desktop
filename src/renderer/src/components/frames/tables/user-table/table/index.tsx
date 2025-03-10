@@ -1,4 +1,5 @@
 import { useFiltersStore } from '@shared/store/store'
+import { useState } from 'react'
 
 import type { IUser } from '@shared/types/user.types'
 
@@ -7,6 +8,7 @@ import { useDeleteUser } from '@shared/hooks/user/useDeleteUser'
 import { UserTableRow } from '../row'
 
 import styles from './index.module.scss'
+import ConfirmPopup from '@/components/frames/popups/confirm-popup'
 import { Loader } from '@/components/ui'
 
 interface IUserTable {
@@ -15,8 +17,6 @@ interface IUserTable {
 }
 
 export const UserTable = ({ users, isLoading }: IUserTable) => {
-  const { deleteUser, isPending } = useDeleteUser()
-
   const countPage = useFiltersStore.getState().queryParams.page
 
   return (
@@ -40,8 +40,6 @@ export const UserTable = ({ users, isLoading }: IUserTable) => {
               key={user.userId}
               user={user}
               count={(countPage - 1) * 10 + count + 1}
-              deleteUser={deleteUser}
-              isPending={isPending}
             />
           ))}
         </tbody>

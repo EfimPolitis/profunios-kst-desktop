@@ -27,7 +27,7 @@ export const ApplicationTable = ({
             <td>ФИО</td>
             <td>Мероприятие</td>
             <td className={styles.places}>Зарезервированных мест</td>
-            <td>Поданна</td>
+            <td>Зарегестрировано</td>
           </tr>
         </thead>
         <tbody>

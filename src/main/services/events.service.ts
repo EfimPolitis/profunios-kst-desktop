@@ -27,19 +27,17 @@ export const eventService = {
   },
 
   async create(data: IEventFormData) {
-    const { status, ...eventData } = data
     const { headers, config, request, ...response } = await axiosWithAuth.post(
       `/event`,
-      eventData
+      data
     )
     return response
   },
 
   async update(data: IEventFormData, eventId: string) {
-    const { status, ...eventData } = data
     const { headers, config, request, ...response } = await axiosWithAuth.patch(
       `/event/${eventId}`,
-      eventData
+      data
     )
     return response
   },

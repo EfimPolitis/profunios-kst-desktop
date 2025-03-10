@@ -120,10 +120,12 @@ const EventsPage = () => {
           </h3>
         )}
       </div>
-      <Pagination
-        countPage={countPage || 0}
-        updateQueryParam={updateQueryParam}
-      />
+      {!!countPage && countPage > 1 && (
+        <Pagination
+          countPage={countPage || 0}
+          updateQueryParam={updateQueryParam}
+        />
+      )}
     </div>
   )
 }

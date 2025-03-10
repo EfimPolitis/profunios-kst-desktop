@@ -30,12 +30,10 @@ interface AuthFormProps {
 
 const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
   if (isEditing) {
-    var userId = 
-      useParams({
-        from: '/_layout/users/edit/$userId',
-        select: params => params.userId
-      })
-    
+    var userId = useParams({
+      from: '/_layout/users/edit/$userId',
+      select: params => params.userId
+    })
 
     if (userId) {
       const { data } = useGetUser(userId)
@@ -95,13 +93,13 @@ const AuthForm = ({ isLogin, isEditing }: AuthFormProps) => {
 
   return (
     <div className={styles.auth_block}>
-      <p>
-        {isLogin
-          ? 'Вход в систему'
-          : isEditing
-            ? 'Редактирование'
-            : 'Создание пользователя'}
-      </p>
+      {isLogin && <p>Вход в систему</p>}
+
+      {!isLogin && (
+        <h2 style={{ textAlign: 'center' }}>
+          Форма {isEditing ? 'редактирования' : 'создания'} пользователя
+        </h2>
+      )}
       <form
         onSubmit={handleSubmit(onSubmit, onError)}
         className={styles.form}

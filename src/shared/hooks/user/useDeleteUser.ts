@@ -16,10 +16,12 @@ export const useDeleteUser = () => {
       toast.loading('Загрузка...')
     },
     onSuccess: () => {
+      toast.dismiss()
       toast.success('Пользователь успешно удалён')
       queryClient.invalidateQueries({ queryKey: [TanStackQueryKey.getUsers] })
     },
     onError: () => {
+      toast.dismiss()
       toast.error('При удалении произошла ошибка')
     }
   })

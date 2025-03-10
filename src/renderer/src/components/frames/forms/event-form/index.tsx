@@ -127,6 +127,7 @@ export const EventForm = ({ isEditing }: IEventForm) => {
       onSubmit={handleSubmit(onSubmit, onError)}
       className={styles.event_form}
     >
+      <h2>Форма {isEditing ? 'редактирования' : 'создания'} мероприятия</h2>
       <Field
         placeholder='Заголовок'
         style={{ width: '450px', paddingLeft: '20px' }}

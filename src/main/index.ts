@@ -16,7 +16,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     center: true,
-    title: 'Профсоюз КСТ',
+    title: 'Профсоюз КСТ v1.2.1',
     icon: join(__dirname, '../build/icon.ico'),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),

@@ -12,8 +12,8 @@ import { useProfile } from '@shared/hooks/user/useProfile'
 
 import styles from './index.module.scss'
 import EventPageSkeleton from './index.skeleton'
-import BookingPopup from '@/components/frames/booking-popup'
 import { RegisterBlock } from '@/components/frames/event-register-block'
+import BookingPopup from '@/components/frames/popups/booking-popup'
 import { UndoBtn } from '@/components/ui'
 import { Slider } from '@/components/ui/slider'
 
