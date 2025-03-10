@@ -30,7 +30,7 @@ export const useCategoryDebounce = ({ watch, id }: IUseCategoryDebounce) => {
   const debouncedUpdateCategory = useCallback(
     debounce((data: TypeCategoryFormState) => {
       updateCategory({ data, id } as { data: ICategory; id: string })
-    }, 500),
+    }, 2000),
     [updateCategory, id]
   )
 

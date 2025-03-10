@@ -40,7 +40,7 @@ export const ListRow = ({ category, setCategories }: IListRow) => {
             category?.id
               ? confirm('Вы действительно хотите удалить эту категорию?') &&
                 deleteCategory(category.id)
-              : setCategories(prev => prev.slice(0, -1))
+              : setCategories(prev => prev.slice(0, prev.length - 1))
           }
           className={styles.trash}
         >

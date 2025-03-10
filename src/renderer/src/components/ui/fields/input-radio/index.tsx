@@ -1,38 +1,42 @@
-import type { CSSProperties, Dispatch, SetStateAction } from 'react'
+import type { CSSProperties } from 'react'
+
+import type { EStatus } from '@shared/types/event.types'
 
 import styles from './index.module.scss'
 
 type TypeInputRadio = {
-  setState: Dispatch<SetStateAction<string>>
-  variants: { value: any; label: string }[]
-  checked: string
+  variants: { _value: any; label: string }[]
+  checked: EStatus
   style?: CSSProperties
+  onChange: (...event: any[]) => void
 }
 
 export const InputRadio = ({
-  setState,
   variants,
   checked,
-  style
+  style,
+  onChange
 }: TypeInputRadio) => {
+  console.log(checked)
   return (
     <div
       style={style}
       className={styles.inputsRadioBlock}
     >
-      {variants.map(({ value, label }) => (
+      {variants.map(({ _value, label }) => (
         <div
-          key={value}
+          key={label}
           className={styles.inputRadio}
         >
           <input
             type='radio'
-            id={value}
-            name='type'
-            defaultChecked={value === checked}
-            onClick={() => setState(value)}
+            id={_value}
+            name='status'
+            checked={_value === checked}
+            value={_value}
+            onChange={() => onChange(_value)}
           />
-          <label htmlFor={value}>{label}</label>
+          <label htmlFor={_value}>{label}</label>
         </div>
       ))}
     </div>

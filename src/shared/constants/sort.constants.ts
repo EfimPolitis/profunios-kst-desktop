@@ -3,7 +3,7 @@ import {
   EEventSort,
   ENewsSort,
   EUserSort,
-  ISortItem
+  type ISortItem
 } from '@shared/types/query.types'
 
 export enum EnumSort {

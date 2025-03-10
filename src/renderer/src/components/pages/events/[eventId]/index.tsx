@@ -1,6 +1,6 @@
 import { useBookingStore } from '@shared/store/store'
 import { useParams } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 import { URL_PAGES } from '@shared/config/url.config'

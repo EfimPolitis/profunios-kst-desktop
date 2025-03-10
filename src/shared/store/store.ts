@@ -12,15 +12,22 @@ const initialQuearyParams: Pick<IFilterStore, 'queryParams'> = {
 export const useFiltersStore = create<IFilterStore>(set => ({
   ...initialQuearyParams,
   isFilterUpdated: false,
+  isFilterReset: false,
 
   updateQueryParam: ({ key, value }) => {
     set(state => ({
       queryParams: { ...state.queryParams, [key]: value },
-      isFilterUpdated: true
+      isFilterUpdated: true,
+      isFilterReset: false
     }))
   },
 
-  reset: () => set(() => ({ ...initialQuearyParams, isFilterUpdated: true }))
+  reset: () =>
+    set(() => ({
+      ...initialQuearyParams,
+      isFilterUpdated: true,
+      isFilterReset: true
+    }))
 }))
 
 export const useBookingStore = create<IBookingStore>(set => ({

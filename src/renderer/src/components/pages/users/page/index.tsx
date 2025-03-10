@@ -18,8 +18,13 @@ import { Search } from '@/components/ui'
 const UsersPage = () => {
   window.api.setTitle('Пользователи')
 
-  const { queryParams, isFilterUpdated, updateQueryParam, reset } =
-    useFiltersStore()
+  const {
+    queryParams,
+    isFilterUpdated,
+    isFilterReset,
+    updateQueryParam,
+    reset
+  } = useFiltersStore()
   const { data, isFetching, refetch } = useGetUsers(
     queryParams,
     isFilterUpdated
@@ -49,11 +54,14 @@ const UsersPage = () => {
           <Search
             placeholder={'Поиск...'}
             updateQueryParam={updateQueryParam}
+            queryParams={queryParams}
+            isFilterReset={isFilterReset}
           />
           <Sort
             data={userSortList}
             queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <button
             className={cn(styles.filter, {
@@ -84,6 +92,7 @@ const UsersPage = () => {
           type='user'
           updateQueryParam={updateQueryParam}
           handleResetFilter={handleResetFilter}
+          isFilterReset={isFilterReset}
         />
         <UserTable
           users={users}

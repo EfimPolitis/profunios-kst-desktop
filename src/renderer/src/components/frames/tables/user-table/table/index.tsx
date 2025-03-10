@@ -52,7 +52,7 @@ export const UserTable = ({ users, isLoading }: IUserTable) => {
         ) : users?.length ? (
           ''
         ) : (
-          <h2 className=''>Пользователи не найдены</h2>
+          <h2 className=''>Пользователи не были найдены</h2>
         )}
       </div>
     </div>

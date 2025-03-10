@@ -79,7 +79,9 @@ declare global {
       createBuffer: (arrayBuffer: ArrayBuffer) => any
 
       //category
-      getCategories: () => Promise<AxiosResponse<IResponseCategory[], any>>
+      getCategories: (
+        queryData?: IQueryParam
+      ) => Promise<AxiosResponse<IResponseCategory[], any>>
       createCategory: (
         data: ICategory
       ) => Promise<AxiosResponse<IResponseCategory, any>>

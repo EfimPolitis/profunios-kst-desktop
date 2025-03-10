@@ -1,5 +1,5 @@
 import { useParams } from '@tanstack/react-router'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   Controller,
   type FieldErrors,
@@ -37,11 +37,11 @@ interface IEventForm {
 
 const variants = [
   {
-    value: EStatus.EVERYONE,
-    label: 'Открытый'
+    _value: EStatus.EVERYONE,
+    label: 'Публичный'
   },
   {
-    value: EStatus.ITERNAL,
+    _value: EStatus.INTERNAL,
     label: 'Скрытый'
   }
 ]
@@ -54,7 +54,8 @@ const initialValues = {
   date: '',
   categoriesId: [],
   link: '',
-  places: 0
+  places: 0,
+  status: EStatus.EVERYONE
 }
 
 export const EventForm = ({ isEditing }: IEventForm) => {
@@ -90,7 +91,8 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         date: date.toISOString().slice(0, 16),
         categoriesId,
         link: event.link,
-        places: event.places
+        places: event.places,
+        status: event.status
       })
     }
   }, [event])
@@ -109,7 +111,6 @@ export const EventForm = ({ isEditing }: IEventForm) => {
 
   const onSubmit: SubmitHandler<IEventFormData> = useCallback(data => {
     data.places = Number(data.places)
-    console.log(data)
     isEditing ? eventId && updateEvent({ data, eventId }) : createEvent(data)
   }, [])
 
@@ -166,7 +167,10 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         )}
       />
       <div>
-        <DateInput {...register('date', formRules.date)} />
+        <DateInput
+          min={new Date().toISOString()}
+          {...register('date', formRules.date)}
+        />
       </div>
       <div>
         <Field
@@ -185,12 +189,18 @@ export const EventForm = ({ isEditing }: IEventForm) => {
       </div>
       <div>
         <h3>Тип меропрития</h3>
-        {/* <InputRadio
-          setState={setTypeEvent}
-          variants={variants}
-          checked={}
-          style={{ marginBottom: '20px' }}
-        /> */}
+        <Controller
+          control={control}
+          name='status'
+          rules={formRules.status}
+          render={({ field: { value, onChange } }) => (
+            <InputRadio
+              variants={variants}
+              checked={value}
+              onChange={onChange}
+            />
+          )}
+        />
       </div>
       <Button
         text={isEditing ? 'Сохранить изменения' : 'Создать'}

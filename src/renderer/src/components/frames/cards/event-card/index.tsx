@@ -1,8 +1,8 @@
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, Edit2, Trash2 } from 'lucide-react'
+import { ArrowRight, Edit2, EyeOff, Trash2 } from 'lucide-react'
 import type { FC } from 'react'
 
-import type { IEventCard } from '@shared/types/event.types'
+import { EStatus, type IEventCard } from '@shared/types/event.types'
 
 import { useDeleteEvent } from '@shared/hooks/event/useDeleteEvent'
 import { useProfile } from '@shared/hooks/user/useProfile'
@@ -11,7 +11,7 @@ import styles from './index.module.scss'
 import { Slider } from '@/components/ui/slider'
 
 export const EventCard: FC<IEventCard> = ({ data }) => {
-  const { title, places, categories, date, eventId, images } = data
+  const { title, places, categories, date, eventId, images, status } = data
   const { data: userData } = useProfile()
 
   const user = userData?.data
@@ -31,22 +31,29 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
         params={{ eventId }}
       />
       {user?.role === 'ADMIN' || user?.role === 'MODER' ? (
-        <div className={styles.menu}>
-          <Link
-            to={'/events/edit/$eventId'}
-            params={{ eventId }}
-            title='Редактировать'
-            className={styles.edit}
-          >
-            <Edit2 />
-          </Link>
-          <button
-            className={styles.trash}
-            title='Удалить'
-          >
-            <Trash2 onClick={() => onDelete(eventId)} />
-          </button>
-        </div>
+        <>
+          {status === EStatus.INTERNAL && (
+            <div className={styles.privateMark}>
+              <EyeOff />
+            </div>
+          )}
+          <div className={styles.menu}>
+            <Link
+              to={'/events/edit/$eventId'}
+              params={{ eventId }}
+              title='Редактировать'
+              className={styles.edit}
+            >
+              <Edit2 />
+            </Link>
+            <button
+              className={styles.trash}
+              title='Удалить'
+            >
+              <Trash2 onClick={() => onDelete(eventId)} />
+            </button>
+          </div>
+        </>
       ) : null}
       <Slider
         images={images}

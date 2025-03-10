@@ -21,7 +21,12 @@ enum EnumOrder {
   DESC = 'desc'
 }
 
-export const Sort = ({ data, queryParams, updateQueryParam }: ISort) => {
+export const Sort = ({
+  data,
+  queryParams,
+  updateQueryParam,
+  isFilterReset
+}: ISort) => {
   const { isShow, setIsShow, ref } = useOutside(false)
 
   const [order, setOrder] = useState<EnumOrder>(EnumOrder.DESC)
@@ -40,6 +45,14 @@ export const Sort = ({ data, queryParams, updateQueryParam }: ISort) => {
       value: sort
     })
   }, [order, sort, current])
+
+  useEffect(() => {
+    if (isFilterReset) {
+      setOrder(EnumOrder.DESC)
+      setSort(undefined)
+      setCurrent(undefined)
+    }
+  }, [isFilterReset])
 
   return (
     <div

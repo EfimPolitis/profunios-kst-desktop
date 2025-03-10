@@ -1,6 +1,8 @@
 import type { CSSProperties } from 'react'
 
+import { EStatus } from '@shared/types/event.types'
 import type { IQueryParam } from '@shared/types/query.types'
+import { ERole } from '@shared/types/user.types'
 
 type TypeFilterName = 'user' | 'event' | 'news' | 'application'
 
@@ -77,6 +79,24 @@ export const FILTER_DATA: Record<TypeFilterName, IFilterGroup[]> = {
           }
         }
       ]
+    },
+    {
+      title: 'По типу мероприятия',
+      type: 'select',
+      inputs_block: [
+        {
+          type: 'select',
+          queryKey: 'status',
+          options: {
+            style: { width: 220, height: 50, borderWidth: 2 },
+            data: [
+              { label: 'Все типы', key: '' },
+              { label: 'Публичные', key: EStatus.EVERYONE },
+              { label: 'Скрытые', key: EStatus.INTERNAL }
+            ]
+          }
+        }
+      ]
     }
   ],
   user: [
@@ -139,9 +159,9 @@ export const FILTER_DATA: Record<TypeFilterName, IFilterGroup[]> = {
             style: { width: 220, height: 50, borderWidth: 2 },
             data: [
               { label: 'Все роли', key: '' },
-              { label: 'Админ', key: 'admin' },
-              { label: 'Модер', key: 'moder' },
-              { label: 'Пользователь', key: 'user' }
+              { label: 'Админ', key: ERole.ADMIN },
+              { label: 'Модер', key: ERole.MODER },
+              { label: 'Пользователь', key: ERole.USER }
             ]
           }
         }

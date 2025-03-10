@@ -63,4 +63,5 @@ export interface ISort {
   data: ISortItem[]
   queryParams: IQueryParam | undefined
   updateQueryParam: (data: { key: keyof IQueryParam; value: string }) => void
+  isFilterReset: boolean
 }

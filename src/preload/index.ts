@@ -57,7 +57,8 @@ const api = {
     ipcRenderer.invoke('createApplication', data),
 
   //category
-  getCategories: () => ipcRenderer.invoke('getCategories'),
+  getCategories: (queryData?: IQueryParam) =>
+    ipcRenderer.invoke('getCategories', queryData),
   createCategory: (data: ICategory) =>
     ipcRenderer.invoke('createCategory', data),
   updateCategory: (data: ICategory, id: string) =>

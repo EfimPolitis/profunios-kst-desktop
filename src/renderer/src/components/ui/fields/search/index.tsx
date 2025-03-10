@@ -1,5 +1,5 @@
 import { SearchIcon, X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { type InputHTMLAttributes, useEffect, useRef, useState } from 'react'
 
 import type { IQueryParam } from '@shared/types/query.types'
 
@@ -9,10 +9,20 @@ import styles from './index.module.scss'
 
 interface ISearch {
   placeholder: string
+  queryParams: IQueryParam
   updateQueryParam: (data: { key: keyof IQueryParam; value: string }) => void
+  isFilterReset?: boolean
 }
 
-export const Search = ({ placeholder, updateQueryParam }: ISearch) => {
+export type TypeSearchProps = InputHTMLAttributes<HTMLInputElement> & ISearch
+
+export const Search = ({
+  placeholder,
+  updateQueryParam,
+  queryParams,
+  isFilterReset,
+  ...rest
+}: TypeSearchProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const [debounceSearch, search, setSearch] = useDebounce('', 500)
@@ -21,8 +31,17 @@ export const Search = ({ placeholder, updateQueryParam }: ISearch) => {
     updateQueryParam({ key: 'search', value: search })
   }, [debounceSearch])
 
+  useEffect(() => {
+    if (isFilterReset) {
+      setSearch('')
+    }
+  }, [isFilterReset])
+
   return (
-    <div className={styles.search}>
+    <div
+      className={styles.search}
+      {...rest}
+    >
       <SearchIcon className={styles.search_icon} />
       <input
         type='text'

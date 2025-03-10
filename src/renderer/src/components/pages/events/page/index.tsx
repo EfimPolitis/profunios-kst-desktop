@@ -23,8 +23,13 @@ import { Search } from '@/components/ui'
 const EventsPage = () => {
   window.api.setTitle('Мероприятия')
 
-  const { queryParams, isFilterUpdated, updateQueryParam, reset } =
-    useFiltersStore()
+  const {
+    queryParams,
+    isFilterUpdated,
+    isFilterReset,
+    updateQueryParam,
+    reset
+  } = useFiltersStore()
 
   const { data, isFetching, refetch } = useGetEvents(
     queryParams,
@@ -54,12 +59,15 @@ const EventsPage = () => {
         <div className={styles.top}>
           <Search
             placeholder='Поиск...'
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <Sort
             data={eventSortList}
             queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <button
             className={cn(styles.filter, {
@@ -90,6 +98,7 @@ const EventsPage = () => {
           type='event'
           updateQueryParam={updateQueryParam}
           handleResetFilter={handleResetFilter}
+          isFilterReset={isFilterReset}
         />
         <div className={styles.events_block}>
           {isFetching
@@ -102,9 +111,13 @@ const EventsPage = () => {
                 />
               ))}
         </div>
-
         {!isFetching && !events?.length && (
-          <h3 className={styles.not_found}>Мероприятия не найденны</h3>
+          <h3
+            className={styles.not_found}
+            style={{ position: 'relative', top: '0px' }}
+          >
+            Мероприятия не были найденны
+          </h3>
         )}
       </div>
       <Pagination

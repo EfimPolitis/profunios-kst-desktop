@@ -1,24 +1,39 @@
+import { useFiltersStore } from '@shared/store/store'
+import { useEffect } from 'react'
+
 import { useGetCategories } from '@shared/hooks/category/useGetCategories'
 
 import styles from './index.module.scss'
 import { ListRowParent } from '@/components/frames'
-import { Loader } from '@/components/ui'
 
 const CategoriesPage = () => {
   window.api.setTitle('Категории')
 
-  const { categories, setCategories, isLoading } = useGetCategories()
+  const { updateQueryParam, queryParams, isFilterUpdated, reset } =
+    useFiltersStore()
+
+  const { categories, setCategories, isLoading, refetch } = useGetCategories(
+    queryParams,
+    isFilterUpdated
+  )
+
+  useEffect(() => {
+    reset()
+  }, [])
+
+  useEffect(() => {
+    refetch()
+  }, [queryParams])
 
   return (
     <div className={styles.page}>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <ListRowParent
-          categories={categories}
-          setCategories={setCategories}
-        />
-      )}
+      <ListRowParent
+        categories={categories}
+        setCategories={setCategories}
+        queryParams={queryParams}
+        updateQueryParam={updateQueryParam}
+        isLoading={isLoading}
+      />
     </div>
   )
 }

@@ -15,8 +15,13 @@ import { Search } from '@/components/ui'
 const ApplicationsPage = () => {
   window.api.setTitle('Заявки')
 
-  const { queryParams, isFilterUpdated, updateQueryParam, reset } =
-    useFiltersStore()
+  const {
+    queryParams,
+    isFilterUpdated,
+    isFilterReset,
+    updateQueryParam,
+    reset
+  } = useFiltersStore()
 
   const { data, isFetching, refetch } = useApplications(
     queryParams,
@@ -46,12 +51,15 @@ const ApplicationsPage = () => {
         <div className={styles.top}>
           <Search
             placeholder={'Поиск...'}
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <Sort
             data={applicationSortList}
             queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <button
             className={cn(styles.filter, {
@@ -75,6 +83,7 @@ const ApplicationsPage = () => {
           type='application'
           updateQueryParam={updateQueryParam}
           handleResetFilter={handleResetFilter}
+          isFilterReset={isFilterReset}
         />
         <ApplicationTable
           applications={applications}

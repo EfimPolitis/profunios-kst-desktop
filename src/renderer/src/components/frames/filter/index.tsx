@@ -1,5 +1,6 @@
 import cn from 'clsx'
 import { m } from 'framer-motion'
+import { useEffect, useState } from 'react'
 
 import type { IQueryParam } from '@shared/types/query.types'
 
@@ -12,21 +13,31 @@ interface IFilters {
   type: 'event' | 'user' | 'application' | 'news'
   handleResetFilter: () => void
   updateQueryParam: (data: { key: keyof IQueryParam; value: string }) => void
+  isFilterReset: boolean
 }
 
 export const FilterComponent = ({
   isOpen,
   type,
   handleResetFilter,
-  updateQueryParam
+  updateQueryParam,
+  isFilterReset
 }: IFilters) => {
+  const [resetKey, setResetKey] = useState(0)
+
+  useEffect(() => {
+    if (isFilterReset) {
+      setResetKey(prev => prev + 1)
+    }
+  }, [isFilterReset])
+
   return (
     <div className={styles.filter}>
       <m.div
         className={cn(styles.menu, {
           [styles.hidden]: !isOpen
         })}
-        animate={{ height: isOpen ? 'min-content' : '0px' }}
+        animate={{ height: isOpen ? 'min-content' : 0 }}
         transition={{
           type: 'tween'
         }}
@@ -50,6 +61,7 @@ export const FilterComponent = ({
                     <>
                       <span>{input?.label}</span>
                       <DateInput
+                        key={resetKey}
                         type={input?.options?.type}
                         style={input?.options?.style}
                         onChange={event =>
@@ -63,6 +75,7 @@ export const FilterComponent = ({
                   )}
                   {input.type === 'select' && (
                     <InputSelect
+                      key={resetKey}
                       data={input?.options?.data}
                       initialValue={input?.options?.data?.[0]?.label}
                       updateQueryParam={updateQueryParam}

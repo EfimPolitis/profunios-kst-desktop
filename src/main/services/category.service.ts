@@ -1,11 +1,15 @@
 import { ICategory, IResponseCategory } from '@shared/types/category.types'
+import { IQueryParam } from '@shared/types/query.types'
 
 import { axiosWithAuth } from '../api/interseptors'
 
 export const categoryService = {
-  async getAll() {
-    const { headers, config, request, ...response } =
-      await axiosWithAuth.get<IResponseCategory[]>('/category')
+  async getAll(queryData = {} as IQueryParam) {
+    const { headers, config, request, ...response } = await axiosWithAuth.get<
+      IResponseCategory[]
+    >('/category', {
+      params: queryData
+    })
 
     return response
   },

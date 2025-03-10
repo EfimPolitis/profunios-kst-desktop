@@ -1,8 +1,8 @@
 import type { IResponseCategory } from './category.types'
 
 export enum EStatus {
-  ITERNAL,
-  EVERYONE
+  INTERNAL = 'INTERNAL',
+  EVERYONE = 'EVERYONE'
 }
 
 export type TypeImage = {
@@ -45,4 +45,5 @@ export interface IEventFormData {
   date: string
   link?: string
   places?: number
+  status: EStatus
 }

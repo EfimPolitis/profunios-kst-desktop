@@ -23,8 +23,13 @@ import { Search } from '@/components/ui'
 const NewsPage = () => {
   window.api.setTitle('Новости')
 
-  const { queryParams, isFilterUpdated, updateQueryParam, reset } =
-    useFiltersStore()
+  const {
+    queryParams,
+    isFilterUpdated,
+    isFilterReset,
+    updateQueryParam,
+    reset
+  } = useFiltersStore()
 
   const { data, isFetching, refetch } = useGetNews(queryParams, isFilterUpdated)
 
@@ -51,12 +56,15 @@ const NewsPage = () => {
         <div className={styles.top}>
           <Search
             placeholder='Поиск...'
+            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <Sort
             data={newsSortList}
             queryParams={queryParams}
             updateQueryParam={updateQueryParam}
+            isFilterReset={isFilterReset}
           />
           <button
             className={cn(styles.filter, {
@@ -80,6 +88,7 @@ const NewsPage = () => {
           type='news'
           updateQueryParam={updateQueryParam}
           handleResetFilter={handleResetFilter}
+          isFilterReset={isFilterReset}
         />
         <div className={styles.news_block}>
           {isFetching
@@ -94,7 +103,12 @@ const NewsPage = () => {
         </div>
 
         {!isFetching && !news?.length && (
-          <h3 className={styles.not_found}>Новости не найденны</h3>
+          <h3
+            className={styles.not_found}
+            style={{ position: 'relative', top: '0px' }}
+          >
+            Новости не были найденны
+          </h3>
         )}
       </div>
       <Pagination

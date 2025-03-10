@@ -11,6 +11,7 @@ type TFormRules = {
   date: RegisterOptions<IEventFormData, 'date'>
   link: RegisterOptions<IEventFormData, 'link'>
   places: RegisterOptions<IEventFormData, 'places'>
+  status: RegisterOptions<IEventFormData, 'status'>
 }
 
 export const formRules: TFormRules = {
@@ -58,6 +59,12 @@ export const formRules: TFormRules = {
     required: {
       value: true,
       message: '"Количество мест" - обязательное поле'
+    }
+  },
+  status: {
+    required: {
+      value: true,
+      message: '"Статус мероприятия" - обязательное поле'
     }
   }
 }

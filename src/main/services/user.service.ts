@@ -1,15 +1,14 @@
-import { BrowserWindow, dialog } from 'electron'
-import fs from 'fs'
-
 import type { IAuthFormData } from '@shared/types/auth.types'
 import type { IQueryParam } from '@shared/types/query.types'
 import {
   type IProfileResponse,
   type IResponseUsers,
-  IUser
+  type IUser
 } from '@shared/types/user.types'
 
 import { axiosWithAuth } from '../api/interseptors'
+
+import { reportServise } from './report.sevice'
 
 export const userService = {
   async getUsers(queryData = {} as IQueryParam) {
@@ -50,25 +49,6 @@ export const userService = {
   },
 
   async getReport() {
-    const win = BrowserWindow.getFocusedWindow()
-    if (!win) return
-
-    const { filePath } = await dialog.showSaveDialog(win, {
-      title: 'Сохранить отчёт',
-      defaultPath: 'report.xlsx',
-      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
-    })
-
-    if (!filePath) return
-
-    try {
-      const response = await axiosWithAuth.get('http://localhost:3000/report', {
-        responseType: 'arraybuffer'
-      })
-
-      fs.writeFileSync(filePath, response.data)
-    } catch (error) {
-      console.error('Ошибка загрузки отчёта:', error)
-    }
+    return reportServise.downloadReport('users')
   }
 }

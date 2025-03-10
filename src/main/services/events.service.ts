@@ -1,6 +1,3 @@
-import { BrowserWindow, dialog } from 'electron'
-import fs from 'fs'
-
 import type {
   IEvent,
   IEventFormData,
@@ -9,6 +6,8 @@ import type {
 import type { IQueryParam } from '@shared/types/query.types'
 
 import { axiosWithAuth } from '../api/interseptors'
+
+import { reportServise } from './report.sevice'
 
 export const eventService = {
   async getAll(queryData = {} as IQueryParam) {
@@ -51,26 +50,7 @@ export const eventService = {
   },
 
   async getReport() {
-    const win = BrowserWindow.getFocusedWindow()
-    if (!win) return
-
-    const { filePath } = await dialog.showSaveDialog(win, {
-      title: 'Сохранить отчёт',
-      defaultPath: 'report.xlsx',
-      filters: [{ name: 'Excel', extensions: ['xlsx'] }]
-    })
-
-    if (!filePath) return
-
-    try {
-      const response = await axiosWithAuth.get('/event/report', {
-        responseType: 'arraybuffer'
-      })
-
-      fs.writeFileSync(filePath, response.data)
-    } catch (error) {
-      console.error('Ошибка загрузки отчёта:', error)
-    }
+    return reportServise.downloadReport('event')
   },
 
   async uploadImage(formData: FormData) {
