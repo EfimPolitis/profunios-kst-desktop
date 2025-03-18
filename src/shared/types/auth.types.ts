@@ -19,3 +19,14 @@ export interface IAuthFormData {
   role: string
   password: string
 }
+
+export interface IChangePasswordFormData {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
+export interface IResetPasswordForm {
+  newPassword: string
+  confirmPassword: string
+}

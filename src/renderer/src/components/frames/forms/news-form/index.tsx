@@ -53,7 +53,6 @@ export const NewsForm = ({ isEditing }: INewsForm) => {
       setImages(news.images)
       setValues({
         title: news.title,
-        description: news.description,
         content: news.content,
         imagesId
       })
@@ -87,6 +86,7 @@ export const NewsForm = ({ isEditing }: INewsForm) => {
       onSubmit={handleSubmit(onSubmit, onError)}
       className={styles.event_form}
     >
+      <h2>Форма {isEditing ? 'редактирования' : 'создания'} новости</h2>
       <Field
         placeholder='Заголовок'
         style={{ width: '450px', paddingLeft: '20px' }}
@@ -106,22 +106,18 @@ export const NewsForm = ({ isEditing }: INewsForm) => {
         )}
       />
       <TextArea
-        style={{ maxWidth: '800px', minHeight: '250px' }}
-        placeholder='Описание для карточки'
-        {...register('description', formRules.description)}
-      />
-      <TextArea
         style={{ maxWidth: '800px', minHeight: '400px' }}
         placeholder='Основной контент'
         {...register('content', formRules.content)}
       />
       <Button
-        text={isEditing ? 'Сохранить изменения' : 'Создать'}
         isPending={isPending}
         isSuccess={isSuccess}
         style={{ width: '400px' }}
         type='submit'
-      />
+      >
+        {isEditing ? 'Сохранить изменения' : 'Создать'}
+      </Button>
     </form>
   )
 }

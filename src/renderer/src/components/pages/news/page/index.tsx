@@ -1,7 +1,7 @@
 import { useFiltersStore } from '@shared/store/store'
 import { Link } from '@tanstack/react-router'
 import cn from 'clsx'
-import { CalendarPlus, FileText, Filter } from 'lucide-react'
+import { CalendarPlus, Filter } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { newsSortList } from '@shared/constants/sort.constants'
@@ -15,10 +15,9 @@ import {
   FilterComponent,
   NewsCard,
   NewsCardSkeleton,
-  Pagination,
   Sort
 } from '@/components/frames'
-import { Search } from '@/components/ui'
+import { Button, Loader, Pagination, Search } from '@/components/ui'
 
 const NewsPage = () => {
   window.api.setTitle('Новости')
@@ -92,7 +91,7 @@ const NewsPage = () => {
         />
         <div className={styles.news_block}>
           {isFetching
-            ? [...new Array(6)].map((_, i) => <NewsCardSkeleton key={i} />)
+            ? [...new Array(12)].map((_, i) => <NewsCardSkeleton key={i} />)
             : !!news?.length &&
               news.map(news => (
                 <NewsCard
@@ -101,14 +100,19 @@ const NewsPage = () => {
                 />
               ))}
         </div>
-
-        {!isFetching && !news?.length && (
-          <h3
-            className={styles.not_found}
-            style={{ position: 'relative', top: '0px' }}
-          >
-            Новости не были найденны
-          </h3>
+        {isFetching ? (
+          <div className={styles.not_found}>
+            <Loader size={50} />
+          </div>
+        ) : (
+          !!news?.length || (
+            <div className={styles.not_found}>
+              <h2>Новости не были найдены</h2>
+              <Button onClick={() => refetch()}>
+                <p>Обновить</p>
+              </Button>
+            </div>
+          )
         )}
       </div>
       <Pagination

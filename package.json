@@ -1,10 +1,17 @@
 {
   "name": "profunion-kst-desktop",
-  "version": "1.0.0",
+  "version": "1.2.6",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "Efim Politis",
   "homepage": "https://profunion-kst.org",
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "EfimPolitis",
+      "repo": "profunions-kst-desktop"
+    }
+  ],
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -29,6 +36,7 @@
     "axios": "^1.7.7",
     "clsx": "^2.1.1",
     "debounce": "^2.2.0",
+    "electron-updater": "^6.3.9",
     "framer-motion": "^11.5.6",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.445.0",

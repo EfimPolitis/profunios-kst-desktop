@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: profunion-kst-desktop
+productName: Профсоюз КСТ Админ Панель
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: Профсоюз КСТ
+  executableName: Профсоюз КСТ Админ Панель
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -20,7 +20,7 @@ nsis:
   oneClick: false # Позволяет выбрать путь установки (если true - путь нельзя менять)
   perMachine: false # Установка для текущего пользователя (true - для всех пользователей)
   allowToChangeInstallationDirectory: true # Позволяет изменять путь установки
-  createDesktopShortcut: false # Создавать ярлык на рабочем столе
+  createDesktopShortcut: true # Создавать ярлык на рабочем столе
   createStartMenuShortcut: false # Создавать ярлык в меню Пуск
   installerIcon: 'build/icon.ico' # Иконка установщика
   uninstallerIcon: 'build/icon.ico' # Иконка для удаления # Имя выходного файла

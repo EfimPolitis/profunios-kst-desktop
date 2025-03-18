@@ -1,3 +1,5 @@
+import { useParams } from '@tanstack/react-router'
+
 import { URL_PAGES } from '@shared/config/url.config'
 
 import styles from './index.module.scss'
@@ -7,6 +9,11 @@ import { UndoBtn } from '@/components/ui'
 const EditPage = () => {
   window.api.setTitle('Редактирование пользователя')
 
+  const userId = useParams({
+    from: '/_layout/users/edit/$userId',
+    select: params => params.userId
+  })
+
   return (
     <div className={styles.page}>
       <UndoBtn
@@ -14,7 +21,10 @@ const EditPage = () => {
         size={30}
         style={{ position: 'absolute', top: '10px', left: '10px' }}
       />
-      <AuthForm isEditing />
+      <AuthForm
+        type='edit'
+        userId={userId}
+      />
     </div>
   )
 }

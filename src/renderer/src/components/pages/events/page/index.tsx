@@ -15,10 +15,9 @@ import {
   EventCard,
   EventCardSkeleton,
   FilterComponent,
-  Pagination,
   Sort
 } from '@/components/frames'
-import { Search } from '@/components/ui'
+import { Button, Loader, Pagination, Search } from '@/components/ui'
 
 const EventsPage = () => {
   window.api.setTitle('Мероприятия')
@@ -102,7 +101,7 @@ const EventsPage = () => {
         />
         <div className={styles.events_block}>
           {isFetching
-            ? [...new Array(6)].map((_, i) => <EventCardSkeleton key={i} />)
+            ? [...new Array(12)].map((_, i) => <EventCardSkeleton key={i} />)
             : !!events?.length &&
               events.map(event => (
                 <EventCard
@@ -111,13 +110,19 @@ const EventsPage = () => {
                 />
               ))}
         </div>
-        {!isFetching && !events?.length && (
-          <h3
-            className={styles.not_found}
-            style={{ position: 'relative', top: '0px' }}
-          >
-            Мероприятия не были найденны
-          </h3>
+        {isFetching ? (
+          <div className={styles.not_found}>
+            <Loader size={50} />
+          </div>
+        ) : (
+          !!events?.length || (
+            <div className={styles.not_found}>
+              <h2>Мероприятия не были найдены</h2>
+              <Button onClick={() => refetch()}>
+                <p>Обновить</p>
+              </Button>
+            </div>
+          )
         )}
       </div>
       <Pagination

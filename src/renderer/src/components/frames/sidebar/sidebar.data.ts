@@ -1,7 +1,6 @@
 import {
   BookCopy,
   CalendarRange,
-  FileSpreadsheet,
   Newspaper,
   SquareGanttChart,
   Users

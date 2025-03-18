@@ -11,16 +11,16 @@ import { axiosWithAuth } from '../api/interseptors'
 import { reportServise } from './report.sevice'
 
 export const userService = {
-  async getUsers(queryData = {} as IQueryParam) {
+  async getAll(queryData = {} as IQueryParam) {
     const { headers, request, config, ...response } =
-      await axiosWithAuth.get<IResponseUsers>(`/users`, {
+      await axiosWithAuth.get<IResponseUsers>('/users', {
         params: queryData
       })
 
     return response
   },
 
-  async getUser(userId: string) {
+  async getById(userId: string) {
     const { headers, request, config, ...response } =
       await axiosWithAuth.get<IUser>(`/users/${userId}`)
 
@@ -34,7 +34,7 @@ export const userService = {
     return response
   },
 
-  async updateUser(data: IAuthFormData, userId: string) {
+  async update(data: IAuthFormData, userId: string) {
     const { headers, request, config, ...response } = await axiosWithAuth.patch(
       `/users/${userId}`,
       data
@@ -42,7 +42,7 @@ export const userService = {
     return response
   },
 
-  async deleteUser(userId: string) {
+  async delete(userId: string) {
     const { headers, request, config, ...response } =
       await axiosWithAuth.delete(`/users/${userId}`)
     return response

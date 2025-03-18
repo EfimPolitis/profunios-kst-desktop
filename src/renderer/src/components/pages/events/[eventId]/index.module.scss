@@ -6,16 +6,15 @@
   background-color: rgb(var(--secondary-color));
   position: relative;
   display: flex;
-  align-items: start;
+  gap: 10px;
+  align-items: flex-start;
   justify-content: center;
   overflow-y: scroll;
   overflow-x: hidden;
 
   .content {
-    width: 100%;
+    width: 800px;
     background-color: rgb(var(--secondary-color));
-    border-radius: 10px;
-    box-shadow: 1px 1px 10px rgba(var(--text-color), 0.4);
     position: relative;
 
     .info_block {
@@ -27,6 +26,10 @@
       font-weight: 600;
       gap: 20px;
       white-space: normal;
+
+      h1 {
+        word-wrap: break-word;
+      }
 
       .categories {
         display: flex;
@@ -43,13 +46,25 @@
         }
       }
 
+      .row {
+        color: rgba(var(--text-color), 0.6);
+        line-height: 40px;
+
+        span {
+          color: rgb(var(--text-color));
+        }
+      }
+
       .description {
         word-wrap: break-word;
-        text-indent: 10px;
+        line-height: 36px;
+        word-spacing: 5px;
         position: relative;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        font-weight: 500;
+        color: rgb(var(--text-color));
       }
     }
   }

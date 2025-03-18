@@ -3,4 +3,18 @@
   flex-direction: column;
   max-width: 1220px;
   gap: 40px;
+  margin-top: -65px;
+
+  .places_block {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    border-radius: 8px;
+
+    .btn {
+      font-size: 30px;
+      width: 60px;
+    }
+  }
 }

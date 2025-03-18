@@ -89,11 +89,17 @@
     }
 
     .not_found {
-      display: inline-block;
-      position: absolute;
-      inset: 0;
-      top: 150px;
-      left: calc(50% - 200px);
+      width: 400px;
+      min-height: 550px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+      position: relative;
+      bottom: 100px;
     }
   }
 }
@@ -102,7 +108,7 @@
   .wrap {
     width: 1800px;
 
-    .news_block {
+    .events_block {
       grid-template-rows: min-content min-content min-content min-content;
       grid-template-columns: auto auto auto auto;
       gap: 40px;

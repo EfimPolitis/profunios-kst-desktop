@@ -12,9 +12,9 @@ import { useProfile } from '@shared/hooks/user/useProfile'
 
 import styles from './index.module.scss'
 import EventPageSkeleton from './index.skeleton'
-import BookingPopup from '@/components/frames/booking-popup'
+import { BookingPopup } from '@/components/frames'
 import { RegisterBlock } from '@/components/frames/event-register-block'
-import { UndoBtn } from '@/components/ui'
+import { Button, UndoBtn } from '@/components/ui'
 import { Slider } from '@/components/ui/slider'
 
 export const EventPageId = () => {
@@ -23,13 +23,11 @@ export const EventPageId = () => {
     select: params => params.eventId
   })
 
-  const { data, refetch } = useGetEventById(eventId)
-  const { data: user } = useProfile()
+  const { data, refetch, isLoading } = useGetEventById(eventId)
+  const { profile } = useProfile()
 
   const event = data?.data
-  const userId = user?.data?.userId
-
-  window.api.setTitle(`${event?.title}`)
+  const userId = profile?.userId
 
   const {
     mutate: mutateApplication,
@@ -80,41 +78,38 @@ export const EventPageId = () => {
 
   return (
     <div className={styles.page}>
+      <UndoBtn
+        link={URL_PAGES.MANAGE_EVENTS}
+        size={30}
+      />
       {isShow && (
         <BookingPopup
           onConfirm={handleConfirm}
           onClose={() => setIsShow(false)}
         />
       )}
-      {!isPending ? (
+      {!isLoading ? (
         <div className={styles.content}>
           {event ? (
             <>
-              <UndoBtn
-                link={URL_PAGES.MANAGE_EVENTS}
-                size={30}
-                style={{
-                  position: 'absolute',
-                  top: '0px',
-                  left: '-60px',
-                  zIndex: '1'
-                }}
-              />
               <Slider
-                height={500}
+                height={450}
                 images={event?.images}
-                style={{ borderRadius: '10px 10px 0px 0px' }}
+                style={{
+                  borderRadius: '10px 10px 10px 10px'
+                }}
               />
               <RegisterBlock
                 date={event.date}
                 event={event}
-                userId={userId}
                 setIsShow={setIsShow}
                 isError={isError}
                 isPending={isPending}
                 isSuccess={isSuccess}
               />
               <div className={styles.info_block}>
+                <h1>{event.title}</h1>
+                <hr />
                 <div className={styles.categories}>
                   {event.categories.map(category => (
                     <div
@@ -125,18 +120,50 @@ export const EventPageId = () => {
                     </div>
                   ))}
                 </div>
-                {event.places ? (
-                  <h3>Колличество оставшихся мест: {event.places}</h3>
-                ) : (
-                  ''
+                {event.places && (
+                  <div className={styles.row}>
+                    <h3>
+                      Колличество оставшихся мест: <span>{event.places}</span>
+                    </h3>
+                  </div>
                 )}
-                <h2>{event.title}</h2>
+                {event.address && (
+                  <div className={styles.row}>
+                    <h3>
+                      Место регистрации: <span>{event.address}</span>
+                    </h3>
+                  </div>
+                )}
+                {event.organizer && (
+                  <div className={styles.row}>
+                    <h3>
+                      Организатор: <span>{event.organizer}</span>
+                    </h3>
+                  </div>
+                )}
+                <div className={styles.row}>
+                  <h2>Описание</h2>
+                </div>
                 <div className={styles.description}>
                   {event?.description
                     .split('\n')
                     ?.map((label, index) => <p key={index}>{label}</p>)}
                 </div>
-                <p>Организатор: {event.organizer}</p>
+                <Button
+                  onClick={() => setIsShow(true)}
+                  className={styles.button}
+                  isPending={isPending}
+                  isError={isError}
+                  isSuccess={isSuccess}
+                  disabled={event.places === 0}
+                  style={{ width: '280px', fontSize: '20px' }}
+                >
+                  <p>
+                    {event.places === 0
+                      ? 'Больше нет мест на мероприятие'
+                      : 'Хочу учавствовать'}
+                  </p>
+                </Button>
               </div>
             </>
           ) : (

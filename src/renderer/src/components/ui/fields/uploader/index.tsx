@@ -59,6 +59,8 @@ export const Uploader = memo(
           entity
         )
 
+        console.log(data)
+
         setFileNames(prev => [...prev, data.name])
         setImagesUrl([...imagesUrl, data.url])
         setImagesId([...imagesId, data.id])

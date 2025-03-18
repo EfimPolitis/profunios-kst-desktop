@@ -1,5 +1,6 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, shell } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { join } from 'path'
 
 import { API_URL } from '@shared/constants/api.constants'
@@ -16,7 +17,7 @@ function createWindow(): void {
     show: false,
     autoHideMenuBar: true,
     center: true,
-    title: 'Профсоюз КСТ',
+    title: 'Профсоюз КСТ v1.2.1',
     icon: join(__dirname, '../build/icon.ico'),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -55,6 +56,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  autoUpdater.checkForUpdatesAndNotify()
 }
 
 app.whenReady().then(() => {
@@ -75,6 +78,10 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+autoUpdater.on('update-downloaded', () => {
+  autoUpdater.quitAndInstall()
 })
 
 // In this file you can include the rest of your app"s specific main process

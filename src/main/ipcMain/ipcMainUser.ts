@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { ipcMain } from 'electron'
 
 import type { IAuthFormData } from '@shared/types/auth.types'
@@ -7,20 +8,41 @@ import { userService } from '../services/user.service'
 
 export const ipcMainUser = () => {
   ipcMain.handle('getUsers', (_, search: IQueryParam) =>
-    userService.getUsers(search)
+    userService.getAll(search)
   )
 
-  ipcMain.handle('getUser', (_, userId: string) => userService.getUser(userId))
+  ipcMain.handle('getUser', (_, userId: string) => userService.getById(userId))
 
   ipcMain.handle('getProfile', () => userService.getProfile())
 
-  ipcMain.handle('updateUser', (_, data: IAuthFormData, userId: string) =>
-    userService.updateUser(data, userId)
+  ipcMain.handle(
+    'updateUser',
+    async (_, data: IAuthFormData, userId: string) => {
+      try {
+        const response = await userService.update(data, userId)
+        return { success: true, response }
+      } catch (error) {
+        let message = 'Неизвестная ошибка'
+        if (axios.isAxiosError(error) && error.response?.data?.message) {
+          message = error.response.data.message
+        }
+        return { success: false, message }
+      }
+    }
   )
 
-  ipcMain.handle('deleteUser', (_, userId: string) =>
-    userService.deleteUser(userId)
-  )
+  ipcMain.handle('deleteUser', async (_, userId: string) => {
+    try {
+      const response = await userService.delete(userId)
+      return { success: true, response }
+    } catch (error) {
+      let message = 'Неизвестная ошибка'
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        message = error.response.data.message
+      }
+      return { success: false, message }
+    }
+  })
 
   ipcMain.handle('getUserReport', () => userService.getReport())
 }

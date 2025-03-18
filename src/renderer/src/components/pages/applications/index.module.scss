@@ -3,21 +3,23 @@
 .page {
   height: calc(100svh - 80px);
   width: 100%;
+  overflow: scroll;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  overflow-y: scroll;
   padding-top: 20px;
   padding-bottom: 15px;
   gap: 10px;
 
   .wrap {
+    min-height: 700px;
     display: flex;
-    align-items: start;
-    justify-content: start;
+    align-items: flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     gap: 18px;
+    margin-bottom: 40px;
 
     .top {
       display: flex;
@@ -59,6 +61,18 @@
       .active {
         background-color: rgb(var(--secondary-color-hover));
       }
+    }
+
+    .not_found {
+      width: 400px;
+      min-height: 550px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
     }
   }
 }

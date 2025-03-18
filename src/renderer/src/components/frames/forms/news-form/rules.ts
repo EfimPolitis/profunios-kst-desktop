@@ -4,7 +4,6 @@ import type { INewsFormData } from '@shared/types/news.types'
 
 type TFormRules = {
   title: RegisterOptions<INewsFormData, 'title'>
-  description: RegisterOptions<INewsFormData, 'description'>
   imagesId: RegisterOptions<INewsFormData, 'imagesId'>
   content: RegisterOptions<INewsFormData, 'content'>
 }
@@ -14,16 +13,6 @@ export const formRules: TFormRules = {
     required: {
       value: true,
       message: '"Заголовок" - обязательное поле для заполнения'
-    }
-  },
-  description: {
-    required: {
-      value: true,
-      message: '"Описание для карточки" - обязательное поле для заполнения'
-    },
-    maxLength: {
-      value: 150,
-      message: 'Описание для карточки не должно быть больше 150 символов'
     }
   },
   imagesId: {

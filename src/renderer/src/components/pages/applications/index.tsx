@@ -8,9 +8,9 @@ import { applicationSortList } from '@shared/constants/sort.constants'
 import { useApplications } from '@shared/hooks/application/useApplications'
 
 import styles from './index.module.scss'
-import { FilterComponent, Pagination, Sort } from '@/components/frames'
+import { FilterComponent, Sort } from '@/components/frames'
 import { ApplicationTable } from '@/components/frames/tables/application-table/table'
-import { Search } from '@/components/ui'
+import { Button, Loader, Pagination, Search } from '@/components/ui'
 
 const ApplicationsPage = () => {
   window.api.setTitle('Заявки')
@@ -50,16 +50,15 @@ const ApplicationsPage = () => {
       <div className={styles.wrap}>
         <div className={styles.top}>
           <Search
-            placeholder={'Поиск...'}
-            queryParams={queryParams}
             updateQueryParam={updateQueryParam}
-            isFilterReset={isFilterReset}
+            queryParams={queryParams}
+            placeholder={'Поиск...'}
           />
           <Sort
-            data={applicationSortList}
+            isFilterReset={isFilterReset}
             queryParams={queryParams}
             updateQueryParam={updateQueryParam}
-            isFilterReset={isFilterReset}
+            data={applicationSortList}
           />
           <button
             className={cn(styles.filter, {
@@ -72,7 +71,7 @@ const ApplicationsPage = () => {
           </button>
           <button
             className={styles.getReport}
-            title='Скачать отчёт'
+            title='Скачать отчёт по заявокам'
             onClick={() => window.api.getReport('application')}
           >
             <FileText size={30} />
@@ -81,18 +80,29 @@ const ApplicationsPage = () => {
         <FilterComponent
           isOpen={isOpenFilter}
           type='application'
-          updateQueryParam={updateQueryParam}
           handleResetFilter={handleResetFilter}
           isFilterReset={isFilterReset}
+          updateQueryParam={updateQueryParam}
         />
-        <ApplicationTable
-          applications={applications}
-          isLoading={isFetching}
-        />
+        <ApplicationTable applications={applications} />
+        {isFetching ? (
+          <div className={styles.not_found}>
+            <Loader size={50} />
+          </div>
+        ) : (
+          !applications?.length && (
+            <div className={styles.not_found}>
+              <h2>Заявки на мероприятия не были найдены</h2>
+              <Button onClick={() => refetch()}>
+                <p>Обновить</p>
+              </Button>
+            </div>
+          )
+        )}
       </div>
       <Pagination
-        countPage={countPage || 0}
         updateQueryParam={updateQueryParam}
+        countPage={countPage || 0}
       />
     </div>
   )

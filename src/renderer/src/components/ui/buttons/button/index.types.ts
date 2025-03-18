@@ -7,6 +7,6 @@ export interface IButton extends InputHTMLAttributes<HTMLButtonElement> {
   isError?: boolean
   type?: 'button' | 'submit'
   disabled?: boolean
-  text: string
   isSmall?: boolean
+  children: React.ReactNode
 }

@@ -1,11 +1,9 @@
 import { useParams } from '@tanstack/react-router'
 import { Eye } from 'lucide-react'
-import { useEffect } from 'react'
 
 import { URL_PAGES } from '@shared/config/url.config'
 
 import { useGetNewsById } from '@shared/hooks/news/useGetNewsById'
-import { useIncrementView } from '@shared/hooks/news/useIncrementNews'
 
 import styles from './index.module.scss'
 import NewsPageSkeleton from './index.skeleton'
@@ -21,50 +19,52 @@ export const NewsPageId = () => {
   const { data, isPending } = useGetNewsById(newsId)
   const news = data?.data
 
-  const { mutate } = useIncrementView()
-
-  useEffect(() => {
-    mutate(newsId)
-  }, [newsId])
-
-  window.api.setTitle(`${news?.title}`)
-
   return (
     <div className={styles.page}>
       {!isPending ? (
         <div className={styles.content}>
           {news ? (
-            <>
+            <div className={styles.wrap}>
               <UndoBtn
                 link={URL_PAGES.MANAGE_NEWS}
                 size={30}
-                style={{
-                  position: 'absolute',
-                  top: '0px',
-                  left: '-60px',
-                  zIndex: '1'
-                }}
-              />
-              <Slider
-                height={500}
-                images={news?.images}
-                style={{ borderRadius: '10px 10px 0px 0px' }}
               />
               <div className={styles.info_block}>
                 <div className={styles.views}>
                   <Eye />
                   <span>{news.views}</span>
                 </div>
-                <h2>{news.title}</h2>
+                <h1>{news.title}</h1>
+                <hr />
+                <div className={styles.row}>
+                  <h3>
+                    Опубликованно:{' '}
+                    <span>
+                      {new Date(news.createdAt).toLocaleDateString('ru-RU', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                      })}
+                    </span>
+                  </h3>
+                </div>
+                <Slider
+                  height={500}
+                  images={news?.images}
+                  style={{ borderRadius: '10px 10px 10px 10px' }}
+                />
+                <div className={styles.row}>
+                  <h2>Описание</h2>
+                </div>
                 <div className={styles.description}>
                   {news?.content
                     .split('\n')
                     ?.map((label, index) => <p key={index}>{label}</p>)}
                 </div>
               </div>
-            </>
+            </div>
           ) : (
-            <p>Кажется что данной новости уже нет...</p>
+            <p>Данное мероприятие не было найденно</p>
           )}
         </div>
       ) : (

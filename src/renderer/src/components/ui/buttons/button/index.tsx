@@ -6,12 +6,12 @@ import type { IButton } from './index.types'
 import { Loader } from '@/components/ui'
 
 export const Button = ({
+  children,
   isPending,
   isSuccess,
   isLoading,
   isError,
   type,
-  text,
   className,
   disabled,
   onClick,
@@ -41,7 +41,7 @@ export const Button = ({
           <X />
         </p>
       ) : (
-        text
+        children
       )}
     </button>
   )

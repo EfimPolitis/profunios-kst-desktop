@@ -1,4 +1,8 @@
+import { Link } from '@tanstack/react-router'
+
 import { roles } from '@shared/constants/roles.constants'
+
+import { URL_PAGES } from '@shared/config/url.config'
 
 import { useProfile } from '@shared/hooks/user/useProfile'
 
@@ -6,15 +10,18 @@ import styles from './index.module.scss'
 import { Loader } from '@/components/ui'
 
 export const Profile = () => {
-  const { data, isLoading } = useProfile()
+  const { profile, isLoading } = useProfile()
 
-  const user = data?.data
+  const user = profile
 
   if (!user?.role) return
 
   return (
     <div className={styles.profile}>
-      <div className={styles.profile_block}>
+      <Link
+        to={URL_PAGES.PROFILE}
+        className={styles.profile_block}
+      >
         <div className={styles.info}>
           {isLoading || (
             <>
@@ -28,7 +35,7 @@ export const Profile = () => {
         <div className={styles.avatar}>
           {isLoading ? <Loader /> : user.firstName?.charAt(0).toUpperCase()}
         </div>
-      </div>
+      </Link>
     </div>
   )
 }

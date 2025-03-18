@@ -1,8 +1,12 @@
 @use '@/styles/_variables';
 
 .table_container {
-  height: 610px;
+  width: 100%;
+  max-height: 620px;
   position: relative;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 5px;
 
   .table {
     background-color: rgb(var(--secondary-color));

@@ -9,5 +9,7 @@ export const useProfile = () => {
     retry: 1
   })
 
-  return { data, isLoading, isError, isFetching, refetch }
+  const profile = data?.data
+
+  return { profile, isLoading, isError, isFetching, refetch }
 }
