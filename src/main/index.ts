@@ -1,5 +1,6 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, shell } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { join } from 'path'
 
 import { API_URL } from '@shared/constants/api.constants'
@@ -55,6 +56,8 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  autoUpdater.checkForUpdatesAndNotify()
 }
 
 app.whenReady().then(() => {

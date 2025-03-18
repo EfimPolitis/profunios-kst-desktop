@@ -10,7 +10,10 @@ interface BookingPopupProps {
   onConfirm: () => void
 }
 
-const BookingPopup: React.FC<BookingPopupProps> = ({ onClose, onConfirm }) => {
+export const BookingPopup: React.FC<BookingPopupProps> = ({
+  onClose,
+  onConfirm
+}) => {
   const { count, setCount, increment, decrement } = useBookingStore()
 
   return (
@@ -31,10 +34,11 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose, onConfirm }) => {
         <h2 className={styles.title}>Сколько мест хотите забронировать?</h2>
         <div className={styles.cardContainer}>
           <Button
-            text='-'
             onClick={decrement}
             style={{ fontSize: '30px' }}
-          />
+          >
+            -
+          </Button>
           <Field
             type='number'
             value={count}
@@ -47,26 +51,27 @@ const BookingPopup: React.FC<BookingPopupProps> = ({ onClose, onConfirm }) => {
             }}
           />
           <Button
-            text='+'
             onClick={increment}
             style={{ fontSize: '30px' }}
-          />
+          >
+            +
+          </Button>
         </div>
         <div className={styles.buttonContainer}>
           <Button
-            text='Подтвердить'
             onClick={() => onConfirm()}
             style={{ height: '50px', fontSize: '18px' }}
-          />
+          >
+            Подтвердить
+          </Button>
           <Button
-            text='Отмена'
             onClick={onClose}
             style={{ height: '50px', fontSize: '18px' }}
-          />
+          >
+            Отмена
+          </Button>
         </div>
       </m.div>
     </m.div>
   )
 }
-
-export default BookingPopup

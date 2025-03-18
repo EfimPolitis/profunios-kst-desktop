@@ -1,5 +1,9 @@
-import { INews, INewsFormData, IResponseNews } from '@shared/types/news.types'
-import { IQueryParam } from '@shared/types/query.types'
+import type {
+  INews,
+  INewsFormData,
+  IResponseNews
+} from '@shared/types/news.types'
+import type { IQueryParam } from '@shared/types/query.types'
 
 import { axiosClassic, axiosWithAuth } from '../api/interseptors'
 

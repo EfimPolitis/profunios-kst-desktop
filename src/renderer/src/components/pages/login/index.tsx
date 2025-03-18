@@ -6,7 +6,7 @@ const LoginPage = () => {
 
   return (
     <div className={styles.login_page}>
-      <AuthForm isLogin />
+      <AuthForm type='login' />
     </div>
   )
 }

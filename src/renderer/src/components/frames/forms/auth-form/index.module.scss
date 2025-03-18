@@ -1,16 +1,58 @@
 .auth_block {
-  padding-bottom: 50px;
+  height: 100%;
   width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding: 20px;
+  background-color: rgb(var(--secondary-color-hover));
+  border-radius: 10px;
 
   .form {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    .btn_block {
+      display: flex;
+      justify-content: space-between;
+
+      .btn {
+        height: 50px;
+        padding: 5px 15px;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(var(--secondary-color));
+        color: rgb(var(--text-color));
+        font-size: 20px;
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s linear;
+
+        &:hover {
+          background-color: rgb(var(--text-color));
+          color: rgb(var(--secondary-color));
+        }
+      }
+
+      .logout {
+        .logout_icon {
+          transition: transform ease-in-out 0.2s;
+        }
+
+        &:hover {
+          .logout_icon {
+            transform: translateX(6px);
+          }
+        }
+      }
+    }
   }
 
   .error {

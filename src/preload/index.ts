@@ -2,7 +2,10 @@ import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer } from 'electron'
 
 import type { IApplicationData } from '@shared/types/application.types'
-import type { IAuthFormData } from '@shared/types/auth.types'
+import type {
+  IAuthFormData,
+  IChangePasswordFormData
+} from '@shared/types/auth.types'
 import type { ICategory } from '@shared/types/category.types'
 import type { IEventFormData } from '@shared/types/event.types'
 import { INewsFormData } from '@shared/types/news.types'
@@ -15,6 +18,8 @@ const api = {
     ipcRenderer.invoke('auth', type, data),
   logout: () => ipcRenderer.invoke('logout'),
   getAccessToken: () => ipcRenderer.invoke('getAccessToken'),
+  changePassword: (data: IChangePasswordFormData) =>
+    ipcRenderer.invoke('changePassword', data),
 
   //user
   getUser: (userId: string) => ipcRenderer.invoke('getUser', userId),

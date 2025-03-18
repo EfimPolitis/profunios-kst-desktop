@@ -14,7 +14,7 @@ import { useDeleteUser } from '@shared/hooks/user/useDeleteUser'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
 import styles from './index.module.scss'
-import ConfirmPopup from '@/components/frames/popups/confirm-popup'
+import { ConfirmPopup } from '@/components/frames'
 import { Loader } from '@/components/ui'
 
 interface ITableField {
@@ -24,9 +24,9 @@ interface ITableField {
 
 export const UserTableRow = ({ user, count }: ITableField) => {
   const navigate = useNavigate()
-  const { data } = useProfile()
+  const { profile } = useProfile()
 
-  const userId = data?.data.userId
+  const userId = profile?.userId
 
   const { deleteUser, isPending } = useDeleteUser()
   const [isShow, setIsShow] = useState<boolean>(false)

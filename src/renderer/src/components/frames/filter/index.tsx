@@ -90,10 +90,11 @@ export const FilterComponent = ({
           ))}
         </div>
         <Button
-          text='Сбросить фильтры'
           onClick={handleResetFilter}
           className={styles.resetBtn}
-        />
+        >
+          Сбросить фильтры
+        </Button>
       </m.div>
     </div>
   )

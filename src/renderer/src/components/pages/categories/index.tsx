@@ -29,6 +29,7 @@ const CategoriesPage = () => {
     <div className={styles.page}>
       <ListRowParent
         categories={categories}
+        refetch={refetch}
         setCategories={setCategories}
         queryParams={queryParams}
         updateQueryParam={updateQueryParam}

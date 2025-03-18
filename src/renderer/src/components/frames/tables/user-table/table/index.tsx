@@ -1,22 +1,16 @@
 import { useFiltersStore } from '@shared/store/store'
-import { useState } from 'react'
 
 import type { IUser } from '@shared/types/user.types'
-
-import { useDeleteUser } from '@shared/hooks/user/useDeleteUser'
 
 import { UserTableRow } from '../row'
 
 import styles from './index.module.scss'
-import ConfirmPopup from '@/components/frames/popups/confirm-popup'
-import { Loader } from '@/components/ui'
 
 interface IUserTable {
   users: IUser[] | undefined
-  isLoading: boolean
 }
 
-export const UserTable = ({ users, isLoading }: IUserTable) => {
+export const UserTable = ({ users }: IUserTable) => {
   const countPage = useFiltersStore.getState().queryParams.page
 
   return (
@@ -44,15 +38,6 @@ export const UserTable = ({ users, isLoading }: IUserTable) => {
           ))}
         </tbody>
       </table>
-      <div className={styles.info}>
-        {isLoading ? (
-          <Loader size={30} />
-        ) : users?.length ? (
-          ''
-        ) : (
-          <h2 className=''>Пользователи не были найдены</h2>
-        )}
-      </div>
     </div>
   )
 }

@@ -7,16 +7,14 @@ import { EStatus, type IEventCard } from '@shared/types/event.types'
 import { useDeleteEvent } from '@shared/hooks/event/useDeleteEvent'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
-import ConfirmPopup from '../../popups/confirm-popup'
-
 import styles from './index.module.scss'
+import { ConfirmPopup } from '@/components/frames'
 import { Slider } from '@/components/ui/slider'
 
 export const EventCard: FC<IEventCard> = ({ data }) => {
-  const { title, places, categories, date, eventId, images, status } = data
-  const { data: userData } = useProfile()
-
-  const user = userData?.data
+  const { title, places, categories, date, eventId, images, status, address } =
+    data
+  const { profile } = useProfile()
 
   const { mutate: mutateEvent } = useDeleteEvent()
 
@@ -40,7 +38,7 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
           to={'/events/$eventId'}
           params={{ eventId }}
         />
-        {user?.role === 'ADMIN' || user?.role === 'MODER' ? (
+        {profile?.role === 'ADMIN' || profile?.role === 'MODER' ? (
           <>
             {status === EStatus.INTERNAL && (
               <div className={styles.privateMark}>
@@ -68,7 +66,7 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
         <Slider
           images={images}
           height={240}
-          style={{ borderRadius: '10px 10px 0px 0px' }}
+          style={{ borderRadius: '10px' }}
         />
         <div className={styles.info_block}>
           <p
@@ -91,7 +89,7 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
               )
             })}
           </div>
-          <p className={styles.date}>
+          <p className={styles.row}>
             Дата проведения:{' '}
             <span>
               {new Date(date).toLocaleDateString('ru-RU', {
@@ -101,19 +99,25 @@ export const EventCard: FC<IEventCard> = ({ data }) => {
               })}
             </span>
           </p>
-          <p className={styles.date}>
+          <p className={styles.row}>
             Время проведения:{' '}
             <span>
               {new Date(date).toLocaleTimeString('ru-RU', {
                 hour: 'numeric',
-                minute: 'numeric'
+                minute: 'numeric',
+                timeZone: 'UTC'
               })}
             </span>
           </p>
-          <p className={styles.places}>
+          <p className={styles.row}>
             Мест осталось: <span>{places}</span>
           </p>
-
+          <p className={styles.row}>
+            Место регистрации:{' '}
+            <span style={{ lineHeight: '25px' }}>
+              {address.length > 60 ? address.slice(0, 59) + '...' : address}
+            </span>
+          </p>
           <Link
             to={'/events/$eventId'}
             params={{ eventId }}

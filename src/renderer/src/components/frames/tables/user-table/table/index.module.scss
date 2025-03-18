@@ -1,8 +1,11 @@
 @use '@/styles/_variables';
 
 .table_container {
-  max-height: 610px;
+  width: 100%;
+  max-height: 630px;
   position: relative;
+  overflow-x: scroll;
+  padding: 5px;
 
   .table {
     background-color: rgb(var(--secondary-color));
@@ -33,13 +36,6 @@
         }
       }
     }
-  }
-
-  .info {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    top: 20px;
   }
 }
 

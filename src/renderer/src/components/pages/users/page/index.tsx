@@ -6,18 +6,22 @@ import { useEffect, useState } from 'react'
 
 import { userSortList } from '@shared/constants/sort.constants'
 
+import { ERole } from '@shared/types/user.types'
+
 import { URL_PAGES } from '@shared/config/url.config'
 
 import { useGetUsers } from '@shared/hooks/user/useGetUsers'
+import { useProfile } from '@shared/hooks/user/useProfile'
 
 import styles from './index.module.scss'
-import { FilterComponent, Pagination, Sort } from '@/components/frames'
+import { FilterComponent, Sort } from '@/components/frames'
 import { UserTable } from '@/components/frames/tables/user-table/table'
-import { Search } from '@/components/ui'
+import { Button, Loader, Pagination, Search } from '@/components/ui'
 
 const UsersPage = () => {
   window.api.setTitle('Пользователи')
 
+  const { profile } = useProfile()
   const {
     queryParams,
     isFilterUpdated,
@@ -39,7 +43,7 @@ const UsersPage = () => {
   }, [queryParams])
 
   const users = data?.data?.items
-  const countPage = data?.data?.countPage
+  const countPage = data?.data?.countPage || 0
 
   const [isOpenFilter, setIsOpenFilter] = useState(false)
 
@@ -72,20 +76,24 @@ const UsersPage = () => {
           >
             <Filter size={30} />
           </button>
-          <Link
-            to={URL_PAGES.CREATE_USER}
-            className={styles.create_user}
-            title='Создать пользователя'
-          >
-            <UserPlus size={30} />
-          </Link>
-          <button
-            className={styles.getReport}
-            title='Скачать отчёт'
-            onClick={() => window.api.getReport('user')}
-          >
-            <FileText size={30} />
-          </button>
+          {profile?.role === ERole.ADMIN && (
+            <>
+              <Link
+                to={URL_PAGES.CREATE_USER}
+                className={styles.create_user}
+                title='Создать пользователя'
+              >
+                <UserPlus size={30} />
+              </Link>
+              <button
+                className={styles.getReport}
+                title='Скачать отчёт'
+                onClick={() => window.api.getReport('user')}
+              >
+                <FileText size={30} />
+              </button>
+            </>
+          )}
         </div>
         <FilterComponent
           isOpen={isOpenFilter}
@@ -94,17 +102,26 @@ const UsersPage = () => {
           handleResetFilter={handleResetFilter}
           isFilterReset={isFilterReset}
         />
-        <UserTable
-          users={users}
-          isLoading={isFetching}
-        />
+        <UserTable users={users} />
+        {isFetching ? (
+          <div className={styles.not_found}>
+            <Loader size={50} />
+          </div>
+        ) : (
+          !users?.length && (
+            <div className={styles.not_found}>
+              <h2>Пользователи не были найдены</h2>
+              <Button onClick={() => refetch()}>
+                <p>Обновить</p>
+              </Button>
+            </div>
+          )
+        )}
       </div>
-      {!!countPage && countPage > 1 && (
-        <Pagination
-          countPage={countPage || 0}
-          updateQueryParam={updateQueryParam}
-        />
-      )}
+      <Pagination
+        updateQueryParam={updateQueryParam}
+        countPage={countPage > 1 ? countPage : 0}
+      />
     </div>
   )
 }

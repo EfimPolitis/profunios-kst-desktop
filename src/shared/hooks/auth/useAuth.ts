@@ -7,7 +7,6 @@ import toast from 'react-hot-toast'
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
 import type { IAuthFormData, IAuthResponse } from '@shared/types/auth.types'
-import { errorList } from '@shared/types/error.types'
 import { ERole } from '@shared/types/user.types'
 
 import { URL_PAGES } from '@shared/config/url.config'
@@ -23,14 +22,23 @@ export const useAuth = (isLogin: boolean, reset: UseFormReset<any>) => {
     error
   } = useMutation({
     mutationKey: [TanStackQueryKey.auth],
-    mutationFn: (data: IAuthFormData) =>
-      window.api.auth(isLogin ? 'login' : 'register', data),
+    mutationFn: async (data: IAuthFormData) => {
+      const response = await window.api.auth(
+        isLogin ? 'login' : 'register',
+        data
+      )
+
+      if (!response.success) {
+        throw new Error(response.message)
+      }
+
+      return response.data
+    },
     onMutate: () => {
       toast.loading('Загрузка...')
     },
     onSuccess: (data: AxiosResponse<IAuthResponse>) => {
       toast.dismiss()
-
       const role = data?.data?.user?.role
 
       if (role === ERole.USER) {
@@ -42,13 +50,23 @@ export const useAuth = (isLogin: boolean, reset: UseFormReset<any>) => {
             : 'Новый пользователь успешно создан'
         )
         reset()
-        navigate({ to: URL_PAGES.MANAGE_USERS })
+        isLogin
+          ? navigate({ to: URL_PAGES.MANAGE_EVENTS })
+          : navigate({ to: URL_PAGES.MANAGE_USERS })
         useResize(1200, 800)
       }
     },
-    onError: error => {
+    onError: (error: unknown) => {
       toast.dismiss()
-      toast.error(errorList[error.message])
+      console.log(error)
+
+      let message = 'Произошла неизвестная ошибка'
+
+      if (error instanceof Error) {
+        message = error.message
+      }
+
+      toast.error(message)
     }
   })
 

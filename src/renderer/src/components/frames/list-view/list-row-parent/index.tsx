@@ -9,7 +9,7 @@ import { ListAddRowInput } from '../list-add-row-input'
 import { ListRow } from '../list-row'
 
 import styles from './index.module.scss'
-import { Loader, Search } from '@/components/ui'
+import { Button, Loader, Search } from '@/components/ui'
 
 interface IListRowParent {
   categories: IResponseCategory[] | undefined
@@ -17,10 +17,16 @@ interface IListRowParent {
   updateQueryParam: (data: { key: keyof IQueryParam; value: string }) => void
   queryParams: IQueryParam
   isLoading: boolean
+  refetch: (
+    options?: RefetchOptions
+  ) => Promise<
+    QueryObserverResult<AxiosResponse<IResponseCategory[], any>, Error>
+  >
 }
 
 export const ListRowParent = ({
   categories,
+  refetch,
   setCategories,
   updateQueryParam,
   queryParams,
@@ -37,7 +43,6 @@ export const ListRowParent = ({
       {!categories?.some(category => !category.id) && (
         <ListAddRowInput setCategories={setCategories} />
       )}
-
       {isLoading ? (
         <Loader />
       ) : (
@@ -53,23 +58,25 @@ export const ListRowParent = ({
               ))
               .reverse()
           ) : (
-            <h3
-              style={{
-                wordWrap: 'break-word',
-                color: 'rgba(var(--text-color), 0.6)'
-              }}
-            >
-              По запросу{' '}
-              <span
-                style={{
-                  fontWeight: 'bold',
-                  color: 'rgb(var(--text-color))'
-                }}
-              >
-                "{queryParams.search}"
-              </span>{' '}
-              ничего не найденно
-            </h3>
+            <>
+              {isLoading ? (
+                <div className={styles.not_found}>
+                  <Loader size={50} />
+                </div>
+              ) : (
+                !!categories?.length || (
+                  <div className={styles.not_found}>
+                    <h3>Категории не были найдены</h3>
+                    <Button
+                      onClick={() => refetch()}
+                      style={{ height: '50px' }}
+                    >
+                      <p>Обновить</p>
+                    </Button>
+                  </div>
+                )
+              )}
+            </>
           )}
         </div>
       )}

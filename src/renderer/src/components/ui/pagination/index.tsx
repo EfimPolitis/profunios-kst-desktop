@@ -58,10 +58,8 @@ export const Pagination = ({ countPage, updateQueryParam }: IPagination) => {
         pages.push(
           <li
             key='dots-start'
-            className={styles.item}
-          >
-            ...
-          </li>
+            className={styles.space}
+          ></li>
         )
       }
 
@@ -88,10 +86,8 @@ export const Pagination = ({ countPage, updateQueryParam }: IPagination) => {
         pages.push(
           <li
             key='dots-end'
-            className={styles.item}
-          >
-            ...
-          </li>
+            className={styles.space}
+          ></li>
         )
       }
 

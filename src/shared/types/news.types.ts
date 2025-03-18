@@ -3,7 +3,6 @@ import type { TypeImage } from './event.types'
 export interface INews {
   newsId: string
   title: string
-  description: string
   content: string
   views: number
   images: TypeImage[]
@@ -13,7 +12,6 @@ export interface INews {
 
 export interface INewsFormData {
   title: string
-  description: string
   content: string
   imagesId: string[]
 }
@@ -27,7 +25,6 @@ export interface INewsCard {
   data: INews
 }
 
-export type TypeNewsFormData = Pick<
-  INews,
-  'title' | 'description' | 'content'
-> & { imagesId: string[] }
+export type TypeNewsFormData = Pick<INews, 'title' | 'content'> & {
+  imagesId: string[]
+}

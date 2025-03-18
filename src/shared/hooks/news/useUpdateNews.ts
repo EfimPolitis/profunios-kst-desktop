@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+import { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
@@ -19,8 +20,21 @@ export const useUpdateNews = () => {
     error: updateError
   } = useMutation({
     mutationKey: [TanStackQueryKey.updateNews],
-    mutationFn: ({ data, newsId }: { data: INewsFormData; newsId: string }) =>
-      window.api.updateNews(data, newsId),
+    mutationFn: async ({
+      data,
+      newsId
+    }: {
+      data: INewsFormData
+      newsId: string
+    }) => {
+      const response = await window.api.updateNews(data, newsId)
+
+      if (!response.success) {
+        throw new Error(response.message)
+      }
+
+      return response.data
+    },
     onMutate: () => {
       toast.loading('Загрузка...')
     },
@@ -30,9 +44,19 @@ export const useUpdateNews = () => {
       queryClient.invalidateQueries({ queryKey: [TanStackQueryKey.getNews] })
       navigate({ to: URL_PAGES.MANAGE_NEWS })
     },
-    onError: () => {
+    onError: (error: unknown) => {
       toast.dismiss()
-      toast.error('Произошла ошибка')
+
+      let message = 'Произошла неизвестная ошибка'
+
+      if (error instanceof AxiosError) {
+        const serverMessage = error.response?.data?.message
+        if (typeof serverMessage === 'string') {
+          message = serverMessage
+        }
+      }
+
+      toast.error(message)
     }
   })
 

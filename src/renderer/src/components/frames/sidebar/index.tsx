@@ -4,8 +4,8 @@ import { m } from 'framer-motion'
 import { LogOut, PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { useState } from 'react'
 
+import { useLogout } from '@shared/hooks/auth/useLogout'
 import { useResize } from '@shared/hooks/useResize'
-import { useLogout } from '@shared/hooks/user/useLogout'
 
 import styles from './index.module.scss'
 import { SidebarData } from '@/components/frames/sidebar/sidebar.data'

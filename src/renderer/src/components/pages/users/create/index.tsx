@@ -14,7 +14,7 @@ const CreateUserPage = () => {
         size={30}
         style={{ position: 'absolute', top: '10px', left: '10px' }}
       />
-      <AuthForm />
+      <AuthForm type='register' />
     </div>
   )
 }

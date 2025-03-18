@@ -22,6 +22,7 @@ export interface IEvent {
   link: string
   status: EStatus
   places: number
+  address: string
   createdAt: string
   updatedAt: string
 }
@@ -32,7 +33,6 @@ export interface IResponseEvents {
 }
 
 export interface IEventCard {
-  places?: number
   data: IEvent
 }
 
@@ -40,10 +40,11 @@ export interface IEventFormData {
   title: string
   description: string
   imagesId: string[]
-  categoriesId: string[]
+  categoriesId?: string[]
   organizer: string
   date: string
   link?: string
+  address?: string
   places?: number
   status: EStatus
 }

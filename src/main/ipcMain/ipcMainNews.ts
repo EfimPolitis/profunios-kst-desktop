@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { ipcMain } from 'electron'
 
 import { INewsFormData } from '@shared/types/news.types'
@@ -18,17 +19,47 @@ export const ipcMainNews = () => {
     newsService.getAll(queryData)
   )
 
-  ipcMain.handle('createNews', (_, data: INewsFormData) =>
-    newsService.create(data)
+  ipcMain.handle('createNews', async (_, data: INewsFormData) => {
+    try {
+      const response = await newsService.create(data)
+      return { success: true, response }
+    } catch (error) {
+      let message = 'Неизвестная ошибка'
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        message = error.response.data.message
+      }
+      return { success: false, message }
+    }
+  })
+
+  ipcMain.handle(
+    'updateNews',
+    async (_, data: INewsFormData, newsId: string) => {
+      try {
+        const response = await newsService.update(data, newsId)
+        return { success: true, response }
+      } catch (error) {
+        let message = 'Неизвестная ошибка'
+        if (axios.isAxiosError(error) && error.response?.data?.message) {
+          message = error.response.data.message
+        }
+        return { success: false, message }
+      }
+    }
   )
 
-  ipcMain.handle('updateNews', (_, data: INewsFormData, newsId: string) =>
-    newsService.update(data, newsId)
-  )
-
-  ipcMain.handle('deleteNews', (_, newsId: string) =>
-    newsService.delete(newsId)
-  )
+  ipcMain.handle('deleteNews', async (_, newsId: string) => {
+    try {
+      const response = await newsService.delete(newsId)
+      return { success: true, response }
+    } catch (error) {
+      let message = 'Неизвестная ошибка'
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        message = error.response.data.message
+      }
+      return { success: false, message }
+    }
+  })
 
   ipcMain.handle('uploadNewsImage', async (_, { buffer, name, type }) => {
     const formData = new FormData()

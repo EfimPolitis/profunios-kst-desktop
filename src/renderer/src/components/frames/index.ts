@@ -4,10 +4,13 @@ import { NewsCard } from './cards/news-card'
 import { NewsCardSkeleton } from './cards/news-card/index.skeleton'
 import { FilterComponent } from './filter'
 import AuthForm from './forms/auth-form'
+import { ChangePasswordForm } from './forms/change-password-form'
 import { EventForm } from './forms/event-form'
 import { NewsForm } from './forms/news-form'
 import { ListRowParent } from './list-view/list-row-parent'
-import { Pagination } from './pagination'
+import { BookingPopup } from './popups/booking-popup'
+import { ConfirmPopup } from './popups/confirm-popup'
+import { Profile } from './profile'
 import Sidebar from './sidebar'
 import { Sort } from './sort'
 
@@ -23,5 +26,8 @@ export {
   ListRowParent,
   Sort,
   FilterComponent,
-  Pagination
+  Profile,
+  ConfirmPopup,
+  BookingPopup,
+  ChangePasswordForm
 }

@@ -6,5 +6,10 @@
   .page_layout {
     display: grid;
     grid-template-rows: 60px 1fr;
+
+    .page {
+      overflow-y: scroll;
+      height: 100%;
+    }
   }
 }

@@ -1,4 +1,3 @@
-import { useFiltersStore } from '@shared/store/store'
 import cn from 'clsx'
 import { ArrowDownUp, ChevronDown, ChevronUp } from 'lucide-react'
 import { useEffect, useState } from 'react'

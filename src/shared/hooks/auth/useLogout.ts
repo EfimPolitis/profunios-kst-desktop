@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
+import toast from 'react-hot-toast'
 
 import { TanStackQueryKey } from '@shared/constants/query-key.constants'
 
@@ -12,9 +13,13 @@ export const useLogout = () => {
   const { mutate, isPending, data, error } = useMutation({
     mutationKey: [TanStackQueryKey.logout],
     mutationFn: () => window.api.logout(),
-    async onSuccess() {
+    onMutate() {
+      toast.loading('Загрузка...')
+    },
+    onSuccess() {
+      toast.dismiss()
       navigate({ to: URL_PAGES.LOGIN })
-      queryClient.invalidateQueries({ queryKey: [TanStackQueryKey.profile] })
+      queryClient.getQueryCache().clear()
     }
   })
 

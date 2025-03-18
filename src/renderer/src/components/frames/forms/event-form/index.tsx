@@ -1,5 +1,5 @@
 import { useParams } from '@tanstack/react-router'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Controller,
   type FieldErrors,
@@ -20,7 +20,7 @@ import { useGetEventById } from '@shared/hooks/event/useGetEventById'
 import { useUpdateEvent } from '@shared/hooks/event/useUpdateEvent'
 
 import styles from './index.module.scss'
-import { formRules } from './rules'
+import { eventFormRules } from './rules'
 import {
   Button,
   DateInput,
@@ -46,41 +46,36 @@ const variants = [
   }
 ]
 
-const initialValues = {
-  title: '',
-  description: '',
-  organizer: '',
-  imagesId: [],
-  date: '',
-  categoriesId: [],
-  link: '',
-  places: 0,
-  status: EStatus.EVERYONE
-}
-
 export const EventForm = ({ isEditing }: IEventForm) => {
+  const initialValues = useMemo(
+    () => ({
+      title: '',
+      description: '',
+      organizer: '',
+      imagesId: [],
+      date: '',
+      categoriesId: [],
+      link: '',
+      places: 0,
+      status: EStatus.EVERYONE
+    }),
+    []
+  )
+
   if (isEditing) {
     var eventId = useParams({
       from: '/_layout/events/edit/$eventId',
       select: params => params.eventId
     })
-
-    if (eventId) {
-      const { data } = useGetEventById(eventId)
-      var event = data?.data
-    }
+    var { data } = useGetEventById(eventId)
   }
 
-  const [values, setValues] = useState<IEventFormData>(initialValues)
-  const [images, setImages] = useState<TypeImage[]>([])
-
   useEffect(() => {
-    if (event) {
+    if (isEditing && data?.data) {
+      const event = data?.data
+
       const categoriesId = event.categories.map(category => category.id)
       const imagesId = event.images.map(image => image.id)
-
-      const date = new Date(event.date)
-      date.setHours(date.getHours() + 3)
 
       setImages(event.images)
       setValues({
@@ -88,14 +83,18 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         description: event.description,
         organizer: event.organizer,
         imagesId,
-        date: date.toISOString().slice(0, 16),
+        date: event.date.slice(0, 16),
         categoriesId,
         link: event.link,
-        places: event.places,
-        status: event.status
+        places: event.places || 0,
+        status: event.status,
+        address: event.address
       })
     }
-  }, [event])
+  }, [isEditing, data?.data])
+
+  const [values, setValues] = useState<IEventFormData>(initialValues)
+  const [images, setImages] = useState<TypeImage[]>([])
 
   const { categories } = useGetCategories()
   const { createEvent, isPendingCreate, isSuccessCreate } = useCreateEvent()
@@ -109,14 +108,21 @@ export const EventForm = ({ isEditing }: IEventForm) => {
     values
   })
 
-  const onSubmit: SubmitHandler<IEventFormData> = useCallback(data => {
-    data.places = Number(data.places)
+  const onSubmit: SubmitHandler<IEventFormData> = useCallback(
+    data => {
+      data.places = Number(data.places)
+      data.date = data.date + 'Z'
 
-    isEditing ? eventId && updateEvent({ data, eventId }) : createEvent(data)
-  }, [])
+      isEditing ? eventId && updateEvent({ data, eventId }) : createEvent(data)
+    },
+    [isEditing, updateEvent, createEvent]
+  )
 
   const onError = useCallback((errors: FieldErrors<IEventFormData>) => {
-    const errorsKeys = Object.keys(errors).reverse()
+    const errorsKeys = Object.keys(errors).reverse() as Array<
+      keyof IEventFormData
+    >
+
     errorsKeys.forEach(error => {
       toast.error(`${errors[error]?.message}`)
     })
@@ -131,22 +137,22 @@ export const EventForm = ({ isEditing }: IEventForm) => {
       <Field
         placeholder='Заголовок'
         style={{ width: '450px', paddingLeft: '20px' }}
-        {...register('title', formRules.title)}
+        {...register('title', eventFormRules.title)}
       />
       <TextArea
         style={{ maxWidth: '800px', minHeight: '400px' }}
         placeholder='Описание'
-        {...register('description', formRules.description)}
+        {...register('description', eventFormRules.description)}
       />
       <Field
         placeholder='Организатор'
         style={{ width: '450px', paddingLeft: '20px' }}
-        {...register('organizer', formRules.organizer)}
+        {...register('organizer', eventFormRules.organizer)}
       />
       <Controller
         control={control}
         name='imagesId'
-        rules={formRules.imagesId}
+        rules={eventFormRules.imagesId}
         render={({ field: { value: imagesId, onChange: setImagesId } }) => (
           <Uploader
             imagesId={imagesId}
@@ -159,42 +165,77 @@ export const EventForm = ({ isEditing }: IEventForm) => {
       <Controller
         control={control}
         name='categoriesId'
-        rules={formRules.categoriesId}
+        rules={eventFormRules.categoriesId}
         render={({ field: { value, onChange } }) => (
           <SelectCategories
             onChange={onChange}
-            value={value}
+            value={value || []}
             categories={categories}
           />
         )}
       />
       <div>
+        <Field
+          placeholder={'Место регистрации'}
+          style={{ width: '500px', paddingLeft: '20px' }}
+          {...register('address', eventFormRules.address)}
+        />
+      </div>
+      <div>
         <DateInput
-          min={new Date().toISOString()}
-          {...register('date', formRules.date)}
+          min={new Date().toISOString().slice(0, 16)}
+          {...register('date', eventFormRules.date)}
         />
       </div>
       <div>
         <Field
           placeholder={'Введите ссылку на мероприятие'}
           style={{ width: '500px', paddingLeft: '20px' }}
-          {...register('link', formRules.link)}
+          {...register('link', eventFormRules.link)}
         />
       </div>
       <div>
         <h3>Количество мест</h3>
-        <Field
-          style={{ width: '120px', textAlign: 'center', padding: '5px' }}
-          type={'number'}
-          {...register('places', formRules.places)}
+        <br />
+        <Controller
+          control={control}
+          name='places'
+          rules={eventFormRules.places}
+          render={({ field: { value, onChange } }) => (
+            <div className={styles.places_block}>
+              <Button
+                onClick={() => onChange(value ? value - 1 : 0)}
+                className={styles.btn}
+                type='button'
+              >
+                <p>-</p>
+              </Button>
+              <Field
+                style={{ width: '140px', textAlign: 'center', padding: '5px' }}
+                type={'number'}
+                value={value}
+                onChange={e => onChange(Number(e.target.value))}
+              />
+              <Button
+                onClick={() =>
+                  onChange(value === undefined ? undefined : value + 1)
+                }
+                className={styles.btn}
+                type='button'
+              >
+                <p>+</p>
+              </Button>
+            </div>
+          )}
         />
       </div>
       <div>
         <h3>Тип меропрития</h3>
+        <br />
         <Controller
           control={control}
           name='status'
-          rules={formRules.status}
+          rules={eventFormRules.status}
           render={({ field: { value, onChange } }) => (
             <InputRadio
               variants={variants}
@@ -205,12 +246,13 @@ export const EventForm = ({ isEditing }: IEventForm) => {
         />
       </div>
       <Button
-        text={isEditing ? 'Сохранить изменения' : 'Создать'}
         isPending={isPending}
         isSuccess={isSuccess}
         style={{ width: '400px' }}
         type='submit'
-      />
+      >
+        <p>{isEditing ? 'Сохранить изменения' : 'Создать'}</p>
+      </Button>
     </form>
   )
 }

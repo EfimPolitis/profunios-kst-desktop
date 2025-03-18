@@ -7,9 +7,8 @@ import type { IResponseCategory } from '@shared/types/category.types'
 import { useCategoryDebounce } from '@shared/hooks/category/useCategoryDebounce'
 import { useDeleteCategory } from '@shared/hooks/category/useDeleteCategory'
 
-import ConfirmPopup from '../../popups/confirm-popup'
-
 import styles from './index.module.scss'
+import { ConfirmPopup } from '@/components/frames'
 import { Loader } from '@/components/ui'
 import { TransparentField } from '@/components/ui/fields/transparent-field'
 

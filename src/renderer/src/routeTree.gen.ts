@@ -14,8 +14,10 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutUsersIndexImport } from './routes/_layout/users/index'
+import { Route as LayoutProfileIndexImport } from './routes/_layout/profile/index'
 import { Route as LayoutNewsIndexImport } from './routes/_layout/news/index'
 import { Route as LayoutEventsIndexImport } from './routes/_layout/events/index'
+import { Route as LayoutChangePasswordIndexImport } from './routes/_layout/change-password/index'
 import { Route as LayoutCategoriesIndexImport } from './routes/_layout/categories/index'
 import { Route as LayoutApplicationsIndexImport } from './routes/_layout/applications/index'
 import { Route as LayoutUsersCreateImport } from './routes/_layout/users/create'
@@ -46,6 +48,12 @@ const LayoutUsersIndexRoute = LayoutUsersIndexImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutProfileIndexRoute = LayoutProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutNewsIndexRoute = LayoutNewsIndexImport.update({
   id: '/news/',
   path: '/news/',
@@ -55,6 +63,12 @@ const LayoutNewsIndexRoute = LayoutNewsIndexImport.update({
 const LayoutEventsIndexRoute = LayoutEventsIndexImport.update({
   id: '/events/',
   path: '/events/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutChangePasswordIndexRoute = LayoutChangePasswordIndexImport.update({
+  id: '/change-password/',
+  path: '/change-password/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -185,6 +199,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutCategoriesIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/change-password/': {
+      id: '/_layout/change-password/'
+      path: '/change-password'
+      fullPath: '/change-password'
+      preLoaderRoute: typeof LayoutChangePasswordIndexImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/events/': {
       id: '/_layout/events/'
       path: '/events'
@@ -197,6 +218,13 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof LayoutNewsIndexImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/profile/': {
+      id: '/_layout/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof LayoutProfileIndexImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/users/': {
@@ -240,8 +268,10 @@ interface LayoutRouteChildren {
   LayoutUsersCreateRoute: typeof LayoutUsersCreateRoute
   LayoutApplicationsIndexRoute: typeof LayoutApplicationsIndexRoute
   LayoutCategoriesIndexRoute: typeof LayoutCategoriesIndexRoute
+  LayoutChangePasswordIndexRoute: typeof LayoutChangePasswordIndexRoute
   LayoutEventsIndexRoute: typeof LayoutEventsIndexRoute
   LayoutNewsIndexRoute: typeof LayoutNewsIndexRoute
+  LayoutProfileIndexRoute: typeof LayoutProfileIndexRoute
   LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute
   LayoutEventsEditEventIdRoute: typeof LayoutEventsEditEventIdRoute
   LayoutNewsEditNewsIdRoute: typeof LayoutNewsEditNewsIdRoute
@@ -256,8 +286,10 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutUsersCreateRoute: LayoutUsersCreateRoute,
   LayoutApplicationsIndexRoute: LayoutApplicationsIndexRoute,
   LayoutCategoriesIndexRoute: LayoutCategoriesIndexRoute,
+  LayoutChangePasswordIndexRoute: LayoutChangePasswordIndexRoute,
   LayoutEventsIndexRoute: LayoutEventsIndexRoute,
   LayoutNewsIndexRoute: LayoutNewsIndexRoute,
+  LayoutProfileIndexRoute: LayoutProfileIndexRoute,
   LayoutUsersIndexRoute: LayoutUsersIndexRoute,
   LayoutEventsEditEventIdRoute: LayoutEventsEditEventIdRoute,
   LayoutNewsEditNewsIdRoute: LayoutNewsEditNewsIdRoute,
@@ -277,8 +309,10 @@ export interface FileRoutesByFullPath {
   '/users/create': typeof LayoutUsersCreateRoute
   '/applications': typeof LayoutApplicationsIndexRoute
   '/categories': typeof LayoutCategoriesIndexRoute
+  '/change-password': typeof LayoutChangePasswordIndexRoute
   '/events': typeof LayoutEventsIndexRoute
   '/news': typeof LayoutNewsIndexRoute
+  '/profile': typeof LayoutProfileIndexRoute
   '/users': typeof LayoutUsersIndexRoute
   '/events/edit/$eventId': typeof LayoutEventsEditEventIdRoute
   '/news/edit/$newsId': typeof LayoutNewsEditNewsIdRoute
@@ -295,8 +329,10 @@ export interface FileRoutesByTo {
   '/users/create': typeof LayoutUsersCreateRoute
   '/applications': typeof LayoutApplicationsIndexRoute
   '/categories': typeof LayoutCategoriesIndexRoute
+  '/change-password': typeof LayoutChangePasswordIndexRoute
   '/events': typeof LayoutEventsIndexRoute
   '/news': typeof LayoutNewsIndexRoute
+  '/profile': typeof LayoutProfileIndexRoute
   '/users': typeof LayoutUsersIndexRoute
   '/events/edit/$eventId': typeof LayoutEventsEditEventIdRoute
   '/news/edit/$newsId': typeof LayoutNewsEditNewsIdRoute
@@ -314,8 +350,10 @@ export interface FileRoutesById {
   '/_layout/users/create': typeof LayoutUsersCreateRoute
   '/_layout/applications/': typeof LayoutApplicationsIndexRoute
   '/_layout/categories/': typeof LayoutCategoriesIndexRoute
+  '/_layout/change-password/': typeof LayoutChangePasswordIndexRoute
   '/_layout/events/': typeof LayoutEventsIndexRoute
   '/_layout/news/': typeof LayoutNewsIndexRoute
+  '/_layout/profile/': typeof LayoutProfileIndexRoute
   '/_layout/users/': typeof LayoutUsersIndexRoute
   '/_layout/events/edit/$eventId': typeof LayoutEventsEditEventIdRoute
   '/_layout/news/edit/$newsId': typeof LayoutNewsEditNewsIdRoute
@@ -334,8 +372,10 @@ export interface FileRouteTypes {
     | '/users/create'
     | '/applications'
     | '/categories'
+    | '/change-password'
     | '/events'
     | '/news'
+    | '/profile'
     | '/users'
     | '/events/edit/$eventId'
     | '/news/edit/$newsId'
@@ -351,8 +391,10 @@ export interface FileRouteTypes {
     | '/users/create'
     | '/applications'
     | '/categories'
+    | '/change-password'
     | '/events'
     | '/news'
+    | '/profile'
     | '/users'
     | '/events/edit/$eventId'
     | '/news/edit/$newsId'
@@ -368,8 +410,10 @@ export interface FileRouteTypes {
     | '/_layout/users/create'
     | '/_layout/applications/'
     | '/_layout/categories/'
+    | '/_layout/change-password/'
     | '/_layout/events/'
     | '/_layout/news/'
+    | '/_layout/profile/'
     | '/_layout/users/'
     | '/_layout/events/edit/$eventId'
     | '/_layout/news/edit/$newsId'
@@ -411,8 +455,10 @@ export const routeTree = rootRoute
         "/_layout/users/create",
         "/_layout/applications/",
         "/_layout/categories/",
+        "/_layout/change-password/",
         "/_layout/events/",
         "/_layout/news/",
+        "/_layout/profile/",
         "/_layout/users/",
         "/_layout/events/edit/$eventId",
         "/_layout/news/edit/$newsId",
@@ -450,12 +496,20 @@ export const routeTree = rootRoute
       "filePath": "_layout/categories/index.tsx",
       "parent": "/_layout"
     },
+    "/_layout/change-password/": {
+      "filePath": "_layout/change-password/index.tsx",
+      "parent": "/_layout"
+    },
     "/_layout/events/": {
       "filePath": "_layout/events/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/news/": {
       "filePath": "_layout/news/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/profile/": {
+      "filePath": "_layout/profile/index.tsx",
       "parent": "/_layout"
     },
     "/_layout/users/": {

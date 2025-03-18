@@ -10,7 +10,7 @@ interface ConfirmPopupProps {
   message: string
 }
 
-const ConfirmPopup: React.FC<ConfirmPopupProps> = ({
+export const ConfirmPopup: React.FC<ConfirmPopupProps> = ({
   onCancel,
   onConfirm,
   message
@@ -33,19 +33,19 @@ const ConfirmPopup: React.FC<ConfirmPopupProps> = ({
         <h2 className={styles.title}>{message}</h2>
         <div className={styles.buttonContainer}>
           <Button
-            text='Подтвердить'
             onClick={onConfirm}
             style={{ height: '50px', fontSize: '18px' }}
-          />
+          >
+            Подтвердить
+          </Button>
           <Button
-            text='Отмена'
             onClick={onCancel}
             style={{ height: '50px', fontSize: '18px' }}
-          />
+          >
+            Отмена
+          </Button>
         </div>
       </m.div>
     </m.div>
   )
 }
-
-export default ConfirmPopup

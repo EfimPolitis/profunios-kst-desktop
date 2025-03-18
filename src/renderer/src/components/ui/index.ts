@@ -8,6 +8,7 @@ import { Search } from './fields/search'
 import { TextArea } from './fields/text-area'
 import { Uploader } from './fields/uploader'
 import { Loader } from './loader'
+import { Pagination } from './pagination'
 import { SelectCategories } from './select-categories'
 
 export {
@@ -21,5 +22,6 @@ export {
   SelectCategories,
   InputRadio,
   UndoBtn,
-  InputSelect
+  InputSelect,
+  Pagination
 }

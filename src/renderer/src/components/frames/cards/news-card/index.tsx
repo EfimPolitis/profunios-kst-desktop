@@ -5,20 +5,21 @@ import { type FC, useState } from 'react'
 import type { INewsCard } from '@shared/types/news.types'
 
 import { useDeleteNews } from '@shared/hooks/news/useDeleteNews'
+import { useIncrementView } from '@shared/hooks/news/useIncrementNews'
 import { useProfile } from '@shared/hooks/user/useProfile'
 
-import ConfirmPopup from '../../popups/confirm-popup'
-
 import styles from './index.module.scss'
+import { ConfirmPopup } from '@/components/frames'
 import { Slider } from '@/components/ui/slider'
 
 export const NewsCard: FC<INewsCard> = ({ data }) => {
-  const { title, newsId, images, description, views, createdAt } = data
-  const { data: userData } = useProfile()
+  const { title, newsId, images, content, views, createdAt } = data
+  const { profile } = useProfile()
 
-  const user = userData?.data
+  const user = profile
 
   const { mutateNews } = useDeleteNews()
+  const { mutate } = useIncrementView()
 
   const [isShow, setIsShow] = useState<boolean>(false)
 
@@ -39,6 +40,7 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
           className={styles.card_link}
           to={'/news/$newsId'}
           params={{ newsId }}
+          onClick={() => mutate(newsId)}
         />
         <p className={styles.views}>
           <Eye />
@@ -65,7 +67,7 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
         <Slider
           images={images}
           height={240}
-          style={{ borderRadius: '10px 10px 0px 0px' }}
+          style={{ borderRadius: '10px' }}
         />
         <div className={styles.info_block}>
           <p className={styles.date}>
@@ -78,16 +80,17 @@ export const NewsCard: FC<INewsCard> = ({ data }) => {
               })}
             </span>
           </p>
-          <p className={styles.title}>{title}</p>
+          <p className={styles.title}>
+            {title.length > 60 ? title.slice(0, 59) + '...' : title}
+          </p>
           <p className={styles.description}>
-            {description.length > 150
-              ? description.slice(0, 150) + '...'
-              : description}
+            {content.length > 140 ? content.slice(0, 139) + '...' : content}
           </p>
           <Link
             to={'/news/$newsId'}
             params={{ newsId }}
             className={styles.details}
+            onClick={() => mutate(newsId)}
           >
             Подробнее
             <ArrowRight

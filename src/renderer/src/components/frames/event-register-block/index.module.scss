@@ -5,23 +5,25 @@
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(var(--text-color), 0.1);
   overflow: hidden;
-  width: 300px;
+  width: 260px;
   text-align: center;
   padding: 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
   position: absolute;
-  right: 80px;
-  top: 400px;
+  right: 40px;
+  top: 310px;
 
   .top {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 5px;
+    height: 80px;
 
     .event_date {
+      width: 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -45,9 +47,10 @@
 
     .event_details {
       margin-top: 5px;
+      width: 120px;
 
       .event_day {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: bold;
       }
 
@@ -65,7 +68,7 @@
   }
 
   .line {
-    width: 250px;
+    width: 220px;
     height: 2px;
     margin: 20px 0;
     background-color: #eee;

@@ -6,7 +6,6 @@ import { Button } from '@/components/ui'
 interface IRegisterBlock {
   date: string
   event: IEvent
-  userId: string | undefined
   setIsShow: React.Dispatch<React.SetStateAction<boolean>>
   isPending: boolean
   isSuccess: boolean
@@ -60,9 +59,6 @@ export const RegisterBlock = ({
       </div>
       <div className={styles.line}></div>
       <Button
-        text={
-          places === 0 ? 'Мест на мероприятие больше нет' : 'Хочу учавствовать'
-        }
         onClick={() => setIsShow(true)}
         className={styles.button}
         isPending={isPending}
@@ -70,7 +66,9 @@ export const RegisterBlock = ({
         isSuccess={isSuccess}
         disabled={places === 0}
         style={{ width: '200px', fontSize: '20px' }}
-      />
+      >
+        {places === 0 ? 'Больше нет мест на мероприятие' : 'Хочу учавствовать'}
+      </Button>
     </div>
   )
 }

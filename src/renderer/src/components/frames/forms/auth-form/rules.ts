@@ -13,7 +13,7 @@ type TFormRules = {
   password: RegisterOptions<IAuthFormData, 'password'>
 }
 
-export const formRules: TFormRules = {
+export const authFormRules: TFormRules = {
   userName: {
     required: {
       value: true,

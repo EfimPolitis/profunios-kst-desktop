@@ -1,0 +1,14 @@
+.page {
+  height: calc(100svh - 80px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  .wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

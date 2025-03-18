@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { ipcMain } from 'electron'
 
 import type { IApplicationData } from '@shared/types/application.types'
@@ -10,9 +11,18 @@ export const ipcMainApplication = () => {
     applicationService.getAll(data)
   )
 
-  ipcMain.handle('createApplication', (_, data: IApplicationData) =>
-    applicationService.create(data)
-  )
+  ipcMain.handle('createApplication', async (_, data: IApplicationData) => {
+    try {
+      const response = await applicationService.create(data)
+      return { success: true, response }
+    } catch (error) {
+      let message = 'Неизвестная ошибка'
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        message = error.response.data.message
+      }
+      return { success: false, message }
+    }
+  })
 
   ipcMain.handle('getApplicationReport', () => applicationService.getReport())
 }
