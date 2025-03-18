@@ -24,6 +24,8 @@ class UrlPages {
   RESET_PASSORD = `${this.root}reset-password`
 
   REQUEST_EMAIL = `${this.root}request-email`
+
+  OFFLINE = `${this.root}offline`
 }
 
 export const URL_PAGES = new UrlPages()

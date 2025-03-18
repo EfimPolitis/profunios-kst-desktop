@@ -16,6 +16,8 @@ export const useGetCategories = (
     enabled: enabled
   })
 
+  console.log(data?.data)
+
   const [categories, setCategories] = useState<IResponseCategory[]>(
     data?.data || []
   )

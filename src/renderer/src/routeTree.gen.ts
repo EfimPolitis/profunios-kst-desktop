@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as OfflineImport } from './routes/offline'
 import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutUsersIndexImport } from './routes/_layout/users/index'
@@ -30,6 +31,12 @@ import { Route as LayoutNewsEditNewsIdImport } from './routes/_layout/news/edit.
 import { Route as LayoutEventsEditEventIdImport } from './routes/_layout/events/edit.$eventId'
 
 // Create/Update Routes
+
+const OfflineRoute = OfflineImport.update({
+  id: '/offline',
+  path: '/offline',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const LoginRoute = LoginImport.update({
   id: '/login',
@@ -148,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/offline': {
+      id: '/offline'
+      path: '/offline'
+      fullPath: '/offline'
+      preLoaderRoute: typeof OfflineImport
       parentRoute: typeof rootRoute
     }
     '/_layout/events/$eventId': {
@@ -302,6 +316,7 @@ const LayoutRouteWithChildren =
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/login': typeof LoginRoute
+  '/offline': typeof OfflineRoute
   '/events/$eventId': typeof LayoutEventsEventIdRoute
   '/events/create': typeof LayoutEventsCreateRoute
   '/news/$newsId': typeof LayoutNewsNewsIdRoute
@@ -322,6 +337,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '': typeof LayoutRouteWithChildren
   '/login': typeof LoginRoute
+  '/offline': typeof OfflineRoute
   '/events/$eventId': typeof LayoutEventsEventIdRoute
   '/events/create': typeof LayoutEventsCreateRoute
   '/news/$newsId': typeof LayoutNewsNewsIdRoute
@@ -343,6 +359,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/login': typeof LoginRoute
+  '/offline': typeof OfflineRoute
   '/_layout/events/$eventId': typeof LayoutEventsEventIdRoute
   '/_layout/events/create': typeof LayoutEventsCreateRoute
   '/_layout/news/$newsId': typeof LayoutNewsNewsIdRoute
@@ -365,6 +382,7 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/login'
+    | '/offline'
     | '/events/$eventId'
     | '/events/create'
     | '/news/$newsId'
@@ -384,6 +402,7 @@ export interface FileRouteTypes {
   to:
     | ''
     | '/login'
+    | '/offline'
     | '/events/$eventId'
     | '/events/create'
     | '/news/$newsId'
@@ -403,6 +422,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_layout'
     | '/login'
+    | '/offline'
     | '/_layout/events/$eventId'
     | '/_layout/events/create'
     | '/_layout/news/$newsId'
@@ -424,11 +444,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   LayoutRoute: typeof LayoutRouteWithChildren
   LoginRoute: typeof LoginRoute
+  OfflineRoute: typeof OfflineRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
   LoginRoute: LoginRoute,
+  OfflineRoute: OfflineRoute,
 }
 
 export const routeTree = rootRoute
@@ -442,7 +464,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_layout",
-        "/login"
+        "/login",
+        "/offline"
       ]
     },
     "/_layout": {
@@ -467,6 +490,9 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/offline": {
+      "filePath": "offline.tsx"
     },
     "/_layout/events/$eventId": {
       "filePath": "_layout/events/$eventId.tsx",

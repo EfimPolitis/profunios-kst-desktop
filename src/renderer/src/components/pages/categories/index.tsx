@@ -17,6 +17,8 @@ const CategoriesPage = () => {
     isFilterUpdated
   )
 
+  console.log(categories)
+
   useEffect(() => {
     reset()
   }, [])

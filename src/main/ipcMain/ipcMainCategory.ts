@@ -7,18 +7,9 @@ import { IQueryParam } from '@shared/types/query.types'
 import { categoryService } from '../services/category.service'
 
 export const ipcMainCategory = () => {
-  ipcMain.handle('getCategories', async (_, queryData?: IQueryParam) => {
-    try {
-      const response = await categoryService.getAll(queryData)
-      return { success: true, response }
-    } catch (error) {
-      let message = 'Неизвестная ошибка'
-      if (axios.isAxiosError(error) && error.response?.data?.message) {
-        message = error.response.data.message
-      }
-      return { success: false, message }
-    }
-  })
+  ipcMain.handle('getCategories', (_, queryData?: IQueryParam) =>
+    categoryService.getAll(queryData)
+  )
 
   ipcMain.handle('createCategory', async (_, data: ICategory) => {
     try {
